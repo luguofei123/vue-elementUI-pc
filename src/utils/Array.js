@@ -9,8 +9,20 @@ export const compareArray = (propertyName, order = 'asc') => {
     let value2 = object2[propertyName]
     if (order === 'asc') {
       return value1 - value2
+    } else if (order === 'random') {
+      return Math.random() - 0.5
     } else {
       return value2 - value1
     }
   }
+}
+/**
+ * 准确判断数组是否含有某个值
+ * 有此值 返回 true
+ * 没有，返回 false
+ */
+export const arrHasValue = (arr, value) => {
+  return arr.some((v) => {
+    return v === value
+  })
 }
