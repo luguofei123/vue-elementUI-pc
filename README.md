@@ -1,5 +1,6 @@
 # template-pc
 vue-cli3 后台模板，配置比较全，可以直接使用
+项目预览 https://luguofei123.github.io/vue-elementUI-pc/dist/login
 
 ## 项目依赖安装
 ```
