@@ -50,7 +50,7 @@ export default {
       }
       this.$store.commit('auth/SET_USER_INFO', userInfo)
       this.$router.push({
-        path: '/index/role'
+        path: '/role'
       })
     }
   }

@@ -2,7 +2,7 @@
 module.exports = {
   // 选项...
   // 这个值和路由中的base:baseUrl是一个值process.env.NODE_ENV === 'production'? '/production-sub-path/': '/'
-  publicPath: '/',
+  publicPath: './',
   outputDir: 'dist',
   assetsDir: 'assets',
   indexPath: 'index.html',

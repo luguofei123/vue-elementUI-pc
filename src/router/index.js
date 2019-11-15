@@ -7,7 +7,8 @@ Vue.use(Router)
 
 let router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  // base: process.env.BASE_URL,
+  // base: 'dist',
   routes: constRouter
 })
 // 1 根据返回的角色 设置角色
