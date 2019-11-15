@@ -7,7 +7,7 @@ Vue.use(Router)
 
 let router = new Router({
   mode: 'history',
-  // base: process.env.BASE_URL,
+  base: process.env.BASE_URL,
   // base: 'dist',
   routes: constRouter
 })
