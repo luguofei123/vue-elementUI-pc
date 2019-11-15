@@ -1,5 +1,5 @@
 # template-pc
-vue-cli3 后台模板，配置比较全，可以直接使用
+vue-cli3 后台模板，路由动态加载，权限分配，页面权限颗粒化到每个按钮，axios封装拦截，指令，vuex，工具函数 配置比较全，可以直接使用
 项目预览 https://luguofei123.github.io/vue-elementUI-pc/dist/
 
 ## 项目依赖安装
