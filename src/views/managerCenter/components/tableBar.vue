@@ -32,7 +32,11 @@
       <el-table-column :prop="column.prop" :width="column.width" :label="column.label" :key="column.prop" align="center" :sortable="column.sortable" :formatter="column.formatter">
         <template slot-scope="{row,$index}">
           <el-input  v-if="$index === index"    v-model="row[column.prop]"></el-input>
-          <span v-else >{{row[column.prop] | filterAdd1 }}</span>
+          <template v-else>
+            <span v-if="column.filters==='formalDate'" >{{row[column.prop] | formalDate('yyyyMMddhhmmss') | replaceStr([3,4,5],0) }}</span>
+            <span v-if="column.filters==='nameFilter'" >{{row[column.prop] | repeatStr(3) }}</span>
+            <span v-if="column.filters===undefined"  >{{row[column.prop]}}</span>
+          </template>
         </template>
       </el-table-column>
     </template>
@@ -52,7 +56,7 @@
 </template>
 <script>
 export default {
-  name: 'resultBar',
+  name: 'tableBar',
   props: {
     data: {
       type: Array,
@@ -85,20 +89,19 @@ export default {
     }
   },
   filters: {
-    filterAdd1 (item) {
-      return item + 10
+    dataFilter (item) {
+      return item + '这是过滤后的'
     },
-    filterAdd2 (item) {
-      return 'aaaa' + item
+    nameFilter (item) {
+      return '姓名：' + item
     }
   },
   created () {
-    console.log(this.$options.filters.filterAdd1.name)
+    // console.log(this.$options.filters['dataFilter'])
     setTimeout(() => {
-      // let formatterAddress = eval('formatterAddress')
       this.columns = [
-        { prop: 'date', label: '日期', width: '150', sortable: false, filters: this.$options.filters.filterAdd1.name },
-        { prop: 'name', label: '姓名', width: '150', sortable: true },
+        { prop: 'date', label: '日期', width: '250', sortable: false, filters: 'formalDate' },
+        { prop: 'name', label: '姓名', width: '150', sortable: true, filters: 'nameFilter' },
         { prop: 'address', label: '地址', width: '250', sortable: true },
         { prop: 'nation1', label: '民族1', width: '250', sortable: true },
         { prop: 'nation2', label: '民族2', width: '150', sortable: true },
@@ -113,8 +116,9 @@ export default {
     },
     skipEdit (index, row) {
       // 路由跳转
+      console.log(this.$router)
       this.$router.push({
-        name: 'editorRole',
+        path: '/index/roleEditor',
         params: {
           id: row.id
         }

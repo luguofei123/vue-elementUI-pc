@@ -12,8 +12,9 @@ export default {
   },
   inserted (el, binding, vnode) {
     let tagName = el.tagName
-    let buttonAuth = store.state.auth.buttonAuth
+    let buttonAuth = store.state.auth.authInfo.buttonAuth
     let passKey = router.currentRoute.meta.passKey
+    // console.log(buttonAuth)
     switch (tagName) {
       case 'BUTTON':
         if (buttonAuth[passKey] && buttonAuth[passKey].length > 0 && arrHasValue(buttonAuth[passKey], Object.keys(binding.modifiers)[0])) {

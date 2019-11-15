@@ -29,6 +29,7 @@ const mutations = {
         title: route.meta.title,
         path: route.fullPath,
         name: route.matched[1].components.default.name
+        // name: route.meta.title
       })
     }
   },

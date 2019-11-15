@@ -17,7 +17,7 @@
       </el-form-item>
     </template>
     <el-form-item>
-      <el-button type="primary" @click="search" icon="el-icon-search" >搜索</el-button>
+      <el-button type="primary" @click="search" icon="el-icon-search" v-buttonAuth.add>搜索</el-button>
       <el-button type="primary" @click="reset"  >重置</el-button>
     </el-form-item>
   </el-form>

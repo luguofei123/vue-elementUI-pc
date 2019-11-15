@@ -10,7 +10,7 @@
             </el-form-item>
             <el-form-item label="权限管理">
               <div class="treeBox">
-                <el-input placeholder="输入关键字进行过滤" v-model="filterText" size="mini" class="filterinput"></el-input>
+                <el-input placeholder="输入关键字进行过滤" v-model="filterText" size="mini" class="filterInput"></el-input>
                 <el-button @click="setCheckedNodes(treeData)" type="success" size="mini">全选</el-button>
                 <el-button @click="resetChecked" type="warning" size="mini">取消全选</el-button>
                 <el-tree
@@ -183,7 +183,7 @@ export default {
   .treeBox .el-tree-node__label{
     font-size:12px;
   }
-  .filterinput{
+  .filterInput{
     line-height:32px;
     width:200px;
   }

@@ -1,33 +1,15 @@
-// {{ string | trim('all') }} 去除空格  type all-所有空格  fandb-前后空格  front-前空格 behind-后空格
-function trim (value, trim) {
-  switch (trim) {
-    case 'all':
-      return value.replace(/\s*/g, '')
-    case 'fandb':
-      // return value.replace(/^\s+/g, '').replace(/\s+$/g, '')
-      return value.replace(/(^\s+)|(\s+$)/g, '')
-    case 'front':
-      return value.replace(/^\s+/g, '')
-    case 'behind':
-      return value.replace(/\s+$/g, '')
-    default:
-      return value
+import { isEmpty } from '@/utils/String'
+/**
+ *  value 为时间格式的字符串'2018-09-14 01:05'  或 时间戳 1573612354000
+ *  fmt 为需要格式化的时间样式 yyyy-MM-dd hh:mm:ss.S w q 或 MM/dd
+ *  输出 如 2019-09-09 09:09:08.888 周四 4     4 表示季度
+*/
+export const formalDate = (value, fmt) => {
+  if (isEmpty(value)) {
+    return '-'
   }
-}
-
-// 数字验证
-// 手机号码
-// 座机
-// 身份证
-
-// 任意格式日期处理
-// 使用格式：
-// {{ '2018-09-14 01:05' | formaDate(yyyy-MM-dd hh:mm:ss) }}
-// {{ '2018-09-14 01:05' | formaDate(yyyy-MM-dd) }}
-// {{ '2018-09-14 01:05' | formaDate(MM/dd) }} 等
-function formaDate (value, fmt) {
-  var date = new Date(value)
-  var o = {
+  let date = new Date(value)
+  let o = {
     'M+': date.getMonth() + 1, // 月份
     'd+': date.getDate(), // 日
     'h+': date.getHours(), // 小时
@@ -38,7 +20,7 @@ function formaDate (value, fmt) {
     'S': date.getMilliseconds() // 毫秒
   }
   if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
-  for (var k in o) {
+  for (let k in o) {
     if (k === 'w+') {
       if (o[k] === 0) {
         fmt = fmt.replace('w', '周日')
@@ -60,9 +42,4 @@ function formaDate (value, fmt) {
     }
   }
   return fmt
-}
-
-export {
-  trim,
-  formaDate
 }

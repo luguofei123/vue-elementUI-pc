@@ -10,7 +10,7 @@ const arrHasValue = (arr, value) => {
 // 保留树结构中指定的index
 const filterAsyncMenu = (menu, arr) => {
   const accessMenu = menu.filter(item => {
-    if (arrHasValue(arr, item.name)) {
+    if (arrHasValue(arr, item.meta.passKey)) {
       if (item.children && item.children.length) {
         item.children = this.filterAsyncMenu(item.children, arr)
       }

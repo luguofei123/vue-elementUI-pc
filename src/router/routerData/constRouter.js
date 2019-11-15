@@ -10,9 +10,9 @@ let constRouter = [
   },
   {
     // 错误404
-    path: '/404',
-    name: '404',
-    component: resolve => require(['@/views/error/404.vue'], resolve)
+    path: '/403',
+    name: '403',
+    component: resolve => require(['@/views/error/403.vue'], resolve)
     // meta: { title: '404错误', requiresAuth: false }
   }
   // {

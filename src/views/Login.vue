@@ -42,17 +42,13 @@ export default {
   },
   methods: {
     submitForm () {
-      // 登录成功需要做一下几件事
-      // 1 根据返回的角色 设置角色
-      let obj = {
-        // 根据此值渲染菜单
-        menuAuth: ['1', '2', '2-1', '2-2', '3-1', '4', '5-1'],
-        // 根据此值判断哪个页面可以访问
-        pageAuth: ['user', 'role', 'dashboard'],
-        // 根据此值判断哪个页面的哪些按钮可以操作
-        buttonAuth: []
+      // 登录成功
+      let userInfo = {
+        userName: 'luguofei',
+        userId: 1,
+        token: '123abc'
       }
-      this.$store.commit('auth/SET_AUTH_INFO', obj)
+      this.$store.commit('auth/SET_USER_INFO', userInfo)
       this.$router.push({
         path: '/index/role'
       })

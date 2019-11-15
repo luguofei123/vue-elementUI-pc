@@ -4,6 +4,7 @@
     </div>
 </template>
 <script>
+// import '@/assets/js/heart'
 export default {
   data () {
     return {

@@ -10,7 +10,7 @@ let menu = [
     menuName: '管理中心',
     menuIcon: 'el-icon-lu-home',
     index: '2',
-    router: 'null',
+    router: '2null',
     children: [
       {
         menuName: '角色管理',
@@ -32,7 +32,7 @@ let menu = [
     menuName: '表格',
     menuIcon: 'el-icon-lu-home',
     index: '3',
-    router: 'null',
+    router: '3null',
     children: [
       {
         menuName: '可编辑表格',
@@ -54,7 +54,7 @@ let menu = [
     menuName: '表单相关',
     menuIcon: 'el-icon-lu-home',
     index: '5',
-    router: 'null',
+    router: '4null',
     children: [
       {
         menuName: '基本表单',
@@ -67,7 +67,7 @@ let menu = [
         menuName: '富文本组件',
         menuIcon: 'el-icon-lu-home',
         index: '5-2',
-        router: 'null',
+        router: '5-2null',
         children: [
           {
             menuName: '富文本编辑器1',
@@ -119,7 +119,7 @@ let menu = [
     menuName: '拖拽组件',
     menuIcon: 'el-icon-lu-home',
     index: '9',
-    router: 'null',
+    router: '9null',
     children: [
       {
         menuName: '拖拽列表',
@@ -148,7 +148,7 @@ let menu = [
     menuName: '错误处理',
     menuIcon: 'el-icon-lu-home',
     index: '11',
-    router: 'null',
+    router: '11null',
     children: [
       {
         menuName: '权限测试',

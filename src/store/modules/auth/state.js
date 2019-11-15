@@ -3,18 +3,18 @@
 // 2 路由跳转前判断缓存是否有token，有的话就执行store.commit('setToken'),将token写入到state
 // 3 页面刷新会执行页面一个事件，在此事件中执行store.commit('setToken')，将token写入state
 const state = {
-  authInfo: JSON.parse(localStorage.getItem('authInfo')) || {
+  userInfo: JSON.parse(sessionStorage.getItem('userInfo')) || {
+    userName: '',
+    userId: 0,
+    token: ''
+  },
+  authInfo: {
     // 根据此值渲染菜单
     menuAuth: [],
     // 根据此值判断哪个页面可以访问
     pageAuth: [],
     // 根据此值判断哪个页面的哪些按钮可以操作
     buttonAuth: {}
-  },
-  userInfo: {
-    userName: '',
-    userId: 0,
-    token: ''
   },
   authRoutes: [{
     children: false
