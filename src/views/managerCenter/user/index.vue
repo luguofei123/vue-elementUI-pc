@@ -12,7 +12,7 @@
           </div>
           <!--检索结果-->
             <div class="result-box">
-              <result-bar :index.sync="index" indexType="#" :multipleSelection="multipleSelection" @getData="getData"  :data = "tableData" @handleEdit="handleEdit" @handleDelete="handleDelete" :loading="tableLoading"></result-bar>
+              <table-bar :index.sync="index" indexType="#" :multipleSelection="multipleSelection" @getData="getData"  :data = "tableData" @handleEdit="handleEdit" @handleDelete="handleDelete" :loading="tableLoading"></table-bar>
             </div>
           <!--结果分页-->
             <div class="pagination-box">
@@ -26,13 +26,13 @@
 </template>
 <script>
 import searchBar from '../components/searchBar'
-import resultBar from '../components/resultBar'
+import tableBar from '../components/tableBar'
 import pageBar from '../components/paginationBar'
 import editForm from '../components/editForm'
 import actionBar from '../components/actionBar'
 export default {
   components: {
-    searchBar, resultBar, pageBar, editForm, actionBar
+    searchBar, tableBar, pageBar, editForm, actionBar
   },
   data () {
     return {

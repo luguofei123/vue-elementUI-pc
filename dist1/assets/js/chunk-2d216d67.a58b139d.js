@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d216d67"],{c3bc:function(n,t,e){"use strict";e.r(t);var c=function(){var n=this,t=n.$createElement,e=n._self._c||t;return e("div",{staticClass:"table"},[n._v("\n    选项卡\n")])},l=[],s=e("2877"),a={},u=Object(s["a"])(a,c,l,!1,null,null,null);t["default"]=u.exports}}]);
