@@ -1,6 +1,6 @@
 let asyncRouter = [
   {
-    path: '/',
+    path: '/index',
     redirect: '/dashboard',
     component: resolve => require(['@/views/Home.vue'], resolve),
     meta: { title: '主页' },
