@@ -86,6 +86,13 @@ let asyncRouter = [
         meta: { title: '用户列表', requiresAuth: false, passKey: 'user' }
       },
       {
+        // pdf预览
+        path: 'pdf',
+        name: 'pdf',
+        component: resolve => require(['@/views/pdf/index.vue'], resolve),
+        meta: { title: 'pdf预览', requiresAuth: false, passKey: 'pdf' }
+      },
+      {
         // 错误403
         path: '403',
         name: '403',

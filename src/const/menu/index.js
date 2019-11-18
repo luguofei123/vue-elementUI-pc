@@ -172,6 +172,13 @@ let menu = [
         children: []
       }
     ]
+  },
+  {
+    menuName: 'PDF预览',
+    menuIcon: 'el-icon-lu-home',
+    index: '12',
+    router: 'pdf',
+    children: []
   }
 ]
 export default menu

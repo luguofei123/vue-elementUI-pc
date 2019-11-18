@@ -24,7 +24,14 @@ module.exports = {
       '/usermanager': {
         target: 'http://127.0.0.1:4885',
         ws: true,
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: { '^/usermanager': '' }
+      },
+      '/pdf': {
+        target: 'http://127.0.0.1:4886',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: { '^/pdf': '' }
       }
     }
   }
