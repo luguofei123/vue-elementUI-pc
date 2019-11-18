@@ -37,6 +37,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { filterObjectByIdArr } from '@/utils/Object'
 import menu from '@/const/menu'
 export default {
   data () {
@@ -77,35 +78,29 @@ export default {
     // this.setAuthInfo(obj)
     // console.log(this.menuAuth)
     if (this.menuAuth.length > 0) {
-      this.menuItems = this.filterAsyncMenu(menu, this.menuAuth)
+      this.menuItems = filterObjectByIdArr(menu, this.menuAuth)
     }
   },
   methods: {
     // 工具函数，判断数组里面是否有该值，有返回真，没有返回假
-    arrHasValue (arr, value) {
-      return arr.some((v) => {
-        return v === value
-      })
-    },
-    // 保留树结构中指定的index
-    filterAsyncMenu (menu, arr) {
-      const accessMenu = menu.filter(item => {
-        if (this.arrHasValue(arr, item.index)) {
-          if (item.children && item.children.length) {
-            item.children = this.filterAsyncMenu(item.children, arr)
-          }
-          return true
-        }
-        return false
-      })
-      return accessMenu
-    },
-    // 删除树结构中指定的index
-    filterTree (menu, index) {
-      let newData = menu.filter(x => x.index !== index)
-      newData.forEach(x => x.children && (x.children = this.filterTree(x.children, index)))
-      return newData
-    }
+    // arrHasValue (arr, value) {
+    //   return arr.some((v) => {
+    //     return v === value
+    //   })
+    // },
+    // // 保留树结构中指定的index
+    // filterAsyncMenu (menu, arr) {
+    //   const accessMenu = menu.filter(item => {
+    //     if (this.arrHasValue(arr, item.index)) {
+    //       if (item.children && item.children.length) {
+    //         item.children = this.filterAsyncMenu(item.children, arr)
+    //       }
+    //       return true
+    //     }
+    //     return false
+    //   })
+    //   return accessMenu
+    // }
   }
 }
 </script>

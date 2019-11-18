@@ -26,3 +26,9 @@ export const arrHasValue = (arr, value) => {
     return v === value
   })
 }
+/**
+ * 两数组合并后去重 采用的是es6 new set 数据结构
+ */
+export const distinct = (a, b) => {
+  return Array.from(new Set([...a, ...b]))
+}
