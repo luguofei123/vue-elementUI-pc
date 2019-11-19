@@ -1,13 +1,14 @@
 import { Message } from 'element-ui'
 import store from '@/store'
 import axios from 'axios'
-import urlConfig from '@/config/urlconfig'
+// import urlConfig from '@/config/urlconfig'
 import router from '@/router/index'
 // 创建实例
 const instance = axios.create({
   timeout: 5000,
-  baseURL: urlConfig.baseURL
+  baseURL: process.env.VUE_APP_URL
 })
+console.log(process.env.VUE_APP_BAIDU_URL)
 // 设置post请求头
 // instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 // instance.defaults.headers.post['Content-Type'] = 'application/json'

@@ -25,14 +25,17 @@ module.exports = {
         target: 'http://127.0.0.1:4885',
         ws: true,
         changeOrigin: true,
-        pathRewrite: { '^/usermanager': '' }
-      },
-      '/pdf': {
-        target: 'http://127.0.0.1:4886',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: { '^/pdf': '' }
+        // pathRewrite 作用是将usermanager换成了api
+        // 合起来解释就是 我们原来的请求是http://127.0.0.1:8086/usermanager/echo.php
+        // 实际上我们的请求已经代理成 http://127.0.0.1:4885/api/echo.php
+        pathRewrite: { '^/usermanager': 'api' }
       }
+      // '/pdf': {
+      //   target: 'http://127.0.0.1:4885',
+      //   ws: true,
+      //   changeOrigin: true,
+      //   pathRewrite: { '^/pdf': '' }
+      // }
     }
   }
 }

@@ -2,35 +2,29 @@
     <div class="pdfBox">
       <div class="controllerBox">
         <el-tooltip class="item" effect="light" content="上一页" placement="top">
-          <i class="el-icon-arrow-left"></i>
+          <i class="el-icon-arrow-left" @click="prev"></i>
         </el-tooltip>
         <span>
           <span>{{currentPages}}</span> /
           <span>{{totalPage}}</span>
         </span>
         <el-tooltip class="item" effect="light" content="下一页" placement="top">
-          <i class="el-icon-arrow-right"></i>
+          <i class="el-icon-arrow-right" @click="next"></i>
         </el-tooltip>
         <el-tooltip class="item" effect="light" content="缩小" placement="top">
-          <i class="el-icon-zoom-out"  icon="minus"></i>
+          <i class="el-icon-zoom-out"  icon="minus" @click="zoomOut"></i>
         </el-tooltip>
         <el-tooltip class="item" effect="light" content="放大" placement="top">
-          <i class="el-icon-zoom-in"  addscaleicon="plus"></i>
-        </el-tooltip>
-        <el-tooltip class="item" effect="light" content="书签" placement="top">
-          <i class="el-icon-collection-tag" ></i>
+          <i class="el-icon-zoom-in"  addscaleicon="plus" @click="zoomIn"></i>
         </el-tooltip>
         <el-tooltip class="item" effect="light" content="全屏阅卷" placement="top">
-          <i class="el-icon-rank" ></i>
+          <i class="el-icon-rank" @click="fullScreen"></i>
         </el-tooltip>
-        <!--<el-button  size="mini" style="margin-bottom:2px;">-->
-          <!--打开目录-->
-        <!--</el-button>-->
       </div>
       <el-scrollbar class="scrollbars" style="height:100%;overflow:hidden">
         <div class="wrapper" id="pdf-container" :style="`width:${viewWidth}px;margin: 0 auto;`">
-          <div id="page-1" class="pdf-box1s" :style="`width:${viewWidth}px;`">
-            <canvas id="canvas-pdf-1" class="canvas-pdf"></canvas>
+          <div ref="page" class="page" :style="`width:${viewWidth}px;`">
+            <canvas ref="canvasPdf" class="canvasPdf"></canvas>
           </div>
         </div>
       </el-scrollbar>
@@ -45,44 +39,81 @@ export default {
   // props: ['pdfurl', 'pdfName', 'pdfImgEmage', 'currentPage', 'totalNum'],
   data () {
     return {
-      pdfEvidenceInfo: null,
+      totalPage: 1,
       currentPages: 1,
+      scale: 1.1,
+      maxScale: 3.5,
+      minScale: 0.6,
+      pdfEvidenceInfo: null,
       pdfDoc: null,
       pageNum: 1, //
       pageRendering: false,
       pageNumPending: null,
-      scale: 1.1,
-      maxscale: 3.5,
-      minscale: 0.6,
       openAnnota: true,
       userId: null,
       dialogTableVisible: false,
-      viewWidth: '',
-      totalPage: 1
+      viewWidth: ''
     }
   },
   created () {
-    this.$MyAxios.pdfPage.getPdfContent()
-      .then((r) => {
-        this.renderPdf(1.1, r)
-      })
+    this.initPages(1.1, 1)
   },
   methods: {
-    renderPdf (scale, pdfUrl) {
-      PDFJS.workerSrc = require('pdfjs-dist/build/pdf.worker.min')
+    prev () {
+      if (this.currentPages > 1 && this.currentPages <= this.totalPage) {
+        this.currentPages--
+        this.initPages(this.scale, this.currentPages)
+      } else {
+        alert('已经是第一页')
+      }
+    },
+    next () {
+      if (this.currentPages >= 1 && this.currentPages < this.totalPage) {
+        this.currentPages++
+        this.initPages(this.scale, this.currentPages)
+      } else {
+        alert('已经是最后页')
+      }
+    },
+    // 缩小
+    zoomOut () {
+      if (this.scale > this.minScale) {
+        this.scale = this.scale - 0.3
+        this.initPages(this.scale, this.currentPages)
+      } else {
+        alert('已经是最小了')
+      }
+    },
+    // 放大
+    zoomIn () {
+      if (this.scale < this.maxScale) {
+        this.scale = this.scale + 0.3
+        this.initPages(this.scale, this.currentPages)
+      } else {
+        alert('已经是最大了')
+      }
+    },
+    fullScreen () {
+
+    },
+    initPages (scale, currentPage) {
+      this.$MyAxios.pdfPage.getPdfContent()
+        .then((r) => {
+          this.renderPdf(scale, r, currentPage)
+        })
+    },
+    renderPdf (scale, pdfUrl, currentPage) {
+      // PDFJS.workerSrc = require('pdfjs-dist/build/pdf.worker.min')
       // 当 PDF 地址为跨域时，pdf 应该已流的形式传输，否则会出现pdf损坏无法展示
       PDFJS.getDocument({ data: atob(pdfUrl) }).then(pdf => {
-        // 得到PDF的总的页数
-        let totalPages = pdf.numPages
-        console.log(totalPages)
-        let idName = 'canvas-pdf-'
-        this.pageRendering = false
-        // 根据总的页数创建相同数量的canvas
-        for (let i = 1; i <= totalPages; i++) {
-          pdf.getPage(i).then(page => {
-            let pageDiv = document.getElementById(`page-${i}`)
+        // 如果页码大于0
+        if (pdf.numPages > 0) {
+          this.totalPage = pdf.numPages
+          this.pageRendering = false
+          pdf.getPage(currentPage).then(page => {
+            let pageDiv = this.$refs.page
             let viewport = page.getViewport(scale)
-            let canvas = document.getElementById(idName + i)
+            let canvas = this.$refs.canvasPdf
             let context = canvas.getContext('2d')
             canvas.height = viewport.height
             canvas.width = viewport.width
@@ -116,6 +147,7 @@ export default {
                 this.pageRendering = true
               })
           })
+        } else {
         }
       })
     }
@@ -162,10 +194,10 @@ export default {
       font-size: 20px;
     }
   }
-  .canvas-pdf {
+  .canvasPdf {
     margin: 0 auto;
   }
-  .pdf-box1s {
+  .page {
     background: #fff;
     border: 1px solid #d8dce6;
     border-radius: 4px;
