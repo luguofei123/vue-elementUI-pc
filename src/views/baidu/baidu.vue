@@ -1,10 +1,14 @@
 <template>
 <div class="searchbox">
     <div class="logo">
-      <a href="http://www.sino-vt.com/" target="_blank"><img src="../../assets/img/bd_logo.png" width="270" height="129"></a>
+      <a href="#" target="_blank"><img src="../../assets/img/bd_logo.png" width="270" height="129"></a>
     </div>
     <div class="search">
-      <span class="inputbox"><input v-model="keyword" id="baiduinput" @keyup='keyup($event)' v-on:keyup.enter.prevent="selectEnter($event)"  @keydown.up.prevent="selectUp"  @keydown.down.prevent="selectDown" class="baiduinput" value="" maxlength="255" autocomplete="off"><span class="soutu"></span></span><input type="submit" class="submit" id="submit" value="百度一下" @click="search(keyword)">
+      <span class="inputbox">
+        <input v-model="keyword" id="baiduinput" @keyup='keyup($event)' v-on:keyup.enter.prevent="selectEnter($event)"  @keydown.up.prevent="selectUp"  @keydown.down.prevent="selectDown" class="baiduinput" value="" maxlength="255" autocomplete="off">
+        <span class="soutu"></span>
+      </span>
+      <input type="submit" class="submit" id="submit" value="百度一下" @click="search(keyword)">
       <div v-show="keyarr.length>0">
       <ul class="keytag">
       <li v-for="(word,i) in keyarr" v-bind:key='word' @click="mouseSearch($event)" :class="[index === i ? 'active' : '']">{{word}}</li>
@@ -40,7 +44,12 @@ export default {
       if (ev.keyCode === 38 || ev.keyCode === 40) return
       this.index = -1
       this.$jsonp(
-        'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', { wd: this.keyword, callbackQuery: 'cb', callbackName: 'jsonpFunc' }
+        'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+        {
+          wd: this.keyword,
+          callbackQuery: 'cb',
+          callbackName: 'jsonpFunc'
+        }
       )
         .then(res => {
           // console.log(res.s)
@@ -97,6 +106,7 @@ background:#fff;
   margin: 6px 0 6px 7px;
   padding:0;
   border:0;
+  outline: none;
   font-size:14px;
 }
 .soutu{
