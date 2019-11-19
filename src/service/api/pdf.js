@@ -4,7 +4,7 @@ import axios from '@/service/http/http'
 const pdfPage = {
   // 修改密码POST /usermanager/updatePassword
   getPdfContent () {
-    return axios.get('/echo.php')
+    return axios.get('/usermanager/echo.php')
   }
   // 其他接口…………
 }

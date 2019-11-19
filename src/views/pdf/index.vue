@@ -34,6 +34,7 @@
 import PDFJS from 'pdfjs-dist'
 import { TextLayerBuilder } from 'pdfjs-dist/web/pdf_viewer'
 import 'pdfjs-dist/web/pdf_viewer.css'
+import { dataPDF } from '@/const/pdfdata'
 export default {
   name: 'PDF',
   // props: ['pdfurl', 'pdfName', 'pdfImgEmage', 'currentPage', 'totalNum'],
@@ -97,10 +98,13 @@ export default {
 
     },
     initPages (scale, currentPage) {
-      this.$MyAxios.pdfPage.getPdfContent()
-        .then((r) => {
-          this.renderPdf(scale, r, currentPage)
-        })
+      setTimeout(() => {
+        this.renderPdf(scale, dataPDF, currentPage)
+      }, 500)
+      // this.$MyAxios.pdfPage.getPdfContent()
+      //   .then((r) => {
+      //     this.renderPdf(scale, r, currentPage)
+      //   })
     },
     renderPdf (scale, pdfUrl, currentPage) {
       // PDFJS.workerSrc = require('pdfjs-dist/build/pdf.worker.min')

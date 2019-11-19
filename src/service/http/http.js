@@ -6,9 +6,9 @@ import router from '@/router/index'
 // 创建实例
 const instance = axios.create({
   timeout: 5000,
-  baseURL: process.env.VUE_APP_URL
+  baseURL: 'http://' + process.env.VUE_APP_BASE_IP + ':' + process.env.VUE_APP_BASE_PORT
 })
-console.log(process.env.VUE_APP_BAIDU_URL)
+// console.log('http://' + process.env.VUE_APP_BASE_IP + ':' + process.env.VUE_APP_BASE_PORT)
 // 设置post请求头
 // instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 // instance.defaults.headers.post['Content-Type'] = 'application/json'

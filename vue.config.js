@@ -19,10 +19,10 @@ module.exports = {
   crossorigin: undefined,
   integrity: false,
   devServer: {// 代理
-    port: 8086,
+    port: process.env.VUE_APP_BASE_PORT,
     proxy: {
       '/usermanager': {
-        target: 'http://127.0.0.1:4885',
+        target: 'http://' + process.env.VUE_APP_PROXY_IP + ':' + process.env.VUE_APP_PROXY_PORT,
         ws: true,
         changeOrigin: true,
         // pathRewrite 作用是将usermanager换成了api

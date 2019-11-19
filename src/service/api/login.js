@@ -4,11 +4,18 @@ import qs from 'qs'
 const loginPage = {
   // 登陆
   login (params) {
-    return axios.post('/login.php', qs.stringify(params))
+    return axios.post('/usermanager/login.php', qs.stringify(params))
   },
   // 修改密码POST /usermanager/updatePassword
   changePassword (params) {
-    return axios.post('/updatePassword', qs.stringify(params))
+    return axios.post('/usermanager/updatePassword', qs.stringify(params))
+  },
+  // 单个的请求 修改请求头部信息
+  login1 (params) {
+    return axios.post('/usermanager/login', params, {
+      timeout: 5000,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
   }
   // 其他接口…………
 }
