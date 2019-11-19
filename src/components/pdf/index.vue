@@ -45,7 +45,7 @@ export default {
       maxScale: 3.5,
       minScale: 0.6,
       viewWidth: '',
-      pageRendering: false,
+      pageRendering: false
     }
   },
   watch: {
@@ -54,6 +54,7 @@ export default {
     }
   },
   created () {
+    // 初始化不能放在这里，因为此时还没有数据，所以就增加了一个数据监控，此数据变化，便会初始化
     // this.initPages(1.1, 1)
   },
   methods: {

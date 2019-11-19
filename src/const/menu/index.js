@@ -179,6 +179,13 @@ let menu = [
     index: '12',
     router: 'pdf',
     children: []
+  },
+  {
+    menuName: '模仿百度',
+    menuIcon: 'el-icon-lu-home',
+    index: '13',
+    router: 'baidu',
+    children: []
   }
 ]
 export default menu

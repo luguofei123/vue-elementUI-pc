@@ -3,6 +3,7 @@ import VCharts from 'v-charts'
 import App from '@/App.vue'
 import router from '@/router/index'
 import store from '@/store/index'
+import VueJsonp from 'vue-jsonp'
 import '@/assets/css/main.scss'
 // 自定义图标库
 import '@/assets/myicon/iconfont.css'
@@ -18,6 +19,7 @@ import * as filters from '@/filter/index'
 Object.keys(directives).forEach(k => Vue.directive(k, directives[k]))
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
 Vue.use(VCharts)
+Vue.use(VueJsonp)
 // 将API方法绑定到全局
 Vue.prototype.$MyAxios = MyAxios
 Vue.prototype.$EventBus = eventBus

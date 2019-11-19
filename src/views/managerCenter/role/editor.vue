@@ -124,8 +124,21 @@ export default {
     },
     onSubmit () {
       // 获取选择的tree id 数组
-      this.getCheckedKeys()
-      console.log(this.$refs.tree.getCheckedNodes())
+      // this.getCheckedKeys()
+      let arr = this.$refs.tree.getCheckedNodes()
+      let obj = {
+        id: [],
+        name: []
+      }
+      arr.forEach((item) => {
+        if (item.id) {
+          obj.id.push(item.id)
+        }
+        if (item.router.indexOf('null') === -1) {
+          obj.name.push(item.router)
+        }
+      })
+      console.log(obj)
       // console.log(JSON.stringify(this.form))
       // this.$emit('update:showForm', false)
       // 父模板更新数据

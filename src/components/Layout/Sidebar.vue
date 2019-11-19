@@ -37,7 +37,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { filterObjectByIdArr } from '@/utils/Object'
+import { filterObjectByIdArr, deepCopySimple } from '@/utils/Object'
 import menu from '@/const/menu'
 export default {
   data () {
@@ -78,7 +78,7 @@ export default {
     // this.setAuthInfo(obj)
     // console.log(this.menuAuth)
     if (this.menuAuth.length > 0) {
-      this.menuItems = filterObjectByIdArr(menu, this.menuAuth)
+      this.menuItems = filterObjectByIdArr(deepCopySimple(menu), this.menuAuth)
     }
   },
   methods: {

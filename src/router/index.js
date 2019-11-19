@@ -14,9 +14,9 @@ let router = new Router({
 // 1 根据返回的角色 设置角色
 let obj = {
   // 根据此值渲染菜单
-  menuAuth: ['1', '2', '2-1', '2-2', '3-1', '4', '5-1', '12'],
+  menuAuth: ['1', '2', '2-1', '2-2', '3', '3-1', '4', '5', '5-1', '5-2', '5-2-1', '5-2-2', '5-2-3', '6', '7', '8', '9', '9-1', '9-2', '10', '11', '11-1', '11-2', '11-3', '12', '13'],
   // 根据此值判断哪个页面可以访问
-  pageAuth: ['user', 'role', 'dashboard', 'pdf'],
+  pageAuth: ['dashboard', 'role', 'user', 'editorTable', 'tabs', 'baseform', 'editor', 'editorwang', 'markdown', 'upload', 'icon', 'chart', 'drag', 'dialog', 'i18n', 'permission', '404', 'pdf', 'baidu'],
   // 根据此值判断哪个页面的哪些按钮可以操作
   buttonAuth: {
     role: ['add', 'delete']

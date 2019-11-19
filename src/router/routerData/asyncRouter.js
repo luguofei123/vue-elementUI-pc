@@ -105,6 +105,13 @@ let asyncRouter = [
         name: '404',
         component: resolve => require(['@/views/error/404.vue'], resolve),
         meta: { title: '404错误', requiresAuth: false, passKey: '404' }
+      },
+      {
+        // baidu页面
+        path: 'baidu',
+        name: 'baidu',
+        component: resolve => require(['@/views/baidu/baidu.vue'], resolve),
+        meta: { title: '模仿百度', requiresAuth: false, passKey: 'baidu' }
       }
     ]
   }

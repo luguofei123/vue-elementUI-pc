@@ -5,27 +5,27 @@
 </template>
 <script>
 import pdfBar from '@/components/pdf/index'
-// import { dataPDF } from '@/const/pdfdata'
+// 模拟数据
+import { dataPDF } from '@/const/pdfdata'
 export default {
   components: {
     pdfBar
   },
-  name: 'pdf',
   data () {
     return {
-      pdfData: 'ddd'
+      pdfData: ''
     }
   },
   created () {
-    this.$MyAxios.pdfPage.getPdfContent()
-      .then((r) => {
-        // this.renderPdf(scale, r, currentPage)
-        console.log(111)
-        this.pdfData = r
-      })
-    // setTimeout(() => {
-    //   this.pdfData = dataPDF
-    // }, 100)
+    // 真实请求
+    // this.$MyAxios.pdfPage.getPdfContent()
+    //   .then((r) => {
+    //     this.pdfData = r
+    //   })
+    // 模拟请求
+    setTimeout(() => {
+      this.pdfData = dataPDF
+    }, 100)
   }
 }
 </script>

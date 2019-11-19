@@ -39,7 +39,7 @@ const mutations = {
     if (curItem) {
       delItem.path === router.currentRoute.fullPath && router.push(curItem.path)
     } else {
-      router.push('/')
+      router.push('/index/dashboard')
     }
   },
   SET_TAGSLIST: (state, arr) => {
