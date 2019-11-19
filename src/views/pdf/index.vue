@@ -1,5 +1,5 @@
 <template>
-    <div class="pdfBox">
+    <div class="pdfBox" ref="pdfBox">
       <div class="controllerBox">
         <el-tooltip class="item" effect="light" content="上一页" placement="top">
           <i class="el-icon-arrow-left" @click="prev"></i>
@@ -22,7 +22,7 @@
         </el-tooltip>
       </div>
       <el-scrollbar class="scrollbars" style="height:100%;overflow:hidden">
-        <div class="wrapper" id="pdf-container" :style="`width:${viewWidth}px;margin: 0 auto;`">
+        <div class="wrapper"  :style="`width:${viewWidth}px;margin: 40px auto 0;`">
           <div ref="page" class="page" :style="`width:${viewWidth}px;`">
             <canvas ref="canvasPdf" class="canvasPdf"></canvas>
           </div>
@@ -95,28 +95,51 @@ export default {
       }
     },
     fullScreen () {
-
+      let element = this.$refs.pdfBox
+      if (this.fullscreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen()
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen()
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen()
+        }
+      } else {
+        if (element.requestFullscreen) {
+          element.requestFullscreen()
+        } else if (element.webkitRequestFullScreen) {
+          element.webkitRequestFullScreen()
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen()
+        } else if (element.msRequestFullscreen) {
+          // IE11
+          element.msRequestFullscreen()
+        }
+      }
+      this.fullscreen = !this.fullscreen
     },
     initPages (scale, currentPage) {
       setTimeout(() => {
         this.renderPdf(scale, dataPDF, currentPage)
-      }, 500)
+      }, 100)
       // this.$MyAxios.pdfPage.getPdfContent()
       //   .then((r) => {
       //     this.renderPdf(scale, r, currentPage)
       //   })
     },
     renderPdf (scale, pdfUrl, currentPage) {
-      // PDFJS.workerSrc = require('pdfjs-dist/build/pdf.worker.min')
+      PDFJS.workerSrc = require('pdfjs-dist/build/pdf.worker.min')
       // 当 PDF 地址为跨域时，pdf 应该已流的形式传输，否则会出现pdf损坏无法展示
-      PDFJS.getDocument({ data: atob(pdfUrl) }).then(pdf => {
+      PDFJS.getDocument({ data: atob(pdfUrl) }).promise.then(pdf => {
         // 如果页码大于0
         if (pdf.numPages > 0) {
           this.totalPage = pdf.numPages
           this.pageRendering = false
           pdf.getPage(currentPage).then(page => {
             let pageDiv = this.$refs.page
-            let viewport = page.getViewport(scale)
+            let viewport = page.getViewport({ scale: scale })
             let canvas = this.$refs.canvasPdf
             let context = canvas.getContext('2d')
             canvas.height = viewport.height
@@ -131,6 +154,7 @@ export default {
             // 如果你需要复制则像下面那样写利用text-layer
             page
               .render(renderContext)
+              .promise
               .then(() => {
                 return page.getTextContent()
               })
@@ -158,20 +182,16 @@ export default {
   }
 }
 </script>
-
 <style scoped lang="scss">
   .pdfBox {
     width: 100%;
     text-align: center;
-    height: 85vh;
-    padding-top: 20px;
+    height: 83.5vh;
+    /*margin-top 负值是为了抵消外层的padding 10px*/
+    margin-top: -10px;
     z-index: 2000;
+    position:relative;
   }
-  /*.shuqinaI .con {*/
-    /*width: 16px;*/
-    /*display: inline-block;*/
-    /*padding: 2px 0 0 0;*/
-  /*}*/
   .controllerBox i {
     padding: 0 10px;
     font-size: 20px;
@@ -183,14 +203,14 @@ export default {
     -ms-user-select: none; /*IE10*/
     -khtml-user-select: none; /*早期浏览器*/
     user-select: none;
-    width: 100%;
+    /*width: 100%;*/
     height: 40px;
     line-height: 40px;
-    background-color: #eee;
-    margin-bottom: 10px;
+    background-color: #44bfbe;
     position: absolute;
-    left: 0;
-    top: 30px;
+    left: -10px;
+    right:-10px;
+    top: 0px;
     z-index: 1999;
     cursor: pointer;
     i {
@@ -208,10 +228,4 @@ export default {
     border-bottom: none;
     position: relative;
   }
-</style>
-<style>
-  /*.drag-box .el-scrollbar__bar.is-horizontal > div {*/
-    /*height: 0 !important;*/
-    /*width: 0 !important;*/
-  /*}*/
 </style>
