@@ -6,10 +6,9 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 /* 改变主题色变量 */
 $--color-primary: #f28500;
 
-
-
-/* 引入所有组件的scss，必需 */
+/* 引入所有组件的scss */
 @import "~element-ui/packages/theme-chalk/src/index";
+/* 引入单个组件的scss */
 /*@import "~element-ui/packages/theme-chalk/src/base.scss";
 @import "~element-ui/packages/theme-chalk/src/rate.scss";
 @import "~element-ui/packages/theme-chalk/src/button.scss";

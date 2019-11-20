@@ -34,6 +34,8 @@
 import PDFJS from 'pdfjs-dist'
 import { TextLayerBuilder } from 'pdfjs-dist/web/pdf_viewer'
 import 'pdfjs-dist/web/pdf_viewer.css'
+// ie下设置PDFJS.GlobalWorkerOptions.workerSrc，其他设置PDFJS.workerSrc
+PDFJS.GlobalWorkerOptions.workerSrc = require('pdfjs-dist/build/pdf.worker.min')
 export default {
   name: 'PDF',
   props: ['pdfData'],
@@ -124,7 +126,9 @@ export default {
       }, 0)
     },
     renderPdf (scale, pdfUrl, currentPage) {
-      PDFJS.workerSrc = require('pdfjs-dist/build/pdf.worker.min')
+      // ie下设置PDFJS.GlobalWorkerOptions.workerSrc，其他设置PDFJS.workerSrc
+      // PDFJS.workerSrc = require('pdfjs-dist/build/pdf.worker')
+      // PDFJS.GlobalWorkerOptions.workerSrc = require('pdfjs-dist/build/pdf.worker.min')
       // 当 PDF 地址为跨域时，pdf 应该已流的形式传输，否则会出现pdf损坏无法展示
       PDFJS.getDocument({ data: atob(pdfUrl) }).promise.then(pdf => {
         // 如果页码大于0
