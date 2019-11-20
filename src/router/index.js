@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store/index'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 import constRouter from './routerData/constRouter'
 
 Vue.use(Router)
@@ -27,8 +29,10 @@ router.beforeEach((to, from, next) => {
   // 先判断是否登录
   if (store.state.auth.userInfo.token === '') {
     if (to.path === '/login') {
+      NProgress.start()
       next()
     } else {
+      NProgress.start()
       next('/login')
     }
   } else {
@@ -38,6 +42,7 @@ router.beforeEach((to, from, next) => {
         .then(() => {
           router.addRoutes(store.state.auth.authRoutes)
           router.addRoutes([{ path: '*', redirect: '/403', hidden: true }])
+          NProgress.start()
           next({
             ...to, replace: true
           })
@@ -46,6 +51,7 @@ router.beforeEach((to, from, next) => {
           console.log(err)
         })
     } else {
+      NProgress.start()
       next()
     }
   }
@@ -53,5 +59,9 @@ router.beforeEach((to, from, next) => {
     store.commit('tagsRecord/ADD_TAGSLIST', to)
     store.commit('tagsRecord/SET_BREADCRUBM_LIST', to)
   }
+})
+router.afterEach(transition => {
+// 结束进度条
+  NProgress.done()
 })
 export default router

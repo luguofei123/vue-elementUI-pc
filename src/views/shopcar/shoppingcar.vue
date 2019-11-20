@@ -1,33 +1,33 @@
 <template>
-<div class="shoplist">
-     <table>
-        <tr class="heartr">
-        <td width="40">
-          <input type="checkbox"  id="headtd" v-model="isCheckedAll" >
-          <label for="headtd" v-on:click="checkAll"></label>
-        </td>
-        <td width="100">全选</td>
-        <td width="540">信息</td>
-        <td width="100">单价</td>
-        <td width="160">数量</td>
-        <td width="100">小记</td>
-        <td width="100">操作</td>
-        </tr>
-        <tr class="contenttr" v-for="(item,index) in lists" v-bind:key="index">
-        <td>
-          <input type="checkbox" v-on:click="checkOne"  :id="index" v-model="isChecked[index]" >
-          <label :for="index"></label>
-        </td>
-        <td><img src="" /></td>
-        <td style="text-align:left;">
-            <p>{{item.goodsTitle}}</p>
-            <p>{{item.specifications}}</p>
-        </td>
-        <td>￥{{item.unitPrice}}</td>
-        <td>
+<div class="container">
+  <table>
+    <tr class="heartr">
+      <td width="40">
+        <input type="checkbox"  id="headtd" v-model="isCheckedAll" >
+        <label for="headtd" v-on:click="checkAll"></label>
+      </td>
+      <td width="100">全选</td>
+      <td width="540">信息</td>
+      <td width="100">单价</td>
+      <td width="160">数量</td>
+      <td width="100">小记</td>
+      <td width="100">操作</td>
+    </tr>
+    <tr class="contenttr" v-for="(item,index) in lists" v-bind:key="index">
+      <td>
+        <input type="checkbox" v-on:click="checkOne"  :id="index" v-model="isChecked[index]" >
+        <label :for="index"></label>
+      </td>
+      <td><img src="" /></td>
+      <td style="text-align:left;">
+        <p>{{item.goodsTitle}}</p>
+        <p>{{item.specifications}}</p>
+      </td>
+      <td>￥{{item.unitPrice}}</td>
+      <td>
         <div style="position:relative;">
-        <span style="margin-right:40px;" v-on:click="minus(index)">-</span>
-        <input type="number" v-model.number="item.purchaseQuantity"  />
+         <span style="margin-right:40px;" v-on:click="minus(index)">-</span>
+         <input type="number" v-model.number="item.purchaseQuantity"  />
         <span v-on:click="add(index)">+</span>
         </div>
         </td>
@@ -129,7 +129,7 @@ export default {
         if (this.checkedNumber === this.isChecked.length) {
           this.isCheckedAll = true
         }
-      },0)
+      }, 0)
     },
     add (index) {
       this.lists[index].purchaseQuantity++
@@ -150,23 +150,23 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.shoplist{width:100%;margin:10px auto;font-size: 14px;height:650px;}
-    table { width: 100%;   text-align: center; border-collapse: collapse;border:1px solid #0094ff;}
-    table tr td {border-bottom:1px solid #0094ff;border-top:1px solid #0094ff; }
-    .heartr{height:60px;background:#dedede;}
-    .contenttr{height:100px;}
-    .contenttr p{font-size: 12px;}
-    .contenttr img{width:80px;height:80px;margin-top: 8px;}
-    button{border:none;line-height: 14px;padding: 7px 15px;background: #999;color: #FFFFFF;}
-    button:hover{background: red;}
-    input[type="checkbox"]{
+.container{height:560px;}
+table { width: 100%;   text-align: center; border-collapse: collapse;border:1px solid #0094ff;}
+table tr td {border-bottom:1px solid #0094ff;border-top:1px solid #0094ff; }
+.heartr{height:60px;background:#dedede;}
+.contenttr{height:100px;}
+.contenttr p{font-size: 12px;}
+.contenttr img{width:80px;height:80px;margin-top: 8px;}
+button{border:none;line-height: 14px;padding: 7px 15px;background: #999;color: #FFFFFF;}
+button:hover{background: red;}
+input[type="checkbox"]{
         position:absolute;
         width:40px;
         height:40px;
         visibility: hidden;
         background: #fff;
     }
-    input[type="number"]{
+input[type="number"]{
         position:absolute;
         left:76px;
         width:46px;

@@ -1,5 +1,5 @@
 <template>
-<div class="searchbox">
+<div class="container">
     <div class="logo">
       <a href="#" target="_blank"><img src="../../assets/img/bd_logo.png" width="270" height="129"></a>
     </div>
@@ -78,10 +78,8 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only #b6b6b6-->
 <style scoped>
-.searchbox{
-margin:0px 0px;
-height:680px;
-background:#fff;
+.container{
+height:560px;
 }
 .logo,.search{
   text-align:center;

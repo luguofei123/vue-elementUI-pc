@@ -10,6 +10,10 @@ $--color-primary: #f28500;
 
 /* 引入所有组件的scss，必需 */
 @import "~element-ui/packages/theme-chalk/src/index";
+/*@import "~element-ui/packages/theme-chalk/src/base.scss";
+@import "~element-ui/packages/theme-chalk/src/rate.scss";
+@import "~element-ui/packages/theme-chalk/src/button.scss";
+@import "~element-ui/packages/theme-chalk/src/row.scss";*/
 
 
 
@@ -29,7 +33,10 @@ body {
 a {
     text-decoration: none
 }
-
+/* 顶部页面进度条颜色*/
+#nprogress .bar{
+    background: red !important;
+}
 /* 内容部分包含面包屑部分 */
 .content-box {
     position: absolute;
