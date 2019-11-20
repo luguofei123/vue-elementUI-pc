@@ -112,6 +112,13 @@ let asyncRouter = [
         name: 'baidu',
         component: resolve => require(['@/views/baidu/baidu.vue'], resolve),
         meta: { title: '模仿百度', requiresAuth: false, passKey: 'baidu' }
+      },
+      {
+        // 购物车
+        path: 'shopcar',
+        name: 'shopcar',
+        component: resolve => require(['@/views/shopcar/shoppingcar.vue'], resolve),
+        meta: { title: '购物车', requiresAuth: false, passKey: 'shopcar' }
       }
     ]
   }

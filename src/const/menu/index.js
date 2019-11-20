@@ -186,6 +186,13 @@ let menu = [
     index: '13',
     router: 'baidu',
     children: []
+  },
+  {
+    menuName: '购物车',
+    menuIcon: 'el-icon-lu-home',
+    index: '14',
+    router: 'shopcar',
+    children: []
   }
 ]
 export default menu

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VCharts from 'v-charts'
+import VueJsonp from 'vue-jsonp'
 import App from '@/App.vue'
 import router from '@/router/index'
 import store from '@/store/index'
-import VueJsonp from 'vue-jsonp'
 import '@/assets/css/main.scss'
 // 自定义图标库
 import '@/assets/myicon/iconfont.css'
