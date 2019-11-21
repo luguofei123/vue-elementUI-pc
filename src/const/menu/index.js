@@ -89,6 +89,13 @@ let menu = [
             index: '5-2-3',
             router: 'markdown',
             children: []
+          },
+          {
+            menuName: 'BPMN流程编辑器',
+            menuIcon: 'el-icon-lu-home',
+            index: '5-2-4',
+            router: 'BPMN',
+            children: []
           }
         ]
       },

@@ -1,14 +1,12 @@
 <template>
-    <div>
-        <div class="container">
-            <div class="plugins-tips">
-                mavonEditor：基于Vue的markdown编辑器。
-                访问地址：<a href="https://github.com/hinesboy/mavonEditor" target="_blank">mavonEditor</a>
-            </div>
-            <mavon-editor v-model="content" ref="md" @imgAdd="$imgAdd" @change="change" style="min-height: 600px"/>
-            <el-button class="editor-btn" type="primary" @click="submit">提交</el-button>
-        </div>
+  <div class="container">
+    <div class="plugins-tips">
+      mavonEditor：基于Vue的markdown编辑器。
+      访问地址：<a href="https://github.com/hinesboy/mavonEditor" target="_blank">mavonEditor</a>
     </div>
+    <mavon-editor v-model="content" ref="md" @imgAdd="$imgAdd" @change="change" style="min-height: 600px"/>
+    <el-button class="editor-btn" type="primary" @click="submit">提交</el-button>
+  </div>
 </template>
 
 <script>

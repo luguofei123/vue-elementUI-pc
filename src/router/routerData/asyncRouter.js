@@ -51,6 +51,13 @@ let asyncRouter = [
         meta: { title: 'markdown编辑器', requiresAuth: false, passKey: 'markdown' }
       },
       {
+        // BPMN流程编辑
+        path: 'BPMN',
+        name: 'BPMN',
+        component: resolve => require(['@/views/form/Editor/BPMN.vue'], resolve),
+        meta: { title: 'BPMN流程编辑', requiresAuth: false, passKey: 'BPMN' }
+      },
+      {
         // 图片上传组件
         path: 'upload',
         name: 'upload',
