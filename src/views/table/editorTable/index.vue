@@ -82,10 +82,17 @@ export default {
     getData () {
       this.tableLoading = true
       // console.log(this.filter, '请求数据的页码=' + this.currentPage, '每页有几条数据=' + this.pageSize)
-      this.tableData.splice(0, this.tableData.length)
-      for (let i = 1; i < 11; i++) {
-        this.tableData.push({ id: i, date: '201' + i, name: 'luguofei' + i, address: 'dddddd' + i })
+      // this.tableData.splice(0, this.tableData.length)
+      // for (let i = 1; i < 11; i++) {
+      //   this.tableData.push({ id: i, date: '201' + i, name: 'luguofei' + i, address: 'dddddd' + i })
+      // }
+      let data = {
+        name: 'luguofei'
       }
+      this.$MyAxios.tablePage.getData(data)
+        .then(r => {
+          this.tableData = r
+        })
       // this.tableData.push({ id: 1, date: '2016', name: 'luguofei', address: 'dddddd' })
       // delete this.pageObj['total']
       // console.log(this.tableData)
