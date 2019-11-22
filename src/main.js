@@ -4,9 +4,8 @@ import VueJsonp from 'vue-jsonp'
 import App from '@/App.vue'
 import router from '@/router/index'
 import store from '@/store/index'
-import '@/assets/css/main.scss'
-// 自定义图标库
-import '@/assets/myicon/iconfont.css'
+// css集中到一个js文件中然后引用
+import '@/assets/css/index'
 import ElementUI from 'element-ui'
 import MyAxios from '@/service/index'
 import { eventBus } from '@/eventBus/eventBus.js'
