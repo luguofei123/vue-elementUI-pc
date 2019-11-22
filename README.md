@@ -14,6 +14,7 @@ BPMN流程编辑
 购物车
 全局加载进度条等等各种组件的封装， 配置比较全，
 可以直接clone使用，方便快速开发。
+### 下一步工作做 BPMN的汉化处理
 ### 项目预览 https://luguofei123.github.io/vue-elementUI-pc/dist/
 
 ## 项目依赖安装

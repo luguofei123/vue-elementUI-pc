@@ -1,9 +1,15 @@
 <template>
   <div class="container">
-    <div class="containers" ref="content">
+    <div class="content" ref="content">
       <div class="canvas" ref="canvas"></div>
       <div id="js-properties-panel" class="panel"></div>
     </div>
+    <a  ref="saveDiagram" id="saveDiagram"  style="display: none"></a>
+    <el-button @click="BpmnDown">下载当前工作流</el-button>
+    <el-button type="primary" @click="BpmnClick">上传当前工作流</el-button>
+    <el-upload action="//jsonplaceholder.typicode.com/posts/" :before-upload="uploadFile">
+      <el-button type="warning">上传Zip</el-button>
+    </el-upload>
   </div>
 </template>
 
@@ -97,7 +103,7 @@ export default {
           '    </bpmndi:BPMNPlane>\n' +
           '  </bpmndi:BPMNDiagram>\n' +
           '</bpmn:definitions>\n'
-      // 将字符串转换成图显示出来
+      // 将字符串转换成图显示出来,也就是初始化
       this.bpmnModeler.importXML(bpmnXmlStr, function (err) {
         if (err) {
           console.error(err)
@@ -106,14 +112,47 @@ export default {
           // that.success()
         }
       })
+    },
+    // 点击按钮触发上传当前工作流
+    BpmnClick () {
+      // this.$emit('BpmnSave', this.encodedData)
+      console.log(this.encodedData)
+    },
+    // 上传文件
+    uploadFile (file) {
+      this.$emit('fileUpload', file)
+      return false
+    },
+    BpmnDown () {
+      let saveDiagram = document.getElementById('saveDiagram')
+      saveDiagram.click()
+    },
+    // 保存bpmn
+    saveDiagram  (done) {
+      // 把传入的done再传给bpmn原型的saveXML函数调用
+      this.bpmnModeler.saveXML({ format: true }, function (err, xml) {
+        done(err, xml)
+      })
+    },
+    // 当图发生改变的时候会调用这个函数，这个data就是图的xml
+    setEncoded (link, name, data) {
+      // 把xml转换为URI，下载要用到的
+      this.encodedData = 'data:application/bpmn20-xml;charset=UTF-8,' + encodeURIComponent(data)
+      // 获取到图的xml，保存就是把这个xml提交给后台
+      this.xmlStr = data
+      // 下载图的具体操作,改变a的属性，className令a标签可点击，href令能下载，download是下载的文件的名字
+      if (data) {
+        link.className = 'active'
+        link.href = this.encodedData
+        link.download = name
+      }
     }
   },
   mounted () {
     // 获取到属性ref为“content”的dom节点
-    this.container = this.$refs.content
+    // this.content = this.$refs.content
     // 获取到属性ref为“canvas”的dom节点
     const canvas = this.$refs.canvas
-
     // 建模，官方文档这里讲的很详细
     this.bpmnModeler = new BpmnModeler({
       container: canvas,
@@ -130,6 +169,15 @@ export default {
       moddleExtensions: {
         camunda: camundaModdleDescriptor
       }
+    })
+    // 下载画图
+    // 获取a标签dom节点
+    const downloadLink = this.$refs.saveDiagram
+    // 给图绑定事件，当图有发生改变就会触发这个事件
+    this.bpmnModeler.on('commandStack.changed', () => {
+      this.saveDiagram((err, xml) => {
+        this.setEncoded(downloadLink, 'diagram.bpmn', err ? null : xml)
+      })
     })
     this.createNewDiagram(this.bpmnModeler)
   }
@@ -150,7 +198,7 @@ export default {
   @import '../../../../node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
   /*右边工具栏样式*/
   @import '../../../../node_modules/bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css';
-  .containers{
+  .content{
     /*position: absolute;*/
     background-color: #ffffff;
     width: 100%;
