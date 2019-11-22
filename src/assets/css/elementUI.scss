@@ -3,7 +3,15 @@
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 /* 改变主题色变量 */
+/* 主要按钮 */
 $--color-primary: #f28500;
+/* 成功按钮 */
+$--color-success: #112334;
+/* 信息按钮 */
+$--color-info: #112334;
+/* 警告按钮 */
+$--color-warning: #112334;
+/* 危险按钮 */
 $--color-danger: #112334;
 
 /* 引入所有组件的scss */
