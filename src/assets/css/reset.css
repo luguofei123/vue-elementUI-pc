@@ -22,7 +22,7 @@ time, mark, audio, video {
     border: 0;
     font-size: 100%;
     font: inherit;
-    /*vertical-align: baseline;*/
+    vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -35,6 +35,9 @@ body {
 ol, ul {
     list-style: none;
 }
+a {
+    text-decoration: none
+}
 blockquote, q {
     quotes: none;
 }
@@ -46,7 +49,4 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
-}
-a {
-    text-decoration: none
 }
