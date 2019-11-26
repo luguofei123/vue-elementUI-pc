@@ -50,9 +50,12 @@ module.exports = {
       .set('components', resolve('src/components'))
     // ============修改目录别名 end ==============
     if (process.env.NODE_ENV === 'production') {
-      // ============压缩图片 start==============
       // file-loader，url-loader默认配置已经有了,不需要在配置，
       // 如果自己安装可能版本会不一样，会出现background: url([object Object])
+      // 可以发现在dist/img下面的图片少了一部分，
+      // 原因是：默认不超过4096字节会被转换成Base64编码,用require引用的也会被转成和base64，
+      // 超出这个限制则会被打包在img文件夹下，同时会用到下面这个loader进行压缩
+      // ============压缩图片 start==============
       config.module
         .rule('images')
         .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/i)
