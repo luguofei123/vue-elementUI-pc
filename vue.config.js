@@ -51,7 +51,7 @@ module.exports = {
     // ============修改目录别名 end ==============
     if (process.env.NODE_ENV === 'production') {
       // ============压缩图片 start==============
-      // file-loader默认配置已经有了,不需要在配置，
+      // file-loader，url-loader默认配置已经有了,不需要在配置，
       // 如果自己安装可能版本会不一样，会出现background: url([object Object])
       config.module
         .rule('images')
