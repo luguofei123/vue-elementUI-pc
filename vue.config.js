@@ -71,7 +71,8 @@ module.exports = {
         }))
       // ============压缩css js end=============
     }
-    if (process.env.NODE_ENV === 'report') {
+    // 专门给report提供，使用方法 npm run report
+    if (process.env.VUE_APP_TITLE === 'report') {
       // ============分析报告 start=============
       config.plugin('webpack-report')
         .use(BundleAnalyzerPlugin, [{

@@ -21,31 +21,19 @@ BPMN流程编辑
 ```
 npm install
 ```
-
 ### 项目运行
 ```
 npm run serve
 ```
-
 ### 项目打包
 ```
 npm run build
 ```
-
 ### 项目测试
 ```
 npm run test
 ```
-
-### Lints and fixes files
+### 项目报告
 ```
-npm run lint
+npm run report
 ```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

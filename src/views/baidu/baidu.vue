@@ -35,14 +35,14 @@ export default {
       // console.log(ev.target.firstChild.nodeValue)
     },
     search (word) {
-      // console.log(word)
+      //console.log(process.env.NODE_ENV.VUE_APP_BAIDU_URL)
       window.open('https://www.baidu.com/s?wd=' + word)
     },
     keyup (ev) {
       if (ev.keyCode === 38 || ev.keyCode === 40) return
       this.index = -1
       this.$jsonp(
-        'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+        process.env.VUE_APP_BAIDU_URL,
         {
           wd: this.keyword,
           callbackQuery: 'cb',
