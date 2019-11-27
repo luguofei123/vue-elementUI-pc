@@ -3,6 +3,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const path = require('path')
 const resolve = dir => path.resolve(__dirname, dir)
 const merge = require('webpack-merge')
+// 测试环境的cdn可以用其他标志去区分
 const cdn = {
   css: [],
   js: [
@@ -151,6 +152,12 @@ module.exports = {
       })
       config.externals(externals)
       // ============插入CND end=================
+      // ============压缩html中的css start=======
+      config.plugin('html').tap(args => {
+        args[0].minify.minifyCSS = true
+        return args
+      })
+      // ============压缩html中的css end=========
     }
     // 专门给report提供，使用方法 npm run report
     if (process.env.VUE_APP_TITLE === 'report') {
