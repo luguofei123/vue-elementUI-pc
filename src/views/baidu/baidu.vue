@@ -35,7 +35,7 @@ export default {
       // console.log(ev.target.firstChild.nodeValue)
     },
     search (word) {
-      //console.log(process.env.NODE_ENV.VUE_APP_BAIDU_URL)
+      // console.log(process.env.NODE_ENV.VUE_APP_BAIDU_URL)
       window.open('https://www.baidu.com/s?wd=' + word)
     },
     keyup (ev) {

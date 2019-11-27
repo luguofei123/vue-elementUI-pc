@@ -43,6 +43,7 @@
     "compression-webpack-plugin": "^3.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "extract-css": "^1.2.4",
     "image-webpack-loader": "^6.0.0",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",

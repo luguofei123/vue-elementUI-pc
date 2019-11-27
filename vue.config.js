@@ -2,6 +2,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const path = require('path')
 const resolve = dir => path.resolve(__dirname, dir)
+const merge = require('webpack-merge')
 module.exports = {
   // 选项...
   // 这个值和路由中的base:baseUrl是一个值process.env.NODE_ENV === 'production'? '/production-sub-path/': '/'
@@ -41,7 +42,7 @@ module.exports = {
       // }
     }
   },
-  // 链式配置 修改插件或loader
+  // 链式配置/修改插件或loader
   chainWebpack: config => {
     // ============修改目录别名 start ============
     config.resolve.alias
@@ -50,6 +51,59 @@ module.exports = {
       .set('components', resolve('src/components'))
     // ============修改目录别名 end ==============
     if (process.env.NODE_ENV === 'production') {
+      // ============输出js start ================
+      config.output
+        .filename(path.posix.join('assets', `js/[name].[hash].js`))
+        .chunkFilename(path.posix.join('assets', `js/[name].[hash].js`))
+        .end()
+      // ============输出js end ====================
+      // ============输出css start =================
+      config.plugin('extract-css').tap(() => [{
+        filename: path.posix.join('assets', `css/[name].[hash].css`),
+        chunkFilename: path.posix.join('assets', `css/[name].[hash].css`)
+      }])
+      // ============输出css end ====================
+      // ============删除并制定规则 images start ===========
+      // const imagesRule = config.module.rule('images')
+      // imagesRule.uses.clear()
+      // imagesRule.use('file-loader')
+      //   .loader('url-loader')
+      //   .options({
+      //     limit: 4096,
+      //     fallback: {
+      //       loader: 'file-loader',
+      //       options: {
+      //         name: path.posix.join('assets', `img/[name].[hash:8].[ext]`)
+      //       }
+      //     }
+      //   })
+      // ============删除并制定规则 images end ==============
+      // ============修改规则 images start ==================
+      config.module
+        .rule('images')
+        .use('url-loader')
+        .tap(options => {
+          return merge(options, {
+            limit: 4096,
+            fallback: {
+              loader: 'file-loader',
+              options: {
+                name: path.posix.join('assets', `img/[name].[hash].[ext]`)
+              }
+            }
+          })
+        })
+      // ============修改规则 images end ====================
+      // ============修改规则 svg start =====================
+      config.module
+        .rule('svg')
+        .use('file-loader')
+        .tap(options => {
+          return merge(options, {
+            name: path.posix.join('assets', `img/[name].[hash].[ext]`)
+          })
+        })
+      // ============修改规则 svg end ======================
       // file-loader，url-loader默认配置已经有了,不需要在配置，
       // 如果自己安装可能版本会不一样，会出现background: url([object Object])
       // 可以发现在dist/img下面的图片少了一部分，
@@ -58,7 +112,7 @@ module.exports = {
       // ============压缩图片 start==============
       config.module
         .rule('images')
-        .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/i)
+        .test(/\.(png|jpe?g|gif)(\?.*)?$/i)
         .use('image-webpack-loader')
         .loader('image-webpack-loader')
         .options({ bypassOnDebug: true })
