@@ -1,13 +1,13 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import store from '@/store/index'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import constRouter from './routerData/constRouter'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-let router = new Router({
+let router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   // base: 'dist',

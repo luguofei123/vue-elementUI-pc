@@ -3,6 +3,21 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const path = require('path')
 const resolve = dir => path.resolve(__dirname, dir)
 const merge = require('webpack-merge')
+const cdn = {
+  css: [],
+  js: [
+    'https://cdn.bootcss.com/vue/2.6.10/vue.min.js',
+    'https://cdn.bootcss.com/vue-router/3.0.3/vue-router.min.js',
+    'https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js',
+    'https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js'
+  ]
+}
+const externals = {
+  vue: 'Vue',
+  'vue-router': 'VueRouter',
+  vuex: 'Vuex',
+  axios: 'axios'
+}
 module.exports = {
   // 选项...
   // 这个值和路由中的base:baseUrl是一个值process.env.NODE_ENV === 'production'? '/production-sub-path/': '/'
@@ -93,6 +108,7 @@ module.exports = {
             }
           })
         })
+        .end()
       // ============修改规则 images end ====================
       // ============修改规则 svg start =====================
       config.module
@@ -103,6 +119,7 @@ module.exports = {
             name: path.posix.join('assets', `img/[name].[hash].[ext]`)
           })
         })
+        .end()
       // ============修改规则 svg end ======================
       // file-loader，url-loader默认配置已经有了,不需要在配置，
       // 如果自己安装可能版本会不一样，会出现background: url([object Object])
@@ -127,16 +144,34 @@ module.exports = {
           deleteOriginalAssets: false // 不删除源文件
         }))
       // ============压缩css js end=============
+      // ============插入CND start==============
+      config.plugin('html').tap(args => {
+        args[0].cdn = cdn
+        return args
+      })
+      config.externals(externals)
+      // ============插入CND end=================
     }
     // 专门给report提供，使用方法 npm run report
     if (process.env.VUE_APP_TITLE === 'report') {
-      // ============分析报告 start=============
+      // ============分析报告 start==============
       config.plugin('webpack-report')
         .use(BundleAnalyzerPlugin, [{
           analyzerMode: 'static'
         }])
-      // ============分析报告 end===============
+      // ============分析报告 end=================
     }
+    // ============清除元素之间的空格 start=======
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap(options => {
+        options.compilerOptions.preserveWhitespace = true
+        return options
+      })
+      .end()
+    // ============清除元素之间的空格 end==========
   },
   // 配置 webpack 新增简单的插件,
   configureWebpack: config => {
