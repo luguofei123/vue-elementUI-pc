@@ -31,15 +31,44 @@ export default {
   mounted () {
     // 初始化编辑器对象
     this.editor = new Editor(this.$refs.editor)
+    // 关闭粘贴内容中的样式
+    this.editor.customConfig.pasteFilterStyle = false
+    // 忽略粘贴内容中的图片
+    this.editor.customConfig.pasteIgnoreImg = false
+    // 将图片大小限制为 5M
+    this.editor.customConfig.uploadImgMaxSize = 5 * 1024 * 1024
+    // 限制一次最多上传 1 张图片
+    this.editor.customConfig.uploadImgMaxLength = 1
     // this.editor.customConfig.emotions = []
     // 下面两个配置，使用其中一个即可显示“上传图片”的tab。但是两者不要同时使用！！！
     // 使用 base64 保存图片
-    this.editor.customConfig.uploadImgShowBase64 = true
+    this.editor.customConfig.uploadImgShowBase64 = false
+    // 设置文件上传的参数名称
+    this.editor.customConfig.uploadFileName = 'myFile'
     // 上传图片到服务器
-    // this.editor.customConfig.uploadImgServer = '/upload'
+    this.editor.customConfig.uploadImgServer = '/upload'
     // 隐藏“网络图片”tab
     this.editor.customConfig.showLinkImg = false
     // 实时监控文本内容变化
+    this.editor.customConfig.uploadImgHooks = {
+      success: function (xhr, editor, result) {
+        // 图片上传并返回结果，图片插入成功之后触发
+        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+      },
+      fail: function (xhr, editor, result) {
+        // 图片上传并返回结果，但图片插入错误时触发
+        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+      },
+      error: function (xhr, editor) {
+        // 图片上传出错时触发
+        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+      },
+      customInsert: function (insertImg, result, editor) {
+        let url = result.data
+        console.log('image url = ' + url)
+        insertImg(url)
+      }
+    }
     this.editor.customConfig.onchange = (html) => {
       this.editorContent = html
       // let json = this.editor.txt.getJSON()

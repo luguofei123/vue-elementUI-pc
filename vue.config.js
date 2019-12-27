@@ -1,4 +1,5 @@
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const path = require('path')
 const resolve = dir => path.resolve(__dirname, dir)
@@ -78,26 +79,26 @@ module.exports = {
     // config.plugins.delete('prefetch')
     // 抽取公共js和css 可能目前页面比较少，感觉效果不明显
     // ============抽取公共js和css start ============
-    config.optimization.minimize(true)
-    config.optimization.splitChunks({
-      chunks: 'all', // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
-      maxInitialRequests: 5, // 最大的按需(异步)加载次数，默认为 5
-      minSize: 300000, // 依赖包超过300000bit将被单独打包
-      automaticNameDelimiter: '-', // 抽取出来的文件的自动生成名字的分割符，默认为 ~
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: 10
-        },
-        styles: {
-          // name: 'styles',
-          // test: /\.css$/,
-          // chunks: 'all',
-          // enforce: true,
-          // priority: 20
-        }
-      }
-    })
+    // config.optimization.minimize(true)
+    // config.optimization.splitChunks({
+    //   chunks: 'all', // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
+    //   maxInitialRequests: 5, // 最大的按需(异步)加载次数，默认为 5
+    //   minSize: 300000, // 依赖包超过300000bit将被单独打包
+    //   automaticNameDelimiter: '-', // 抽取出来的文件的自动生成名字的分割符，默认为 ~
+    //   cacheGroups: {
+    //     vendor: {
+    //       chunks: 'all',
+    //       test: /node_modules/,
+    //       name: 'vendor'
+    //     },
+    //     styles: {
+    //       name: 'styles',
+    //       test: /\.(sa|sc|c)ss$/,
+    //       chunks: 'all',
+    //       enforce: true
+    //     }
+    //   }
+    // })
     // ============抽取公共js和css end ===========
     // ============修改目录别名 start ============
     config.resolve.alias
@@ -235,6 +236,22 @@ module.exports = {
       //   })
       // )
       // ============压缩css js end============
+      // ============移除console start=========
+      config.plugins.push(
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            compress: {
+              warnings: false,
+              drop_debugger: false, // console
+              drop_console: true,
+              pure_funcs: ['console.log'] // 移除console
+            }
+          },
+          sourceMap: false,
+          parallel: true
+        })
+      )
+      // ============移除console end=========
     }
   }
 }

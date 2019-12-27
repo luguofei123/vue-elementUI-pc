@@ -16,6 +16,15 @@ const loginPage = {
       timeout: 5000,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     })
+  },
+  // 单个的请求 修改请求头部信息
+  login2 (params) {
+    const query = qs.stringify(params)
+    return axios({
+      url: `/usermanager/login?${query}`,
+      method: 'POST',
+      data: params
+    })
   }
   // 其他接口…………
 }
