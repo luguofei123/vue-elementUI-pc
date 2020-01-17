@@ -16,7 +16,7 @@
             </div>
           <!--结果分页-->
             <div class="pagination-box">
-              <page-bar :total="total" @handleSizeChange = 'handleSizeChange' @handleCurrentChange="handleCurrentChange"></page-bar>
+              <page-bar :pageConfig="pageConfig" @handleSizeChange = 'handleSizeChange' @handleCurrentChange="handleCurrentChange"></page-bar>
             </div>
           <!-- 编辑弹出框-->
           <edit-form :option="editOption"></edit-form>
@@ -36,18 +36,17 @@ export default {
   },
   data () {
     return {
+      pageConfig: {
+        pageSizes: [10, 20, 30, 40],
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
+      },
       index: NaN,
-      total: 0,
-      currentPage: 1,
-      pageSize: 10,
       tableLoading: false,
       tableData: [],
       multipleSelection: [],
-      select_cate: '',
       filter: {},
-      del_list: [],
-      is_search: false,
-      editVisible: false,
       editOption: {
         isVisible: false
       },
@@ -59,7 +58,7 @@ export default {
     }
   },
   created () {
-    // this.getData()
+    this.getData()
   },
   watch: {
   },
@@ -68,11 +67,11 @@ export default {
   methods: {
     // 分页导航
     handleCurrentChange (page) {
-      this.currentPage = page
+      this.pageConfig.currentPage = page
       this.getData()
     },
     handleSizeChange (size) {
-      this.pageSize = size
+      this.pageConfig.pageSize = size
       this.getData()
     },
     search (filter) {
@@ -81,7 +80,7 @@ export default {
     },
     getData () {
       this.tableLoading = true
-      // console.log(this.filter, '请求数据的页码=' + this.currentPage, '每页有几条数据=' + this.pageSize)
+      console.log(this.filter, '请求数据的页码=' + this.pageConfig.currentPage, '每页有几条数据=' + this.pageConfig.pageSize)
       this.tableData.splice(0, this.tableData.length)
       for (let i = 1; i < 11; i++) {
         this.tableData.push({ id: i, date: '2019', name: 'luguofei' + i, address: 'dddddd' + i })
@@ -91,7 +90,7 @@ export default {
       // console.log(this.tableData)
       // this.$set(this.pageObj, 'total', 100)
       let rn = Math.random() * 100
-      this.total = parseInt(rn)
+      this.pageConfig.total = parseInt(rn)
       setTimeout(() => {
         this.tableLoading = false
       }, 500)

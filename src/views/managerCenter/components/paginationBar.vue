@@ -7,7 +7,7 @@
     :page-sizes="pageConfig.pageSizes"
     :page-size="pageConfig.pageSize"
     layout="total, sizes, prev, pager, next, jumper"
-    :total="total">
+    :total="pageConfig.total">
   </el-pagination>
 </div>
 </template>
@@ -21,14 +21,15 @@ export default {
         return {
           pageSizes: [10, 20, 30, 40],
           currentPage: 1,
-          pageSize: 10
+          pageSize: 10,
+          total: 0
         }
       }
-    },
-    total: {
-      type: Number,
-      default: 0
     }
+    // total: {
+    //   type: Number,
+    //   default: 0
+    // }
   },
   data () {
     return {

@@ -14,10 +14,16 @@ let constRouter = [
     name: '403',
     component: resolve => require(['@/views/error/403.vue'], resolve)
     // meta: { title: '404错误', requiresAuth: false }
+  },
+  {
+    path: '/portal',
+    name: 'portal',
+    component: resolve => require(['@/views/portal/index.vue'], resolve)
+  },
+  {
+    path: '/portal/detail',
+    name: 'portalDetail',
+    component: resolve => require(['@/views/portal/detail.vue'], resolve)
   }
-  // {
-  //   path: '*',
-  //   redirect: '/404'
-  // }
 ]
 export default constRouter

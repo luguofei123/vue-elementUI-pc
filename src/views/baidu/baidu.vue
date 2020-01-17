@@ -7,8 +7,7 @@
       <span class="inputbox">
         <input v-model="keyword" id="baiduinput" @keyup='keyup($event)' v-on:keyup.enter.prevent="selectEnter($event)"  @keydown.up.prevent="selectUp"  @keydown.down.prevent="selectDown" class="baiduinput" value="" maxlength="255" autocomplete="off">
         <span class="soutu"></span>
-      </span>
-      <input type="submit" class="submit" id="submit" value="百度一下" @click="search(keyword)">
+      </span><input type="button" class="submit" id="submit" value="百度一下" @click="search(keyword)">
       <div v-show="keyarr.length>0">
       <ul class="keytag">
       <li v-for="(word,i) in keyarr" v-bind:key='word' @click="mouseSearch($event)" :class="[index === i ? 'active' : '']">{{word}}</li>
@@ -76,23 +75,25 @@ export default {
   }
 }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only #b6b6b6-->
+<!-- Add "scoped" attribute to limit CSS to this component only #b6b6b6
+两个span标签 inline-block后不能换行，否则会有间隙
+-->
 <style scoped>
 .container{
-height:560px;
+height:100%;
 }
 .logo,.search{
   text-align:center;
 }
 .search{
-  width:635px;
+  width:630px;
   margin:0 auto;
 }
 .inputbox{
   position:relative;
   display:inline-block;
   border:1px solid #b6b6b6;
-  width:539px;
+  width:540px;
   text-align: left;
 }
 .baiduinput{
@@ -114,10 +115,8 @@ height:560px;
   top:8px;
   background:url('../../assets/img/bd_soutu.png');
 }
-.bgbtn{
-  background:#2d78f4;
-}
 .submit{
+  width: 90px;
   height:36px;
   background:#2d78f4;
   border:0;
@@ -141,9 +140,6 @@ height:560px;
   padding:3px 0px 3px 5px;
 }
 .keytag li:hover{
-  background:#dedede;
-}
-.active{
   background:#dedede;
 }
 </style>

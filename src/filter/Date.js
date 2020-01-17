@@ -9,7 +9,7 @@ export const formalDate = (value, fmt) => {
     return '-'
   }
   let date = new Date(value)
-  console.log(date)
+  // console.log(date)
   let o = {
     'M+': date.getMonth() + 1, // 月份
     'd+': date.getDate(), // 日

@@ -43,3 +43,47 @@ export const formalDate = (value, fmt) => {
   }
   return fmt
 }
+/**
+ * 口诀 4年一润，百年不润，400年一润   1900是平年
+ *  判断是否是闰年 1 年份是4的倍数，但不是100的倍数 2 年份数是400的倍数
+ *  输入年份
+ *  返回true，是闰年 false 不是闰年
+ */
+export const isLeapYear = (year) => {
+  if (year / 4 === 0 && year / 100 !== 0) {
+    return true
+  } else if (year / 400 === 0) {
+    return true
+  } else {
+    return false
+  }
+}
+/**
+ *  判断某年某月有多少日
+ *  输入年份，月份
+ *  返回天数
+ */
+export const getDayNumberByYearMonth = (year, month) => {
+  let d
+  switch (month) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+      d = 31
+      break
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+      d = 30
+      break
+    case 2:
+      d = isLeapYear(year) ? 29 : 28
+      break
+  }
+  return d
+}

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+// import '@babel/polyfill'
 import VCharts from 'v-charts'
 import VueJsonp from 'vue-jsonp'
 import App from '@/App.vue'
@@ -14,6 +15,10 @@ import '@/components/index'
 // 引入自定义指令
 import * as directives from '@/directives/index'
 import * as filters from '@/filter/index'
+// 轮播图插件
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+Vue.use(VueAwesomeSwiper)
 // 全局注册指令
 Object.keys(directives).forEach(k => Vue.directive(k, directives[k]))
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
