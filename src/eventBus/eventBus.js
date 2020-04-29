@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-var eventBus = new Vue({
+let eventBus = new Vue({
   data: {
     count: 10
   }

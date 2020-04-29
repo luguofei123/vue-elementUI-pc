@@ -5,6 +5,7 @@
       <portal-catalogue></portal-catalogue>
       <portal-lunbo></portal-lunbo>
       <portal-shoplist></portal-shoplist>
+      <portal-foot></portal-foot>
     </div>
 </template>
 <script>
@@ -13,9 +14,10 @@ import portalSearch from './components/search'
 import portalCatalogue from './components/catalogue'
 import portalLunbo from './components/lunbo'
 import portalShoplist from './components/shopList'
+import portalFoot from './components/foot'
 export default {
   components: {
-    portalHead, portalSearch, portalCatalogue, portalLunbo, portalShoplist
+    portalHead, portalSearch, portalCatalogue, portalLunbo, portalShoplist, portalFoot
   }
 }
 </script>
