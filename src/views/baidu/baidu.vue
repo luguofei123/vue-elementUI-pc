@@ -18,6 +18,7 @@
 </template>
 <script>
 export default {
+  name: 'baidu',
   data () {
     return {
       keyword: '',
@@ -26,6 +27,9 @@ export default {
     }
   },
   components: {
+  },
+  created () {
+    console.log('baidu')
   },
   methods: {
     mouseSearch (ev) {

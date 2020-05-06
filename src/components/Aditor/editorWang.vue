@@ -47,6 +47,10 @@ export default {
     this.editor.customConfig.uploadFileName = 'myFile'
     // 上传图片到服务器
     this.editor.customConfig.uploadImgServer = '/upload'
+    // 上传参数dstPath 参数名称  main-img 参数值
+    this.editor.customConfig.uploadImgParams = {
+      dstPath: 'main-img'
+    }
     // 隐藏“网络图片”tab
     this.editor.customConfig.showLinkImg = false
     // 实时监控文本内容变化

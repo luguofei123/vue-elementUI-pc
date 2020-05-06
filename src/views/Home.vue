@@ -7,7 +7,8 @@
             <v-breadcrumb v-else></v-breadcrumb>
             <div class="content">
                 <transition name="move" mode="out-in">
-                    <keep-alive :include="tagsList">
+                  <!-- include 指的是组件的name名称，而不是路由的name -->
+                    <keep-alive include="baidu">
                         <router-view></router-view>
                     </keep-alive>
                 </transition>
@@ -40,6 +41,7 @@ export default {
     ])
   },
   mounted () {
+    console.log(this.tagsList)
   },
   methods: {
   },

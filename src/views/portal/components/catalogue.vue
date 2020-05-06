@@ -24,7 +24,6 @@
               <li><div><span>基础软件</span><i>></i><span>操作系统</span><span>数据库缓存</span></div></li>
               <li><div><span>基础软件</span><i>></i><span>操作系统</span><span>数据库缓存</span></div></li>
               <li><div><span>基础软件</span><i>></i><span>操作系统</span><span>数据库缓存</span></div></li>
-              <li><div><span>基础软件</span><i>></i><span>操作系统</span><span>数据库缓存</span></div></li>
             </ul>
           </li>
           <li>小程序</li>
@@ -47,7 +46,7 @@ export default {
   .lgf_catalogue>ul>li{float:left;height:50px;width:70px;margin-right: 30px;line-height: 50px;}
   .lgf_catalogue>ul>li:first-child{background: #000;margin-right: 40px;width:240px;position: relative;font-size: 12px;}
   .lgf_catalogue>ul>li:first-child>span{color: white;text-indent: 15px;width:240px;display: inline-block;height: 50px;font-size: 16px;}
-  .lgf_catalogue>ul>li:first-child>ul{z-index: 100;position: absolute;background: #000;color: #fff;width:240px;height:325px;display: block;top:50px;display: none;}
+  .lgf_catalogue>ul>li:first-child>ul{z-index: 100;position: absolute;background: #000;color: #fff;width:240px;height:315px;display: none;top:50px;}
   .lgf_catalogue>ul>li:first-child:hover >ul{display: block;}
   .lgf_catalogue>ul>li:first-child>ul>li>div>span{margin-right: 10px;margin-left: 10px;}
   .lgf_catalogue>ul>li:first-child>ul>li>div>span:first-child{font-size: 14px;}
