@@ -45,10 +45,10 @@ export default {
   .lgf_detail{width:1180px;margin: 0px auto;background: #fff;}
   .lgf_detail>.detail_left{width: 980px;margin-right: 10px;background: #b3d4fc;}
   .lgf_detail>.detail_right{width: 370px;}
-  .lgf_detail>.detail_left>.detail_img{width: 320px;;margin-right: 20px;margin-top: 15px;}
+  .lgf_detail>.detail_left>.detail_img{width: 320px;margin-left: 20px;margin-right: 20px;margin-top: 15px;}
   .lgf_detail>.detail_left>.detail_img>ul{margin-top: 10px;}
   .lgf_detail>.detail_left>.detail_img>ul>li{float: left;margin-right: 15px;}
-  .lgf_detail>.detail_left>.detail_description{width: 640px;}
+  .lgf_detail>.detail_left>.detail_description{width: 620px;}
   .lgf_detail>.detail_left>.detail_description>h3{font-size: 18px;margin-top: 15px;margin-bottom: 15px;}
   .lgf_detail>.detail_left>.detail_description>p{font-size: 14px;color: #666;line-height: 26px;margin-right: 20px;}
   .lgf_detail>.detail_left>.detail_description>.priceBox{height: 65px;line-height: 65px;background: #fff4ed;margin-right: 20px;}
