@@ -42,7 +42,7 @@ export default {
 </script>
 <style scoped>
   .lgf_catalogue{width:1180px;margin: 0 auto;background: #fff;z-index: 100;}
-  .lgf_catalogue>ul{width: 100%;}
+  .lgf_catalogue>ul{width: 980px;border-bottom: 1px solid #0086b3;}
   .lgf_catalogue>ul>li{float:left;height:50px;width:70px;margin-right: 30px;line-height: 50px;}
   .lgf_catalogue>ul>li:first-child{background: #000;margin-right: 40px;width:240px;position: relative;font-size: 12px;}
   .lgf_catalogue>ul>li:first-child>span{color: white;text-indent: 15px;width:240px;display: inline-block;height: 50px;font-size: 16px;}
