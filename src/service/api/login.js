@@ -17,7 +17,7 @@ const loginPage = {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     })
   },
-  // 单个的请求 修改请求头部信息
+  // 另一种写法
   login2 (params) {
     const query = qs.stringify(params)
     return axios({
