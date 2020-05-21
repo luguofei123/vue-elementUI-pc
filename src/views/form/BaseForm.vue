@@ -2,10 +2,25 @@
     <div>
         <div class="container">
             <div class="form-box">
-                <el-form ref="form" :model="form" label-width="80px" :rules="rules">
-                    <el-form-item label="表单名称">
-                        <el-input v-model="form.name"></el-input>
-                    </el-form-item>
+                <el-form ref="form" :model="form" label-width="120px" :rules="rules">
+                  <el-form-item label="动态表格表单" prop="tableData">
+                    <el-table :data="form.tableData"  border  ref="table" size="mini">
+                      <el-table-column prop="name" label="姓名" >
+                        <template slot-scope="scope">
+                          <el-form-item :prop="'tableData.'+scope.$index+'.name'" :rules="rules.name">
+                            <el-input v-model="scope.row.name"></el-input>
+                          </el-form-item>
+                        </template>
+                      </el-table-column>
+                      <el-table-column prop="sex" label="性别" >
+                        <template slot-scope="scope">
+                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
+                            <el-input v-model="scope.row.sex"></el-input>
+                          </el-form-item>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-form-item>
                     <el-form-item label="选择器">
                         <el-select v-model="form.region" placeholder="请选择">
                             <el-option key="bbk" label="步步高" value="bbk"></el-option>
@@ -60,6 +75,16 @@
 export default {
   name: 'baseform',
   data () {
+    const validateAcquaintance = (rule, value, callback) => {
+      console.log(rule)
+      // console.log(value)
+      // value 为table数据，可以在这里判断是否重复等校验全部通过则ok
+      if (!value) {
+        callback(new Error('必须输入熟悉程度'))
+      } else {
+        callback()
+      }
+    }
     return {
       options: [
         {
@@ -114,6 +139,7 @@ export default {
         }
       ],
       form: {
+        tableData: [{ name: '22' }],
         name: '',
         region: '',
         date1: '',
@@ -125,9 +151,17 @@ export default {
         options: []
       },
       rules: {
+        tableData: [
+          { type: 'array', required: true, message: '请至少选择一条数据', trigger: 'change' },
+          { type: 'array', required: true, validator: validateAcquaintance, trigger: 'blur' }
+        ],
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
           { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        sex: [
+          { required: true, message: '请输入sex名称', trigger: 'blur' },
+          { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
         ],
         region: [
           { required: true, message: '请选择活动区域', trigger: 'change' }
@@ -154,6 +188,7 @@ export default {
     onSubmit (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          console.log(this.form)
           alert('submit!')
         } else {
           console.log('error submit!!')

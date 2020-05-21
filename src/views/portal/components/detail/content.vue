@@ -18,22 +18,59 @@
           <div class="pram_description">
             <dl class="clear_fix methodPay">
               <dt>交付方式</dt>
-              <dd>交付方式1</dd>
+              <dd><span>交付方式1</span></dd>
             </dl>
             <dl class="clear_fix size">
               <dt>规格</dt>
-              <dd>规格1</dd>
-              <dd>规格2</dd>
+              <dd>
+                <span>规格1</span>
+                <span>规格2</span>
+                <span>规格3</span>
+                <span>规格1</span>
+                <span>规格2</span>
+                <span>规格3</span>
+                <span>规格1</span>
+                <span>规格2</span>
+                <span>规格3</span>
+                <span>规格1</span>
+                <span>规格2</span>
+                <span>规格3</span>
+                <span>规格1</span>
+                <span>规格2</span>
+                <span>规格3</span>
+                <span>规格1</span>
+                <span>规格2</span>
+                <span>规格3</span>
+              </dd>
             </dl>
             <dl class="clear_fix billingType">
               <dt>计费方式</dt>
-              <dd>计费方式1</dd>
-              <dd>计费方式2</dd>
+              <dd>
+                <span>计费方式1</span>
+                <span>计费方式12</span>
+                <span>计费方式13</span>
+              </dd>
+            </dl>
+            <dl class="clear_fix">
+              <dt></dt>
+              <dd>
+                <button>立即购买</button>
+              </dd>
+            </dl>
+            <dl class="clear_fix agree">
+              <dt></dt>
+              <dd>
+                <input type="checkbox" id="agree">
+                <label for="agree"></label>
+                <span>同意云市场商品服务协议与建行云市场用户协议</span>
+              </dd>
             </dl>
           </div>
         </div>
       </div>
-      <div class="detail_right left"></div>
+      <div class="detail_right left">
+        jjjj
+      </div>
     </div>
 </template>
 <script>
@@ -43,24 +80,50 @@ export default {
 <style scoped>
   .left{float: left;}
   .lgf_detail{width:1180px;margin: 0px auto;background: #fff;}
-  .lgf_detail>.detail_left{width: 980px;margin-right: 10px;background: #b3d4fc;}
-  .lgf_detail>.detail_right{width: 370px;}
+  .lgf_detail>.detail_left{width: 935px;margin-right: 10px;background: #b3d4fc;}
+  .lgf_detail>.detail_right{width: 235px;}
   .lgf_detail>.detail_left>.detail_img{width: 320px;margin-left: 20px;margin-right: 20px;margin-top: 15px;}
   .lgf_detail>.detail_left>.detail_img>ul{margin-top: 10px;}
   .lgf_detail>.detail_left>.detail_img>ul>li{float: left;margin-right: 15px;}
-  .lgf_detail>.detail_left>.detail_description{width: 620px;}
+  .lgf_detail>.detail_left>.detail_description{width: 575px;}
   .lgf_detail>.detail_left>.detail_description>h3{font-size: 18px;margin-top: 15px;margin-bottom: 15px;}
   .lgf_detail>.detail_left>.detail_description>p{font-size: 14px;color: #666;line-height: 26px;margin-right: 20px;}
   .lgf_detail>.detail_left>.detail_description>.priceBox{height: 65px;line-height: 65px;background: #fff4ed;margin-right: 20px;margin-top: 20px;}
   .lgf_detail>.detail_left>.detail_description>.priceBox>.priceText{font-size: 12px;margin: 0 30px 0 15px;}
   .lgf_detail>.detail_left>.detail_description>.priceBox>.price{font-size: 22px;color: #f4402e;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description{margin-top: 20px;margin-bottom: 20px;font-size: 12px;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description>dl{margin-bottom: 15px;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dt{float: left;padding:8px 0px;width:70px;margin-right: 40px;text-align: right;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd{float: left;padding:8px 30px;margin-right: 20px;text-align: center;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.methodPay>dd{text-align: left;padding:8px 0px;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.size>dd{border: 2px solid #0086b3;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.billingType>dd{border: 2px solid #0086b3;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.size>dd:hover{border: 2px solid yellow;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.billingType>dd:hover{border: 2px solid yellow;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description{margin-top: 20px;margin-bottom: 20px;font-size: 12px;padding:0px 10px}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl{height:36px;line-height: 36px;margin-bottom: 15px;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dt{float: left;width: 80px;height:36px;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd{float: left;width: 450px;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.size>dd>span{display:inline-block;border: 2px solid #0086b3;line-height: 32px;padding:0px 20px;margin-right: 10px;margin-bottom: 10px;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.size>dd>span:hover{border: 2px solid yellow;cursor: pointer;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.billingType>dd>span{display:inline-block;border: 2px solid #0086b3;line-height: 32px;padding:0px 20px;margin-right: 10px;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.billingType>dd>span:hover{border: 2px solid yellow;cursor: pointer;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd>button{padding: 8px 40px;background-color: #2f88ff;color: #fff;border: none;margin-top: 15px;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd>button:hover{cursor: pointer;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.agree>dd>span{display: inline-block;vertical-align: middle}
+  input + label{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: #fff url(../../../../assets/img/m_checked01.png) center no-repeat;
+    /*background-position: -31px 0px;*/
+    border: 1px solid #d6d7dc;
+    vertical-align: middle;
+  }
+  input:checked +label{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: #fff url(../../../../assets/img/m_checked02.png) center no-repeat;
+    border: 1px solid #d6d7dc;
+    vertical-align: middle;
+  }
+  input[type="checkbox"]{
+    position:absolute;
+    width:40px;
+    height:40px;
+    visibility: hidden;
+    background: #fff;
+  }
 </style>
