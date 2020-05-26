@@ -5,6 +5,17 @@
                 <el-form ref="form" :model="form" label-width="120px" :rules="rules">
                   <el-form-item label="动态表格表单" prop="tableData">
                     <el-table :data="form.tableData"  border  ref="table" size="mini">
+                      <el-table-column prop="dataType" label="类型" >
+                        <template slot-scope="scope">
+                          <el-form-item :prop="'tableData.'+scope.$index+'.dataType'" :rules="rules.dataType">
+                            <el-select v-model="scope.row.dataType" placeholder="请选择">
+                              <el-option key="1" label="整数" value="int"></el-option>
+                              <el-option key="2" label="中文" value="cn"></el-option>
+                              <el-option key="3" label="英文" value="en"></el-option>
+                            </el-select>
+                          </el-form-item>
+                        </template>
+                      </el-table-column>
                       <el-table-column prop="name" label="姓名" >
                         <template slot-scope="scope">
                           <el-form-item :prop="'tableData.'+scope.$index+'.name'" :rules="rules.name">
@@ -77,7 +88,7 @@ export default {
   data () {
     const validateAcquaintance = (rule, value, callback) => {
       console.log(rule)
-      // console.log(value)
+      console.log(value)
       // value 为table数据，可以在这里判断是否重复等校验全部通过则ok
       if (!value) {
         callback(new Error('必须输入熟悉程度'))
@@ -139,7 +150,7 @@ export default {
         }
       ],
       form: {
-        tableData: [{ name: '22' }],
+        tableData: [{ name: '' }],
         name: '',
         region: '',
         date1: '',
@@ -154,6 +165,9 @@ export default {
         tableData: [
           { type: 'array', required: true, message: '请至少选择一条数据', trigger: 'change' },
           { type: 'array', required: true, validator: validateAcquaintance, trigger: 'blur' }
+        ],
+        dataType: [
+          { required: true, message: '请选择数据类型', trigger: 'change' }
         ],
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
