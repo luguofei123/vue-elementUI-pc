@@ -96,6 +96,17 @@ export default {
         callback()
       }
     }
+    const validateNameType = (rule, value, callback) => {
+      let index = rule.field.split('.')[1]
+      console.log(index)
+      console.log(value)
+      console.log(this.form.tableData[index].dataType)
+      if (!value) {
+        callback(new Error('必须输入对应的数据'))
+      } else {
+        callback()
+      }
+    }
     return {
       options: [
         {
@@ -171,7 +182,8 @@ export default {
         ],
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+          { validator: validateNameType, trigger: 'blur' }
         ],
         sex: [
           { required: true, message: '请输入sex名称', trigger: 'blur' },
