@@ -8,7 +8,7 @@
                       <el-table-column prop="dataType" label="类型" >
                         <template slot-scope="scope">
                           <el-form-item :prop="'tableData.'+scope.$index+'.dataType'" :rules="rules.dataType">
-                            <el-select v-model="scope.row.dataType" placeholder="请选择">
+                            <el-select v-model="scope.row.dataType" placeholder="请选择" @change="zhudong($event,scope.$index)">
                               <el-option key="1" label="整数" value="int"></el-option>
                               <el-option key="2" label="中文" value="cn"></el-option>
                               <el-option key="3" label="英文" value="en"></el-option>
@@ -98,9 +98,22 @@ export default {
     }
     const validateNameType = (rule, value, callback) => {
       let index = rule.field.split('.')[1]
-      console.log(index)
-      console.log(value)
-      console.log(this.form.tableData[index].dataType)
+      // console.log(index)
+      // console.log(value)
+      // console.log(this.form.tableData[index].dataType)
+      switch (this.form.tableData[index].dataType) {
+        case 'int':
+          console.log('check int')
+          break
+        case 'en':
+          console.log('check en')
+          break
+        case 'cn':
+          console.log('check cn')
+          break
+        default:
+          break
+      }
       if (!value) {
         callback(new Error('必须输入对应的数据'))
       } else {
@@ -182,12 +195,12 @@ export default {
         ],
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+          // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
           { validator: validateNameType, trigger: 'blur' }
         ],
         sex: [
-          { required: true, message: '请输入sex名称', trigger: 'blur' },
-          { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
+          { required: true, message: '请输入sex名称', trigger: 'blur' }
+          // { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
         ],
         region: [
           { required: true, message: '请选择活动区域', trigger: 'change' }
@@ -221,6 +234,11 @@ export default {
           return false
         }
       })
+    },
+    zhudong (v, s) {
+      // console.log(this)
+      // console.log(s)
+      this.$refs.form.validateField('tableData.' + s + '.name')
     }
   }
 }
