@@ -78,7 +78,7 @@ export default {
 <style lang="scss" scoped>
 .themeBox{
   width:150px;
-  height:300px;
+  height:400px;
   position:fixed;
   box-shadow:inset -2px -2px 8px #065EAF;
   border:1px solid #dedede;

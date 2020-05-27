@@ -76,11 +76,16 @@ export default {
       default: function () {
         return []
       }
+    },
+    columns: {
+      type: Array,
+      default: function () {
+        return []
+      }
     }
   },
   data () {
     return {
-      columns: []
     }
   },
   filters: {
@@ -92,19 +97,19 @@ export default {
     }
   },
   created () {
-    console.log(this.$options.filters.filterAdd1.name)
-    setTimeout(() => {
-      // let formatterAddress = eval('formatterAddress')
-      this.columns = [
-        { prop: 'date', label: '日期', width: '150', sortable: false, filters: this.$options.filters.filterAdd1.name },
-        { prop: 'name', label: '姓名', width: '150', sortable: true },
-        { prop: 'address', label: '地址', width: '250', sortable: true },
-        { prop: 'nation1', label: '民族1', width: '250', sortable: true },
-        { prop: 'nation2', label: '民族2', width: '150', sortable: true },
-        { prop: 'nation3', label: '民族3', width: '150', sortable: true },
-        { prop: 'nation4', label: '民族4', width: '150', sortable: true }
-      ]
-    }, 1000)
+    // console.log(this.$options.filters.filterAdd1.name)
+    // setTimeout(() => {
+    // let formatterAddress = eval('formatterAddress')
+    //   this.columns = [
+    //     { prop: 'date', label: '日期', width: '150', sortable: false, filters: this.$options.filters.filterAdd1.name },
+    //     { prop: 'name', label: '姓名', width: '150', sortable: true },
+    //     { prop: 'address', label: '地址', width: '250', sortable: true },
+    //     { prop: 'nation1', label: '民族1', width: '250', sortable: true },
+    //     { prop: 'nation2', label: '民族2', width: '150', sortable: true },
+    //     { prop: 'nation3', label: '民族3', width: '150', sortable: true },
+    //     { prop: 'nation4', label: '民族4', width: '150', sortable: true }
+    //   ]
+    // }, 0)
   },
   methods: {
     handleEdit (index, row) {

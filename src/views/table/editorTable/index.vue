@@ -12,7 +12,7 @@
           </div>
           <!--检索结果-->
             <div class="result-box">
-              <result-bar :index.sync="index" indexType="#" :multipleSelection="multipleSelection" @getData="getData"  :data = "tableData" @handleEdit="handleEdit" @handleDelete="handleDelete" :loading="tableLoading"></result-bar>
+              <result-bar :columns="columns" :index.sync="index" indexType="#" :multipleSelection="multipleSelection" @getData="getData"  :data = "tableData" @handleEdit="handleEdit" @handleDelete="handleDelete" :loading="tableLoading"></result-bar>
             </div>
           <!--结果分页-->
             <div class="pagination-box">
@@ -55,10 +55,23 @@ export default {
         isVisible: false,
         title: '警告',
         message: '确定要删除吗？'
-      }
+      },
+      columns: []
     }
   },
   created () {
+    setTimeout(() => {
+      // let formatterAddress = eval('formatterAddress')
+      this.columns = [
+        { prop: 'date', label: '日期', width: '150', sortable: false },
+        { prop: 'name', label: '姓名', width: '150', sortable: true },
+        { prop: 'address', label: '地址', width: '250', sortable: true },
+        { prop: 'nation1', label: '民族1', width: '250', sortable: true },
+        { prop: 'nation2', label: '民族2', width: '150', sortable: true },
+        { prop: 'nation3', label: '民族3', width: '150', sortable: true },
+        { prop: 'nation4', label: '民族4', width: '150', sortable: true }
+      ]
+    }, 0)
     // this.getData()
   },
   watch: {
@@ -86,13 +99,14 @@ export default {
       // for (let i = 1; i < 11; i++) {
       //   this.tableData.push({ id: i, date: '201' + i, name: 'luguofei' + i, address: 'dddddd' + i })
       // }
-      let data = {
-        name: 'luguofei'
-      }
-      this.$MyAxios.tablePage.getData(data)
-        .then(r => {
-          this.tableData = r
-        })
+      // let data = {
+      //   name: 'luguofei'
+      // }
+      this.tableData = []
+      // this.$MyAxios.tablePage.getData(data)
+      //   .then(r => {
+      //     this.tableData = r
+      //   })
       // this.tableData.push({ id: 1, date: '2016', name: 'luguofei', address: 'dddddd' })
       // delete this.pageObj['total']
       // console.log(this.tableData)
