@@ -23,24 +23,7 @@
             <dl class="clear_fix size">
               <dt>规格</dt>
               <dd>
-                <span>规格1</span>
-                <span>规格2</span>
-                <span>规格3</span>
-                <span>规格1</span>
-                <span>规格2</span>
-                <span>规格3</span>
-                <span>规格1</span>
-                <span>规格2</span>
-                <span>规格3</span>
-                <span>规格1</span>
-                <span>规格2</span>
-                <span>规格3</span>
-                <span>规格1</span>
-                <span>规格2</span>
-                <span>规格3</span>
-                <span>规格1</span>
-                <span>规格2</span>
-                <span>规格3</span>
+                <span :class="SizeActiveIndex === index?'active':''" v-for="(item, index) in size" :key="index" @click="getSiseValue(item.value,index)">{{item.name}}</span>
               </dd>
             </dl>
             <dl class="clear_fix billingType">
@@ -75,6 +58,19 @@
 </template>
 <script>
 export default {
+  data () {
+    return {
+      SizeActiveIndex: '',
+      size: [{ name: '规格1', value: 1 }, { name: '规格2', value: 2 }],
+      billingType: []
+    }
+  },
+  methods: {
+    getSiseValue (value, index) {
+      this.SizeActiveIndex = index
+      console.log(value)
+    }
+  }
 }
 </script>
 <style scoped>
@@ -97,9 +93,10 @@ export default {
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd{float: left;width: 450px;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl.size>dd>span{display:inline-block;border: 2px solid #0086b3;line-height: 32px;padding:0px 20px;margin-right: 10px;margin-bottom: 10px;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl.size>dd>span:hover{border: 2px solid yellow;cursor: pointer;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.size>dd>span.active{border: 2px solid yellow;cursor: pointer;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl.billingType>dd>span{display:inline-block;border: 2px solid #0086b3;line-height: 32px;padding:0px 20px;margin-right: 10px;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl.billingType>dd>span:hover{border: 2px solid yellow;cursor: pointer;}
-  .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd>button{padding: 8px 40px;background-color: #2f88ff;color: #fff;border: none;margin-top: 25px;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd>button{padding: 8px 40px;background-color: #2f88ff;color: #fff;border: none;margin-top: 15px;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd>button:hover{cursor: pointer;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl.agree>dd>span{display: inline-block;vertical-align: middle}
   input + label{
