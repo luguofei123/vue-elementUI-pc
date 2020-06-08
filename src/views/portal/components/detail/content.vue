@@ -56,7 +56,58 @@
         </div>
       </div>
       <div class="detail_right left">
-        jjjj
+        <div class="companyInfo">
+          <p id="companyName">北京深圳上海广州有限公司</p>
+          <ul>
+            <li><div>010-09090909</div></li>
+            <li><div>luguofei@126.com</div></li>
+            <li>
+              <div>
+                <p>卖家服务时间</p>
+                <p>08:00:00-18:00:00</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="companyInfo">
+          <p id="companyName">北京深圳上海广州有限公司</p>
+          <ul>
+            <li><div>010-09090909</div></li>
+            <li><div>luguofei@126.com</div></li>
+            <li>
+              <div>
+                <p>卖家服务时间</p>
+                <p>08:00:00-18:00:00</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="companyInfo">
+          <p id="companyName">北京深圳上海广州有限公司</p>
+          <ul>
+            <li><div>010-09090909</div></li>
+            <li><div>luguofei@126.com</div></li>
+            <li>
+              <div>
+                <p>卖家服务时间</p>
+                <p>08:00:00-18:00:00</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="companyInfo">
+          <p id="companyName">北京深圳上海广州有限公司</p>
+          <ul>
+            <li><div>010-09090909</div></li>
+            <li><div>luguofei@126.com</div></li>
+            <li>
+              <div>
+                <p>卖家服务时间</p>
+                <p>08:00:00-18:00:00</p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 </template>
@@ -156,4 +207,13 @@ export default {
     visibility: hidden;
     background: #fff;
   }
+  .lgf_detail>.detail_right{font-size: 12px;}
+  .lgf_detail>.detail_right>.companyInfo{background: #b3d4fc;padding:10px 15px;height: 210px;margin-bottom: 10px;}
+  .lgf_detail>.detail_right>.companyInfo>p{font-size: 14px;margin-top:10px;margin-bottom: 20px;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li>div{padding-left: 30px;height: 40px;line-height: 40px;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:first-child>div{background: url(../../../../assets/img/portal/tel.png) left no-repeat}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(2)>div{background: url(../../../../assets/img/portal/email.png) left no-repeat}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3){border-top:1px solid yellow;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>div{background: url(../../../../assets/img/portal/time.png) left no-repeat}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>div>p:nth-child(2){font-size: 20px;color: red;line-height: 20px;}
 </style>
