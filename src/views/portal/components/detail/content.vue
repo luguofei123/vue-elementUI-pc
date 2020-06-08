@@ -59,14 +59,9 @@
         <div class="companyInfo">
           <p id="companyName">北京深圳上海广州有限公司</p>
           <ul>
-            <li><div>010-09090909</div></li>
-            <li><div>luguofei@126.com</div></li>
-            <li>
-              <div>
-                <p>卖家服务时间</p>
-                <p>08:00:00-18:00:00</p>
-              </div>
-            </li>
+            <li><span></span><span>010-09090909</span></li>
+            <li><span></span><span>luguofei@126.com</span></li>
+            <li><span></span><span>卖家服务时间</span><span>08:00:00-18:00:00</span></li>
           </ul>
         </div>
         <div class="companyInfo">
@@ -216,4 +211,12 @@ export default {
   .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3){border-top:1px solid yellow;}
   .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>div{background: url(../../../../assets/img/portal/time.png) left no-repeat}
   .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>div>p:nth-child(2){font-size: 20px;color: red;line-height: 20px;}
+
+  .lgf_detail>.detail_right>.companyInfo>ul>li:first-child>span:first-child{height: 40px;line-height: 40px;display: inline-block;width: 20px;background: url(../../../../assets/img/portal/tel.png) left no-repeat;vertical-align: bottom;margin-right: 10px;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(2)>span:first-child{height: 40px;line-height: 40px;display: inline-block;width: 20px;background: url(../../../../assets/img/portal/email.png) left no-repeat;vertical-align: bottom;margin-right: 10px;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>span:first-child{height: 40px;line-height: 40px;display: inline-block;width: 20px;background: url(../../../../assets/img/portal/time.png) left no-repeat;vertical-align: bottom;margin-right: 10px;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:first-child>span:nth-child(2){height: 40px;line-height: 40px;display: inline-block;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(2)>span:nth-child(2){height: 40px;line-height: 40px;display: inline-block;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>span:nth-child(2){height: 40px;line-height: 40px;display: inline-block;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>span:nth-child(3){height: 20px;line-height: 20px;display: block;font-size: 20px;color: red;margin-left: 30px;}
 </style>
