@@ -13,7 +13,7 @@
           <h3>中央经济工作会议精神在各地干部</h3>
           <p>刚刚闭幕的中央经济工作会议，认真总结今年经济工作，深入分析当前经济形势，全面部署明年经济工作，各地干部群众表示，要更加紧密地团结在以习近平同志为核心的党中央周围，认真贯彻落实中央经济工作会议精神</p>
           <div class="priceBox">
-            <span class="priceText">价格</span><span class="price">¥ 89</span>
+            <span class="priceText">价格</span><span class="price">¥ {{productprice}}</span>
           </div>
           <div class="pram_description">
             <dl class="clear_fix methodPay">
@@ -23,15 +23,19 @@
             <dl class="clear_fix size">
               <dt>规格</dt>
               <dd>
-                <span :class="SizeActiveIndex === index?'active':''" v-for="(item, index) in size" :key="index" @click="getSiseValue(item.value,index)">{{item.name}}</span>
+                <span :class="SizeActiveIndex === index?'active':''" v-for="(item, index) in sizeList" :key="index" @click="getSiseValue(item.value,index)">{{item.name}}</span>
               </dd>
             </dl>
             <dl class="clear_fix billingType">
               <dt>计费方式</dt>
               <dd>
-                <span>计费方式1</span>
-                <span>计费方式12</span>
-                <span>计费方式13</span>
+                <span :class="BillingTypeActiveIndex === index?'active':''" v-for="(item, index) in billingTypeList" :key="index" @click="getBillingTypeValue(item.value,index)">{{item.name}}</span>
+              </dd>
+            </dl>
+            <dl class="clear_fix priod" v-if="billingType === 2">
+              <dt>周期</dt>
+              <dd>
+                <span :class="PriodActiveIndex === index?'active':''" v-for="(item, index) in priodList" :key="index" @click="getPriodValue(item.value,index)">{{item.name}}</span>
               </dd>
             </dl>
             <dl class="clear_fix">
@@ -60,15 +64,40 @@
 export default {
   data () {
     return {
-      SizeActiveIndex: '',
-      size: [{ name: '规格1', value: 1 }, { name: '规格2', value: 2 }],
-      billingType: []
+      SizeActiveIndex: 0,
+      BillingTypeActiveIndex: 0,
+      PriodActiveIndex: 0,
+      sizeList: [{ name: '规格1', value: 1 }, { name: '规格2', value: 2 }],
+      billingTypeList: [{ name: '一次性费用', value: 1 }, { name: '包年包月', value: 2 }],
+      priodList: [{ name: '1年', value: 1 }, { name: '1月', value: 2 }],
+      // 4个变量决定价格
+      productprice: 0,
+      productId: '',
+      size: '909',
+      billingType: '',
+      priod: ''
     }
   },
   methods: {
     getSiseValue (value, index) {
       this.SizeActiveIndex = index
+      this.size = Math.random(100)
       console.log(value)
+      this.getProductPrice()
+    },
+    getBillingTypeValue (value, index) {
+      this.BillingTypeActiveIndex = index
+      this.billingType = value
+      this.getProductPrice()
+    },
+    getPriodValue (value, index) {
+      this.PriodActiveIndex = index
+      this.getProductPrice()
+    },
+    getProductPrice () {
+      setTimeout(() => {
+        this.productprice = Math.random() * 10000
+      }, 200)
     }
   }
 }
@@ -96,6 +125,10 @@ export default {
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl.size>dd>span.active{border: 2px solid yellow;cursor: pointer;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl.billingType>dd>span{display:inline-block;border: 2px solid #0086b3;line-height: 32px;padding:0px 20px;margin-right: 10px;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl.billingType>dd>span:hover{border: 2px solid yellow;cursor: pointer;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.billingType>dd>span.active{border: 2px solid yellow;cursor: pointer;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.priod>dd>span{display:inline-block;border: 2px solid #0086b3;line-height: 32px;padding:0px 20px;margin-right: 10px;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.priod>dd>span:hover{border: 2px solid yellow;cursor: pointer;}
+  .lgf_detail>.detail_left>.detail_description>.pram_description>dl.priod>dd>span.active{border: 2px solid yellow;cursor: pointer;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd>button{padding: 8px 40px;background-color: #2f88ff;color: #fff;border: none;margin-top: 15px;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl>dd>button:hover{cursor: pointer;}
   .lgf_detail>.detail_left>.detail_description>.pram_description>dl.agree>dd>span{display: inline-block;vertical-align: middle}
