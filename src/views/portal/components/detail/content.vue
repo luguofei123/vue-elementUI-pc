@@ -54,7 +54,7 @@
             </dl>
           </div>
         </div>
-        <div class="clear_fix"></div>
+        <div style="clean:both;margin:10px auto;width:900px;height:1px;border-top:1px solid #dedede;"></div>
         <div style="background:red;">
           <img src="../../../../assets/img/portal/tel.png" alt="" style="vertical-align:baseline">
           <span>xjy</span> 外面xyj
