@@ -54,9 +54,14 @@
             </dl>
           </div>
         </div>
+        <div class="clear_fix"></div>
+        <div style="background:red;">
+          <img src="../../../../assets/img/portal/tel.png" alt="" style="vertical-align:baseline">
+          <span>xjy</span> 外面xyj
+        </div>
       </div>
       <div class="detail_right left">
-        <div class="companyInfo">
+        <div class="companyInfo span">
           <p id="companyName">北京深圳上海广州有限公司</p>
           <ul>
             <li><span></span><span>010-09090909</span></li>
@@ -212,11 +217,10 @@ export default {
   .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>div{background: url(../../../../assets/img/portal/time.png) left no-repeat}
   .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>div>p:nth-child(2){font-size: 20px;color: red;line-height: 20px;}
 
-  .lgf_detail>.detail_right>.companyInfo>ul>li:first-child>span:first-child{height: 40px;line-height: 40px;display: inline-block;width: 20px;background: url(../../../../assets/img/portal/tel.png) left no-repeat;vertical-align: bottom;margin-right: 10px;}
-  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(2)>span:first-child{height: 40px;line-height: 40px;display: inline-block;width: 20px;background: url(../../../../assets/img/portal/email.png) left no-repeat;vertical-align: bottom;margin-right: 10px;}
-  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>span:first-child{height: 40px;line-height: 40px;display: inline-block;width: 20px;background: url(../../../../assets/img/portal/time.png) left no-repeat;vertical-align: bottom;margin-right: 10px;}
-  .lgf_detail>.detail_right>.companyInfo>ul>li:first-child>span:nth-child(2){height: 40px;line-height: 40px;display: inline-block;}
-  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(2)>span:nth-child(2){height: 40px;line-height: 40px;display: inline-block;}
-  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>span:nth-child(2){height: 40px;line-height: 40px;display: inline-block;}
-  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>span:nth-child(3){height: 20px;line-height: 20px;display: block;font-size: 20px;color: red;margin-left: 30px;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:first-child>span:first-child{height: 20px;display: inline-block;width: 20px;background: url(../../../../assets/img/portal/tel.png) left no-repeat;vertical-align: middle;margin-right: 10px;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(2)>span:first-child{height: 20px;display: inline-block;width: 20px;background: url(../../../../assets/img/portal/email.png) left no-repeat;vertical-align: middle;margin-right: 10px;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>span:first-child{height: 20px;display: inline-block;width: 20px;background: url(../../../../assets/img/portal/time.png) left no-repeat;vertical-align: middle;margin-right: 10px;}
+  .lgf_detail>.detail_right>.companyInfo>ul>li:nth-child(3)>span:nth-child(3){height: 20px;display: block;font-size: 20px;color: red;margin-left: 30px;}
+  .lgf_detail>.detail_right>.span>ul>li{margin-bottom: 20px;}
+  .lgf_detail>.detail_right>.span>ul>li:nth-child(3){padding-top: 20px;}
 </style>
