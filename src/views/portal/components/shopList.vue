@@ -5,19 +5,19 @@
           <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境多版本PHP全能运行环境多版本PHP全能运行环境多版本PHP全能运行环境多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
-          <li><a href="/portal/detail">立即体验</a></li>
+          <li><a @click="skipPortal">立即体验</a></li>
         </ul>
         <ul>
           <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
-          <li><a href="/portal/detail">立即体验</a></li>
+          <li><a href="portal/detail">立即体验</a></li>
         </ul>
         <ul>
           <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
-          <li><a href="/portal/detail">立即体验</a></li>
+          <li><a href="portal/detail">立即体验</a></li>
         </ul>
         <ul>
           <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
@@ -54,6 +54,15 @@
 </template>
 <script>
 export default {
+  data () {
+    return {}
+  },
+  methods: {
+    skipPortal () {
+      // href="portal/detail"
+      this.$router.push('/portal/detail')
+    }
+  }
 }
 </script>
 <style scoped>
