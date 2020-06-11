@@ -55,9 +55,33 @@
           </div>
         </div>
         <div style="clear:both;margin:10px auto;width:900px;height:1px;border-top:1px solid #dedede;"></div>
-        <div style="background:red;">
-          <img src="../../../../assets/img/portal/tel.png" alt="" style="vertical-align:baseline">
-          <span>xl</span>x
+        <ul class="clear_fix">
+          <li>优质服务商家</li>
+          <li>优质服务商家</li>
+          <li>优质服务商家</li>
+        </ul>
+        <div style="height:40px;"></div>
+        <div style="height:20px;background:#dedede;"></div>
+        <div class="detail_label" ref="detailLabel" :class="DetailLabelFixed === true?'fixed':''">
+          <ul class="clear_fix">
+            <li>商品详情</li>
+            <li>使用指南</li>
+            <li>操作手册</li>
+          </ul>
+        </div>
+        <div class="detail_label_detail">
+          <div>
+            <p>商品详情</p>
+            <div style="height:100px;">商品详情内容</div>
+          </div>
+          <div>
+            <p>使用指南</p>
+            <div style="height:100px;">商品详情内容</div>
+          </div>
+          <div>
+            <p>操作手册</p>
+            <div style="height:100px;">商品详情内容</div>
+          </div>
         </div>
       </div>
       <div class="detail_right left">
@@ -126,10 +150,28 @@ export default {
       productId: '',
       size: '909',
       billingType: '',
-      priod: ''
+      priod: '',
+      DetailLabelFixed: false
     }
   },
+  mounted () {
+    console.log(2)
+    // this.handleScroll()
+  },
   methods: {
+    handleScroll () {
+      this.box = this.$parent.$refs.detail
+      this.box.addEventListener('scroll', () => {
+        console.log(this.box.scrollTop)
+        if (this.$refs.detailLabel.getBoundingClientRect().top < 30) {
+          this.DetailLabelFixed = true
+          console.log('小于30')
+        } else {
+          this.DetailLabelFixed = false
+          console.log('大于30')
+        }
+      }, false)
+    },
     getSiseValue (value, index) {
       this.SizeActiveIndex = index
       this.size = Math.random(100)
@@ -207,6 +249,14 @@ export default {
     visibility: hidden;
     background: #fff;
   }
+  .lgf_detail>.detail_left>ul{padding-left: 30px;}
+  .lgf_detail>.detail_left>ul>li{background: url(../../../../assets/img/portal/pinzhi.png) left no-repeat;float: left;margin-right: 20px;height: 34px;padding-left: 40px;font-size: 24px;color: #f4402e;line-height: 34px;}
+  .lgf_detail>.detail_left>.detail_label{margin-top: 30px;padding: 10px 20px;}
+  .lgf_detail>.detail_left>.fixed{position: fixed;top:-30px;background: gainsboro;z-index: 9999;width: 935px;}
+  .lgf_detail>.detail_left>.detail_label>ul{border-bottom: 1px solid palevioletred;}
+  .lgf_detail>.detail_left>.detail_label>ul>li{height: 40px;line-height: 40px;float: left;padding: 0 10px;margin-right: 10px;}
+  .lgf_detail>.detail_left>.detail_label>ul>li:hover{cursor: pointer;color: red;}
+  .lgf_detail>.detail_left>.detail_label_detail{margin: 0px 0px;padding: 10px 20px;}
   .lgf_detail>.detail_right{font-size: 12px;}
   .lgf_detail>.detail_right>.companyInfo{background: #b3d4fc;padding:10px 15px;height: 210px;margin-bottom: 10px;}
   .lgf_detail>.detail_right>.companyInfo>p{font-size: 14px;margin-top:10px;margin-bottom: 20px;}

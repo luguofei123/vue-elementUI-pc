@@ -1,9 +1,9 @@
 <template>
-  <div class="detail">
+  <div class="detail" ref="detail">
     <portal-head></portal-head>
     <portal-search></portal-search>
     <portal-catalogue></portal-catalogue>
-    <detail-content></detail-content>
+    <detail-content ref="detailContent"></detail-content>
     <portal-foot></portal-foot>
   </div>
 </template>
@@ -16,6 +16,19 @@ import portalFoot from './components/foot'
 export default {
   components: {
     portalHead, portalSearch, portalCatalogue, detailContent, portalFoot
+  },
+  mounted () {
+    console.log(1)
+    this.$refs.detailContent.handleScroll()
+  },
+  methods: {
+    // handleScroll () {
+    //   // console.log(this.$refs)
+    //   this.box = this.$refs.detail
+    //   this.box.addEventListener('scroll', () => {
+    //     console.log(this.$refs.detail.scrollTop)
+    //   }, false)
+    // }
   }
 }
 </script>
