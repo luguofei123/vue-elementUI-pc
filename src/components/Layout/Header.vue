@@ -7,6 +7,12 @@
         <div class="logo">后台管理系统</div>
         <div class="header-right">
             <div class="header-user-con">
+                <!-- 调到门户 -->
+                <div class="btn-fullscreen" @click="skipPortal" ref="queryDown">
+                  <el-tooltip effect="dark" :content="`门户跳转`" placement="bottom">
+                        <i class="el-icon-menu"></i>
+                  </el-tooltip>
+                </div>
                 <!-- 设置 右侧弹出选择组件 可以设置主题颜色 -->
                 <div class="btn-fullscreen" @click="setThemeTool" ref="queryDown">
                   <el-tooltip effect="dark" :content="`头部颜色设置`" placement="bottom">
@@ -75,6 +81,9 @@ export default {
       'setCollapse',
       'setThemeTool'
     ]),
+    skipPortal () {
+      this.$router.push('/portal')
+    },
     // 测试emit组件之间传值方法
 
     // 用户名下拉菜单选择事件
