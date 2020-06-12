@@ -161,6 +161,16 @@ export default {
     // this.handleScroll()
   },
   methods: {
+    scrollToTop (element, to, duration) {
+      if (duration <= 0) return
+      const diff = to - element.scrollTop
+      const perTick = diff / duration * 10
+      this.timer = setTimeout(() => {
+        element.scrollTop += perTick
+        if (element.scrollTop === to) return
+        this.scrollToTop(element, to, duration - 10)
+      }, 10)
+    },
     labelClick (index) {
       this.DetailLabelActive = index
       switch (index) {
