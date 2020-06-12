@@ -175,7 +175,7 @@ export default {
       this.DetailLabelActive = index
       switch (index) {
         case 1:
-          this.scrollToTop(this.$parent.$refs.detail, this.$refs.detailLabelReplace.offsetTop + this.$refs.detailLabelReplace.offsetHeight - 30, 2000)
+          this.scrollToTop(this.$parent.$refs.detail, this.$refs.detailLabelReplace.offsetTop + this.$refs.detailLabelReplace.offsetHeight - 30, 500)
           // this.$parent.$refs.detail.scrollTop = this.$refs.detailLabelReplace.offsetTop + this.$refs.detailLabelReplace.offsetHeight - 30
           break
         case 2:
