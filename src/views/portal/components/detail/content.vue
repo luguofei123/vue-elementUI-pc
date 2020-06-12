@@ -64,21 +64,22 @@
         <div style="height:20px;background:#dedede;"></div>
         <div class="detail_label" ref="detailLabel" :class="DetailLabelFixed === true?'fixed':''">
           <ul class="clear_fix">
-            <li>商品详情</li>
-            <li>使用指南</li>
-            <li>操作手册</li>
+            <li :class="DetailLabelActive === 1?'active':''" @click="labelClick(1)">商品详情</li>
+            <li :class="DetailLabelActive === 2?'active':''" @click="labelClick(2)">使用指南</li>
+            <li :class="DetailLabelActive === 3?'active':''" @click="labelClick(3)">操作手册</li>
           </ul>
         </div>
+        <div ref="detailLabelReplace" :class="DetailLabelFixed === true?'fixed_height':''"></div>
         <div class="detail_label_detail">
-          <div>
+          <div ref="box1" style="margin-top:50px;">
             <p>商品详情</p>
             <div style="height:100px;">商品详情内容</div>
           </div>
-          <div>
+          <div ref="box2" style="margin-top:50px;">
             <p>使用指南</p>
             <div style="height:100px;">商品详情内容</div>
           </div>
-          <div>
+          <div ref="box3" style="margin-top:50px;">
             <p>操作手册</p>
             <div style="height:100px;">商品详情内容</div>
           </div>
@@ -151,7 +152,8 @@ export default {
       size: '909',
       billingType: '',
       priod: '',
-      DetailLabelFixed: false
+      DetailLabelFixed: false,
+      DetailLabelActive: 1
     }
   },
   mounted () {
@@ -159,16 +161,47 @@ export default {
     // this.handleScroll()
   },
   methods: {
+    labelClick (index) {
+      this.DetailLabelActive = index
+      switch (index) {
+        case 1:
+          this.$parent.$refs.detail.scrollTop = this.$refs.detailLabelReplace.offsetTop + this.$refs.detailLabelReplace.offsetHeight
+          break
+        case 2:
+          this.$parent.$refs.detail.scrollTop = this.$refs.box1.offsetTop + this.$refs.box1.offsetHeight
+          break
+        case 3:
+          this.$parent.$refs.detail.scrollTop = this.$refs.box2.offsetTop + this.$refs.box2.offsetHeight
+          break
+        default:
+          break
+      }
+    },
     handleScroll () {
-      this.box = this.$parent.$refs.detail
-      this.box.addEventListener('scroll', () => {
-        console.log(this.box.scrollTop)
-        if (this.$refs.detailLabel.getBoundingClientRect().top < 30) {
-          this.DetailLabelFixed = true
-          console.log('小于30')
-        } else {
+      this.$parent.$refs.detail.addEventListener('scroll', () => {
+        if (this.$parent.$refs.detail.scrollTop > 0) {
           this.DetailLabelFixed = false
-          console.log('大于30')
+          this.DetailLabelActive = 0
+        }
+        if (this.$parent.$refs.detail.scrollTop > this.$refs.detailLabel.offsetTop) {
+          this.DetailLabelFixed = true
+          this.DetailLabelActive = 0
+        }
+        if (this.$parent.$refs.detail.scrollTop >= this.$refs.detailLabel.offsetTop + this.$refs.detailLabel.offsetHeight) {
+          this.DetailLabelFixed = true
+          this.DetailLabelActive = 1
+        }
+        if (this.$parent.$refs.detail.scrollTop >= this.$refs.box1.offsetTop + this.$refs.box1.offsetHeight) {
+          this.DetailLabelFixed = true
+          this.DetailLabelActive = 2
+        }
+        if (this.$parent.$refs.detail.scrollTop >= this.$refs.box2.offsetTop + this.$refs.box2.offsetHeight) {
+          this.DetailLabelFixed = true
+          this.DetailLabelActive = 3
+        }
+        if (this.$parent.$refs.detail.scrollTop > this.$refs.box3.offsetTop + this.$refs.box3.offsetHeight) {
+          this.DetailLabelFixed = false
+          this.DetailLabelActive = 0
         }
       }, false)
     },
@@ -251,11 +284,13 @@ export default {
   }
   .lgf_detail>.detail_left>ul{padding-left: 30px;}
   .lgf_detail>.detail_left>ul>li{background: url(../../../../assets/img/portal/pinzhi.png) left no-repeat;float: left;margin-right: 20px;height: 34px;padding-left: 40px;font-size: 24px;color: #f4402e;line-height: 34px;}
-  .lgf_detail>.detail_left>.detail_label{margin-top: 30px;padding: 10px 20px;}
-  .lgf_detail>.detail_left>.fixed{position: fixed;top:-30px;background: gainsboro;z-index: 9999;width: 935px;}
-  .lgf_detail>.detail_left>.detail_label>ul{border-bottom: 1px solid palevioletred;}
+  .lgf_detail>.detail_left>.detail_label{margin-top: 30px;}
+  .lgf_detail>.detail_left>.fixed_height{height: 40px;}
+  .lgf_detail>.detail_left>.fixed>ul{position: fixed;top:0px;background: #b3d4fc;z-index: 9999;width: 895px;box-shadow:0 5px 3px -2px #dedede;}
+  .lgf_detail>.detail_left>.detail_label>ul{border-bottom: 1px solid palevioletred;margin: 0px 20px;height: 40px;}
   .lgf_detail>.detail_left>.detail_label>ul>li{height: 40px;line-height: 40px;float: left;padding: 0 10px;margin-right: 10px;}
-  .lgf_detail>.detail_left>.detail_label>ul>li:hover{cursor: pointer;color: red;}
+  .lgf_detail>.detail_left>.detail_label>ul>li:hover{cursor: pointer;color: red;border-bottom: 2px solid red;}
+  .lgf_detail>.detail_left>.detail_label>ul>li.active{color: red;border-bottom: 2px solid red;}
   .lgf_detail>.detail_left>.detail_label_detail{margin: 0px 0px;padding: 10px 20px;}
   .lgf_detail>.detail_right{font-size: 12px;}
   .lgf_detail>.detail_right>.companyInfo{background: #b3d4fc;padding:10px 15px;height: 210px;margin-bottom: 10px;}

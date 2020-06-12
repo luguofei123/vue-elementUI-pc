@@ -4,7 +4,7 @@
     <portal-search></portal-search>
     <portal-catalogue></portal-catalogue>
     <detail-content ref="detailContent"></detail-content>
-    <portal-foot></portal-foot>
+    <portal-foot ref="detailFoot"></portal-foot>
   </div>
 </template>
 <script>
