@@ -8,7 +8,7 @@
             <a href="javascript:;">买家中心</a>
             <i class="el-icon-lu-daohang"></i>
               <ul>
-                <li><a href="javascript:;">买家中心1</a></li>
+                <li><a href="javascript:;" @click="skipProductList">买家中心1</a></li>
                 <li><a href="javascript:;">买家中心2</a></li>
                 <li><a href="javascript:;">买家中心3</a></li>
               </ul>
@@ -29,6 +29,11 @@
 </template>
 <script>
 export default {
+  methods: {
+    skipProductList () {
+      this.$router.push('/portal/productList')
+    }
+  }
 }
 </script>
 <style scoped>

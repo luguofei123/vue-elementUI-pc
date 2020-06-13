@@ -66,7 +66,6 @@ export default {
 }
 </script>
 <style scoped>
-  .lgf_shopList{}
   .lgf_shopList>div{width: 1190px;margin: 10px auto;}
   .lgf_shopList>div>ul{float: left;margin-right: 18px;box-shadow: 0 10px 15px #bfbebe;margin-bottom: 25px;}
   .lgf_shopList>div>ul:nth-child(4n+0){margin-right: 0;}

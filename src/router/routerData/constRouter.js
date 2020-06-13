@@ -24,6 +24,11 @@ let constRouter = [
     path: '/portal/detail',
     name: 'portalDetail',
     component: resolve => require(['@/views/portal/detail.vue'], resolve)
+  },
+  {
+    path: '/portal/productList',
+    name: 'portalProductList',
+    component: resolve => require(['@/views/portal/productList.vue'], resolve)
   }
 ]
 export default constRouter
