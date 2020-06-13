@@ -2,7 +2,7 @@
     <div class="portal">
       <portal-head></portal-head>
       <portal-search></portal-search>
-      <portal-catalogue></portal-catalogue>
+      <portal-catalogue expand = 'open'></portal-catalogue>
       <portal-lunbo></portal-lunbo>
       <portal-shoplist></portal-shoplist>
       <portal-foot></portal-foot>
