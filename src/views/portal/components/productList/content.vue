@@ -104,15 +104,39 @@
             <li><a href="">立即体验</a></li>
           </ul>
         </div>
+        <div class="product_pagination">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="pageConfig.currentPage"
+            :page-sizes="pageConfig.pageSizes"
+            :page-size="pageConfig.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="pageConfig.total">
+          </el-pagination>
+        </div>
       </div>
     </div>
 </template>
 <script>
 export default {
   data () {
-    return {}
+    return {
+      pageConfig: {
+        pageSizes: [10, 20, 30, 40],
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
+      }
+    }
   },
   methods: {
+    handleSizeChange (size) {
+      this.$emit('handleSizeChange', size)
+    },
+    handleCurrentChange (page) {
+      this.$emit('handleCurrentChange', page)
+    },
     skipPortal () {
       // href="portal/detail"
       this.$router.push('/portal/detail')
@@ -149,4 +173,8 @@ export default {
   .lgf_product_list>div.right_content>div.product_list>ul>li:nth-child(3){width: 284px;height: 48px;line-height: 48px;color: #ff6600;font-size: 22px;padding:0 15px;}
   .lgf_product_list>div.right_content>div.product_list>ul>li:nth-child(4){width: 284px;height: 40px;line-height: 40px;font-size: 15px;}
   .lgf_product_list>div.right_content>div.product_list>ul>li:nth-child(4)>a{display:block;width: 284px;height: 40px;line-height: 40px;color: white;background: #ff6600;border: 1px solid #ff6600;text-align: center;}
+  .lgf_product_list>div.right_content>div.product_pagination{width: 889px;padding: 10px 10px;}
+</style>
+<style>
+  .lgf_product_list>div.right_content>div.product_pagination>.el-pagination{float: right;}
 </style>

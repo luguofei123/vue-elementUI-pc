@@ -2,12 +2,17 @@
     <div class="lgf_search">
       <a href="http://www.baidu.com"><img src="../../../assets/img/portal/yun_logo.png" alt=""></a>
       <div>
-        <input type="text"><span></span>
+        <input type="text"><span @click="skipProductListPage"></span>
       </div>
     </div>
 </template>
 <script>
 export default {
+  methods: {
+    skipProductListPage () {
+      this.$router.push('/portal/productList')
+    }
+  }
 }
 </script>
 <style scoped>
