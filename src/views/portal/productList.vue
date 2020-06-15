@@ -2,7 +2,8 @@
   <div class="detail" ref="detail">
     <portal-head></portal-head>
     <portal-search></portal-search>
-    <portal-catalogue></portal-catalogue>
+    <portal-catalogue expand = 'open'></portal-catalogue>
+    <productlist-content></productlist-content>
     <portal-foot ref="detailFoot"></portal-foot>
   </div>
 </template>
@@ -10,14 +11,15 @@
 import portalHead from './components/head'
 import portalSearch from './components/search'
 import portalCatalogue from './components/catalogue'
+import productlistContent from './components/productList/content'
 import portalFoot from './components/foot'
 export default {
   components: {
-    portalHead, portalSearch, portalCatalogue, portalFoot
+    portalHead, portalSearch, portalCatalogue, productlistContent, portalFoot
   },
   mounted () {
     console.log(1)
-    this.$refs.detailContent.handleScroll()
+    // this.$refs.detailContent.handleScroll()
   },
   methods: {
     // handleScroll () {

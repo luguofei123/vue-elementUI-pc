@@ -13,7 +13,7 @@ import portalHead from './components/head'
 import portalSearch from './components/search'
 import portalCatalogue from './components/catalogue'
 import portalLunbo from './components/lunbo'
-import portalShoplist from './components/shopList'
+import portalShoplist from './components/index/shopList'
 import portalFoot from './components/foot'
 export default {
   components: {

@@ -2,49 +2,49 @@
     <div class="lgf_shopList">
       <div class="clear_fix">
         <ul>
-          <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
+          <li><a href=""><img src="../../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境多版本PHP全能运行环境多版本PHP全能运行环境多版本PHP全能运行环境多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
           <li><a @click="skipPortal">立即体验</a></li>
         </ul>
         <ul>
-          <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
+          <li><a href=""><img src="../../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
           <li><a href="portal/detail">立即体验</a></li>
         </ul>
         <ul>
-          <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
+          <li><a href=""><img src="../../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
           <li><a href="portal/detail">立即体验</a></li>
         </ul>
         <ul>
-          <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
+          <li><a href=""><img src="../../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
           <li><a href="">立即体验</a></li>
         </ul>
         <ul>
-          <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
+          <li><a href=""><img src="../../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
           <li><a href="">立即体验</a></li>
         </ul>
         <ul>
-          <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
+          <li><a href=""><img src="../../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
           <li><a href="">立即体验</a></li>
         </ul>
         <ul>
-          <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
+          <li><a href=""><img src="../../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
           <li><a href="">立即体验</a></li>
         </ul>
         <ul>
-          <li><a href=""><img src="../../../assets/img/portal/detail_big.png" alt=""></a></li>
+          <li><a href=""><img src="../../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP全能运行环境</li>
           <li><i>¥</i>100</li>
           <li><a href="">立即体验</a></li>
