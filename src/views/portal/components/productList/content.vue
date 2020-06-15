@@ -131,6 +131,9 @@ export default {
     }
   },
   methods: {
+    filterProduct () {
+      console.log(1)
+    },
     handleSizeChange (size) {
       this.$emit('handleSizeChange', size)
     },
