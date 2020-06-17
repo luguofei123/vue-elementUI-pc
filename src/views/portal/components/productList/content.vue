@@ -1,6 +1,7 @@
 <template>
     <div class="lgf_product_list clear_fix">
       <div class="left left_content">
+        <div><span>人气</span>&sdot;<span>热销产品</span></div>
         <ul>
           <li><a href=""><img src="../../../../assets/img/portal/detail_big.png" alt=""></a></li>
           <li>多版本PHP</li>
@@ -151,6 +152,9 @@ export default {
   .lgf_product_list{width: 1190px;margin: 10px auto;}
   .left{float: left;}
   .lgf_product_list>div.left_content{width: 250px;margin-top: 300px;margin-right: 10px;}
+  .lgf_product_list>div.left_content>div{background: #dedede;margin: 20px 15px 10px 5px;width: 240px;height: 30px;line-height: 30px;padding-left:20px;}
+  .lgf_product_list>div.left_content>div>span:first-child{font-size: 16px;color: red;margin-right: 5px;}
+  .lgf_product_list>div.left_content>div>span:nth-child(2){font-size: 14px;margin-left: 5px;}
   .lgf_product_list>div.left_content>ul{width: 240px;margin: 20px 15px 10px 5px;font-size: 12px;background: #dedede;}
   .lgf_product_list>div.left_content>ul>li:first-child{text-align: center;padding-top:10px;}
   .lgf_product_list>div.left_content>ul>li:nth-child(2){padding-left:20px;margin-top: 10px;padding-bottom: 10px;}
