@@ -12,7 +12,8 @@
         <component :is="currentComponent"></component>
       </div>
       <div>
-        <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+        <el-button style="margin-top: 12px;" @click="next" :disabled="active===3">下一步</el-button>
+        <el-button style="margin-top: 12px;" @click="pre"  :disabled="active===1">上一步</el-button>
       </div>
     </div>
   </div>
@@ -34,6 +35,10 @@ export default {
   methods: {
     next () {
       if (this.active++ > 2) this.active = 0
+      this.currentComponent = ComponentArray[this.active - 1]
+    },
+    pre () {
+      if (this.active-- < 0) this.active = 0
       this.currentComponent = ComponentArray[this.active - 1]
     }
   }
