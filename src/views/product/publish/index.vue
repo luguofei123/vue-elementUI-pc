@@ -9,7 +9,9 @@
         </el-steps>
       </div>
       <div>
-        <component :is="currentComponent"></component>
+        <keep-alive>
+          <component :is="currentComponent"></component>
+        </keep-alive>
       </div>
       <div>
         <el-button style="margin-top: 12px;" @click="next" :disabled="active===3">下一步</el-button>
