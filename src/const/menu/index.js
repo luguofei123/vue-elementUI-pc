@@ -25,6 +25,13 @@ let menu = [
         index: '2-2',
         router: 'user',
         children: []
+      },
+      {
+        menuName: '产品发布',
+        menuIcon: 'el-icon-lu-home',
+        index: '2-3',
+        router: 'ProductPublish',
+        children: []
       }
     ]
   },

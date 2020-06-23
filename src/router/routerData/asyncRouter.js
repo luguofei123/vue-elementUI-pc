@@ -12,6 +12,12 @@ let asyncRouter = [
         meta: { title: '系统首页', requiresAuth: false, passKey: 'dashboard' }
       },
       {
+        path: 'productPublish',
+        name: 'productPublish',
+        component: resolve => require(['@/views/product/publish/index.vue'], resolve),
+        meta: { title: '产品发布', requiresAuth: false, passKey: 'productPublish' }
+      },
+      {
         path: 'editorTable',
         name: 'editorTable',
         component: resolve => require(['@/views/table/editorTable/index.vue'], resolve),
