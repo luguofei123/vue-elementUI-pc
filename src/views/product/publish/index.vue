@@ -10,7 +10,7 @@
       </div>
       <div>
         <keep-alive>
-          <component :is="currentComponent"></component>
+          <component :is="currentComponent" ref="currentRef"></component>
         </keep-alive>
       </div>
       <div>
@@ -36,8 +36,10 @@ export default {
   },
   methods: {
     next () {
-      if (this.active++ > 2) this.active = 0
-      this.currentComponent = ComponentArray[this.active - 1]
+      if (this.$refs.currentRef.formChecked()) {
+        if (this.active++ > 2) this.active = 0
+        this.currentComponent = ComponentArray[this.active - 1]
+      }
     },
     pre () {
       if (this.active-- < 0) this.active = 0
