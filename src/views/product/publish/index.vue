@@ -8,12 +8,12 @@
           <el-step title="步骤 3"></el-step>
         </el-steps>
       </div>
-      <div>
+      <div style="margin-top:50px;">
         <keep-alive>
           <component :is="currentComponent" ref="currentRef" :formData="formData" @updata="updata"></component>
         </keep-alive>
       </div>
-      <div>
+      <div style="text-align:center;">
         <el-button style="margin-top: 12px;" @click="pre"  :disabled="active===1">上一步</el-button>
         <el-button style="margin-top: 12px;" @click="next" :disabled="active===3">下一步</el-button>
         <el-button style="margin-top: 12px;" @click="submmit" v-if="active===3">提交数据</el-button>
