@@ -10,12 +10,13 @@
       </div>
       <div>
         <keep-alive>
-          <component :is="currentComponent" ref="currentRef"></component>
+          <component :is="currentComponent" ref="currentRef" :formData="formData" @updata="updata"></component>
         </keep-alive>
       </div>
       <div>
-        <el-button style="margin-top: 12px;" @click="next" :disabled="active===3">下一步</el-button>
         <el-button style="margin-top: 12px;" @click="pre"  :disabled="active===1">上一步</el-button>
+        <el-button style="margin-top: 12px;" @click="next" :disabled="active===3">下一步</el-button>
+        <el-button style="margin-top: 12px;" @click="submmit" v-if="active===3">提交数据</el-button>
       </div>
     </div>
   </div>
@@ -31,7 +32,15 @@ export default {
   data () {
     return {
       active: 1,
-      currentComponent: ComponentArray[0]
+      currentComponent: ComponentArray[0],
+      formData: {
+        resource1: '',
+        desc1: '',
+        resource2: '',
+        desc2: '',
+        resource3: '',
+        desc3: ''
+      }
     }
   },
   methods: {
@@ -44,6 +53,15 @@ export default {
     pre () {
       if (this.active-- < 0) this.active = 0
       this.currentComponent = ComponentArray[this.active - 1]
+    },
+    submmit () {
+      if (this.$refs.currentRef.formChecked()) {
+        console.log(this.formData)
+      }
+    },
+    updata (v) {
+      Object.assign(this.formData, v)
+      // console.log(this.formData)
     }
   }
 }
