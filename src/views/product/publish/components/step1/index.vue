@@ -14,14 +14,19 @@
         <el-form-item label="产品详情" prop="detail">
           <editor-wang :initContent="step1Form.detail" @updateContent="updateContent"></editor-wang>
         </el-form-item>
+        <el-form-item label="表格" prop="checkedObj">
+          <api-table :obj="step1Form.checkedObj" @updatecheckedObj="updatecheckedObj"></api-table>
+        </el-form-item>
       </el-form>
   </div>
 </template>
 <script>
 import editorWang from './components/editorWang'
+import apiTable from './components/apiTable/index'
 export default {
   components: {
-    editorWang
+    editorWang,
+    apiTable
   },
   props: {
     formData: {
@@ -32,11 +37,26 @@ export default {
     }
   },
   data () {
+    const validContent = function (rule, value, callback) {
+      if (value === '' || value === undefined || value === null) {
+        callback(new Error('详情不能为空'))
+      } else {
+        callback()
+      }
+    }
+    const validcheckedObj = function (rule, value, callback) {
+      if (value.id === '' || value.id === undefined || value.id === null) {
+        callback(new Error('选择不能为空'))
+      } else {
+        callback()
+      }
+    }
     return {
       step1Form: {
         resource1: '',
         desc1: '',
-        detail: ''
+        detail: '',
+        checkedObj: {}
       },
       step1FormFules: {
         resource1: [
@@ -44,13 +64,19 @@ export default {
         ],
         desc1: [
           { required: true, message: '请填写活动形式', trigger: 'blur' }
+        ],
+        detail: [
+          { required: true, validator: validContent, trigger: 'blur,change' }
+        ],
+        checkedObj: [
+          { required: true, validator: validcheckedObj, trigger: 'blur,change' }
         ]
       }
     }
   },
   created () {
-    let { resource1, desc1, detail } = this.formData
-    this.step1Form = { resource1, desc1, detail }
+    let { resource1, desc1, detail, checkedObj } = this.formData
+    this.step1Form = { resource1, desc1, detail, checkedObj }
     // Object.assign(this.step1Form, this.formData)
     // console.log(this.step1Form)
   },
@@ -69,6 +95,15 @@ export default {
     },
     updateContent (html) {
       this.step1Form.detail = html
+      if (html === '<p><br></p>') {
+        this.step1Form.detail = ''
+      }
+      // console.log('执行了')
+      this.$refs['step1Form'].validateField('detail')
+    },
+    updatecheckedObj (obj) {
+      this.step1Form.checkedObj = obj
+      this.$refs['step1Form'].validateField('checkedObj')
     }
   }
 }

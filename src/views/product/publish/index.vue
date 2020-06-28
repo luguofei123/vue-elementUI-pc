@@ -37,6 +37,12 @@ export default {
         resource1: '',
         desc1: 'qwq',
         detail: 'xxxxx',
+        checkedObj: {
+          id: '',
+          date: '2016-05-07',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        },
         resource2: '',
         desc2: '',
         resource3: '',
