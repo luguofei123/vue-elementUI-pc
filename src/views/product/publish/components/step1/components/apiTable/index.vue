@@ -34,10 +34,18 @@
           show-overflow-tooltip>
         </el-table-column>
       </el-table>
+      <!--结果分页-->
+      <div class="pagination-box">
+        <page-bar :pageConfig="pageConfig" @handleSizeChange = 'handleSizeChange' @handleCurrentChange="handleCurrentChange"></page-bar>
+      </div>
 </div>
 </template>
 <script>
+import pageBar from './components/paginationBar'
 export default {
+  components: {
+    pageBar
+  },
   props: {
     obj: {
       type: Object,
@@ -48,6 +56,12 @@ export default {
   },
   data () {
     return {
+      pageConfig: {
+        pageSizes: [10, 20, 30, 40],
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
+      },
       tableData3: [],
       checkedobj: JSON.parse(JSON.stringify(this.obj))
       // checkedobj: this.obj
@@ -60,6 +74,15 @@ export default {
     this.setTable()
   },
   methods: {
+    // 分页导航
+    handleCurrentChange (page) {
+      this.pageConfig.currentPage = page
+      // this.getData()
+    },
+    handleSizeChange (size) {
+      this.pageConfig.pageSize = size
+      // this.getData()
+    },
     setTable () {
       let resdata = [{
         id: 44,

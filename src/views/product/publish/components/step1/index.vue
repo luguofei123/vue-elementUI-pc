@@ -1,6 +1,13 @@
 <template>
   <div>
       <el-form ref="step1Form" :model="step1Form" label-width="120px" :rules="step1FormFules">
+        <el-form-item label="选择器">
+          <el-select v-model="step1Form.region" placeholder="请选择">
+            <el-option key="bbk" label="镜像" value="bbk"></el-option>
+            <el-option key="xtc" label="API" value="xtc"></el-option>
+            <el-option key="imoo" label="线下交付" value="imoo"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="单选框1" prop="resource1">
           <el-radio-group v-model="step1Form.resource1">
             <el-radio label="步步高"></el-radio>
@@ -53,6 +60,7 @@ export default {
     }
     return {
       step1Form: {
+        region: '',
         resource1: '',
         desc1: '',
         detail: '',
