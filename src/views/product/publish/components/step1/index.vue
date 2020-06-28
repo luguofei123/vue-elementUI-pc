@@ -11,11 +11,18 @@
         <el-form-item label="文本框1" prop="desc1">
           <el-input type="textarea" rows="5" v-model="step1Form.desc1"></el-input>
         </el-form-item>
+        <el-form-item label="产品详情" prop="detail">
+          <editor-wang :initContent="step1Form.detail" @updateContent="updateContent"></editor-wang>
+        </el-form-item>
       </el-form>
   </div>
 </template>
 <script>
+import editorWang from './components/editorWang'
 export default {
+  components: {
+    editorWang
+  },
   props: {
     formData: {
       type: Object,
@@ -28,7 +35,8 @@ export default {
     return {
       step1Form: {
         resource1: '',
-        desc1: ''
+        desc1: '',
+        detail: ''
       },
       step1FormFules: {
         resource1: [
@@ -41,8 +49,8 @@ export default {
     }
   },
   created () {
-    let { resource1, desc1 } = this.formData
-    this.step1Form = { resource1, desc1 }
+    let { resource1, desc1, detail } = this.formData
+    this.step1Form = { resource1, desc1, detail }
     // Object.assign(this.step1Form, this.formData)
     // console.log(this.step1Form)
   },
@@ -58,6 +66,9 @@ export default {
         }
       })
       return isOk
+    },
+    updateContent (html) {
+      this.step1Form.detail = html
     }
   }
 }

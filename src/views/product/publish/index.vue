@@ -35,7 +35,8 @@ export default {
       currentComponent: ComponentArray[0],
       formData: {
         resource1: '',
-        desc1: '',
+        desc1: 'qwq',
+        detail: 'xxxxx',
         resource2: '',
         desc2: '',
         resource3: '',
