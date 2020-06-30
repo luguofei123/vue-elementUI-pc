@@ -1,17 +1,40 @@
 <template>
   <div>
-      <el-form ref="step2Form" :model="step2Form" label-width="120px" :rules="step2FormFules">
-        <el-form-item label="单选框2" prop="resource2">
-          <el-radio-group v-model="step2Form.resource2">
-            <el-radio label="步步高"></el-radio>
-            <el-radio label="小天才"></el-radio>
-            <el-radio label="imoo"></el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="文本框2" prop="desc2">
-          <el-input type="textarea" rows="5" v-model="step2Form.desc2"></el-input>
-        </el-form-item>
+    <el-form  :model="formTemp" label-width="120px">
+      <el-row :gutter="10">
+        <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
+          <el-form-item label="计费项中文名">
+            <el-input v-model="formTemp.paramName" placeholder="计费项中文名"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
+          <el-form-item label="计费项英文名">
+            <el-input v-model="formTemp.paramCode" placeholder="计费项英文名"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+    <p>---------------------------------------------------------------------------------------------------------------------------------------</p>
+    <div v-for="(item,index) in submitData" :key="index">
+      <el-form  :model="item" v-for="(item1,index1) in item.prePrdSpecParamValList" :key="index1" label-width="120px">
+        <el-row :gutter="10">
+          <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
+            <el-form-item :label="item.paramName">
+              <el-input v-model="item1.paramValName" placeholder=""></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
+            <el-form-item :label="item.paramCode">
+              <el-input v-model="item1.paramValCode" placeholder=""></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="4" :sm="6" :md="8" :lg="6" :xl="11">
+              <el-button type="success" icon="el-icon-plus" @click="add" ></el-button>
+              <el-button type="danger" icon="el-icon-minus" @click="minus(index,index1)" v-if="submitData.length>1"></el-button>
+          </el-col>
+        </el-row>
       </el-form>
+    </div>
   </div>
 </template>
 <script>
@@ -26,18 +49,27 @@ export default {
   },
   data () {
     return {
-      step2Form: {
-        resource2: '',
-        desc2: ''
+      formTemp: {
+        paramName: '',
+        paramCode: ''
       },
-      step2FormFules: {
-        resource2: [
-          { required: true, message: '请选择活动资源', trigger: 'change' }
-        ],
-        desc2: [
-          { required: true, message: '请填写活动形式', trigger: 'blur' }
-        ]
+      submitData: [
+        { paramName: '', paramCode: '', prePrdSpecParamValList: [{ paramValName: '', paramValCode: '' }] }
+      ]
+    }
+  },
+  computed: {
+    obj () {
+      return {
+        paramName: this.formTemp.paramName,
+        paramCode: this.formTemp.paramCode
       }
+    }
+  },
+  watch: {
+    obj (o) {
+      this.submitData[this.submitData.length - 1].paramName = o.paramName
+      this.submitData[this.submitData.length - 1].paramCode = o.paramCode
     }
   },
   created () {
@@ -56,6 +88,12 @@ export default {
         }
       })
       return isOk
+    },
+    add () {
+      console.log('add')
+    },
+    minus (index, index1) {
+      console.log('minus')
     }
   }
 }
