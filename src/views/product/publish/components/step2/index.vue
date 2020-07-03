@@ -19,17 +19,17 @@
       <el-form  :model="item" v-for="(item1,index1) in item.prePrdSpecParamValList" :key="index1" label-width="120px">
         <el-row :gutter="10">
           <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
-            <el-form-item :label="item.paramName">
+            <el-form-item :label="item.paramName + ':'">
               <el-input v-model="item1.paramValName" placeholder=""></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
-            <el-form-item :label="item.paramCode">
+            <el-form-item :label="item.paramCode + ':'">
               <el-input v-model="item1.paramValCode" placeholder=""></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="4" :sm="6" :md="8" :lg="6" :xl="11">
-              <el-button type="success" icon="el-icon-plus" @click="add" ></el-button>
+              <el-button type="success" icon="el-icon-plus" @click="addList(index,index1)" ></el-button>
               <el-button type="danger" icon="el-icon-minus" @click="minus(index,index1)" v-if="submitData.length>1"></el-button>
           </el-col>
         </el-row>
@@ -64,7 +64,8 @@ export default {
         paramName: this.formTemp.paramName,
         paramCode: this.formTemp.paramCode
       }
-    }
+    },
+    submitData
   },
   watch: {
     obj (o) {
@@ -89,8 +90,9 @@ export default {
       })
       return isOk
     },
-    add () {
-      console.log('add')
+    addList (index,index1) {
+      console.log(index,index1)
+      this.submitData[index].prePrdSpecParamValList.push({ paramValName: '', paramValCode: '' })
     },
     minus (index, index1) {
       console.log('minus')
