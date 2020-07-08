@@ -29,8 +29,8 @@
             </el-form-item>
           </el-col>
           <el-col :xs="4" :sm="6" :md="8" :lg="6" :xl="11">
-              <el-button type="success" icon="el-icon-plus" @click="addList(index,index1)" ></el-button>
-              <el-button type="danger" icon="el-icon-minus" @click="minus(index,index1)" v-if="submitData.length>1"></el-button>
+              <el-button type="danger" icon="el-icon-minus" @click="minus(index,index1)"></el-button>
+              <el-button type="success" icon="el-icon-plus" @click="addList(index,index1)"></el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -65,7 +65,15 @@ export default {
         paramCode: this.formTemp.paramCode
       }
     },
-    submitData
+    submitDataLastIndex () {
+      let lastIndex = 0
+      this.submitData.forEach((item, index) => {
+        item.prePrdSpecParamValList.forEach((item, index) => {
+          lastIndex += 1
+        })
+      })
+      return lastIndex
+    }
   },
   watch: {
     obj (o) {
@@ -90,12 +98,14 @@ export default {
       })
       return isOk
     },
-    addList (index,index1) {
-      console.log(index,index1)
-      this.submitData[index].prePrdSpecParamValList.push({ paramValName: '', paramValCode: '' })
+    addList (index, index1) {
+      console.log(index, index1)
+      this.submitData[index].prePrdSpecParamValList.splice(index1, 0, { paramValName: '', paramValCode: '' })
+      // this.submitData.push({ paramName: '', paramCode: '', prePrdSpecParamValList: [{ paramValName: '', paramValCode: '' }] })
     },
     minus (index, index1) {
-      console.log('minus')
+      console.log(index, index1)
+      this.submitData[index].prePrdSpecParamValList.splice(index1, 1)
     }
   }
 }

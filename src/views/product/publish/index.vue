@@ -34,11 +34,11 @@ export default {
       active: 1,
       currentComponent: ComponentArray[0],
       formData: {
-        resource1: '',
+        resource1: 'imoo',
         desc1: 'qwq',
         detail: 'xxxxx',
         checkedObj: {
-          id: '',
+          id: '44',
           date: '2016-05-07',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'

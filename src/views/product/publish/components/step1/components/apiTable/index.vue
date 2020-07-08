@@ -85,22 +85,22 @@ export default {
     },
     setTable () {
       let resdata = [{
-        id: 44,
+        id: '44',
         date: '2016-05-03',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1 弄'
       }, {
-        id: 89,
+        id: '89',
         date: '2016-05-02',
         name: '王小虎',
         address: '上海市普陀区金沙江路 2 弄'
       }, {
-        id: 23,
+        id: '23',
         date: '2016-05-04',
         name: '王小虎',
         address: '上海市普陀区金沙江路 3 弄'
       }, {
-        id: 88,
+        id: '88',
         date: '2016-05-07',
         name: '王小虎',
         address: '上海市普陀区金沙江路 4 弄'
