@@ -3,7 +3,7 @@
                 <el-form ref="form" :model="form" label-width="0px" :rules="rules">
                   <el-form-item label="" prop="tableData">
                     <el-table :data="form.tableData"  border  ref="table" size="mini">
-                      <el-table-column prop="dataType" label="类型" >
+                      <el-table-column prop="dataType" label="计费方式" >
                         <template slot-scope="scope">
                           <el-form-item :prop="'tableData.'+scope.$index+'.dataType'" :rules="rules.dataType">
                             <el-select v-model="scope.row.dataType" placeholder="请选择" @change="zhudong($event,scope.$index)">
@@ -14,17 +14,45 @@
                           </el-form-item>
                         </template>
                       </el-table-column>
-                      <el-table-column prop="name" label="姓名" >
+                      <el-table-column prop="name" label="售卖周期" >
                         <template slot-scope="scope">
                           <el-form-item :prop="'tableData.'+scope.$index+'.name'" :rules="rules.name">
                             <el-input v-model="scope.row.name"></el-input>
                           </el-form-item>
                         </template>
                       </el-table-column>
-                      <el-table-column prop="sex" label="性别" >
+                      <el-table-column prop="sex" label="规格" >
                         <template slot-scope="scope">
                           <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
                             <el-input v-model="scope.row.sex"></el-input>
+                          </el-form-item>
+                        </template>
+                      </el-table-column>
+                      <el-table-column prop="sex" label="rule" >
+                        <template slot-scope="scope">
+                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
+                            <el-input v-model="scope.row.sex"></el-input>
+                          </el-form-item>
+                        </template>
+                      </el-table-column>
+                      <el-table-column prop="sex" label="价格" >
+                        <template slot-scope="scope">
+                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
+                            <el-input v-model="scope.row.sex"></el-input>
+                          </el-form-item>
+                        </template>
+                      </el-table-column>
+                      <el-table-column prop="sex" label="单位" >
+                        <template slot-scope="scope">
+                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
+                            <el-input v-model="scope.row.sex"></el-input>
+                          </el-form-item>
+                        </template>
+                      </el-table-column>
+                      <el-table-column prop="opration" label="操作" >
+                        <template slot-scope="scope">
+                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
+                            <el-button>取消</el-button>
                           </el-form-item>
                         </template>
                       </el-table-column>
