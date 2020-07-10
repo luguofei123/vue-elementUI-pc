@@ -50,15 +50,16 @@
                         </template>
                       </el-table-column>
                       <el-table-column prop="opration" label="操作" >
-                        <template slot-scope="scope">
-                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
-                            <el-button>取消</el-button>
+                        <template >
+                          <el-form-item >
+                            <el-button>删除</el-button>
                           </el-form-item>
                         </template>
                       </el-table-column>
                     </el-table>
                   </el-form-item>
                 </el-form>
+                <el-button>增加一行</el-button>
             </div>
 </template>
 
