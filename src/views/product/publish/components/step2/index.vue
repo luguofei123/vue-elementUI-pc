@@ -15,26 +15,26 @@
       </el-row>
     </el-form>
     <p>-------------------------------------------------------- -------------------------------------------------------------------------------</p>
-    <div v-for="(item,index) in submitData" :key="index">
-      <el-form  :model="item"  :key="index" label-width="120px">
+    <el-form  :model="secondForm"  label-width="120px" ref="secondForm" :rules="secondFormRules">
+      <div v-for="(item,index) in secondForm.submitData" :key="index">
         <el-row :gutter="10">
           <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
-            <el-form-item :label="item.paramName + ':'" prop="paramValName"  :rules="{required: true, message: '请输入数中文参数', trigger: 'blur'}">
+            <el-form-item :label="item.paramName + ':'" :prop="'submitData.'+index+'.paramValName'"  :rules="secondFormRules.paramValName">
               <el-input v-model="item.paramValName" placeholder="" :disabled="item.paramName===''"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
-            <el-form-item :label="item.paramCode + ':'" prop="paramValCode" :rules="{required: true, message: '请输入英文参数', trigger: 'blur'}">
+            <el-form-item :label="item.paramCode + ':'" :prop="'submitData.'+index+'.paramValCode'"  :rules="secondFormRules.paramValCode">
               <el-input v-model="item.paramValCode" placeholder="" :disabled="item.paramCode===''"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="4" :sm="6" :md="8" :lg="6" :xl="11">
-              <el-button type="danger" icon="el-icon-minus" @click="minus(index)" v-if="!(index===0)"></el-button>
+              <el-button type="danger" icon="el-icon-minus" @click="minus(index)" v-if="index!==0"></el-button>
               <el-button type="success" icon="el-icon-plus" @click="addList(index)"></el-button>
           </el-col>
         </el-row>
-      </el-form>
-    </div>
+      </div>
+    </el-form>
   </div>
 </template>
 <script>
@@ -53,10 +53,19 @@ export default {
         paramName: '',
         paramCode: ''
       },
-      submitData: [
-        // { paramName: '', paramCode: '', prePrdSpecParamValList: [{ paramValName: '', paramValCode: '' }] }
-        { paramName: '', paramCode: '', paramValName: '', paramValCode: '' }
-      ]
+      secondForm: {
+        submitData: [
+          { paramName: '', paramCode: '', paramValName: '', paramValCode: '' }
+        ]
+      },
+      secondFormRules: {
+        paramValName: [
+          { required: true, message: '请输入数中文参数', trigger: 'blur' }
+        ],
+        paramValCode: [
+          { required: true, message: '请输入数英文参数', trigger: 'blur' }
+        ]
+      }
     }
   },
   computed: {
@@ -65,21 +74,12 @@ export default {
         paramName: this.formTemp.paramName,
         paramCode: this.formTemp.paramCode
       }
-    },
-    submitDataLastIndex () {
-      let lastIndex = 0
-      this.submitData.forEach((item, index) => {
-        item.prePrdSpecParamValList.forEach((item, index) => {
-          lastIndex += 1
-        })
-      })
-      return lastIndex
     }
   },
   watch: {
     obj (o) {
-      this.submitData[this.submitData.length - 1].paramName = o.paramName
-      this.submitData[this.submitData.length - 1].paramCode = o.paramCode
+      this.secondForm.submitData[this.secondForm.submitData.length - 1].paramName = o.paramName
+      this.secondForm.submitData[this.secondForm.submitData.length - 1].paramCode = o.paramCode
     }
   },
   created () {
@@ -88,12 +88,12 @@ export default {
   },
   methods: {
     formChecked () {
-      console.log(this.submitData)
+      console.log(this.$refs)
       let isOk
-      this.$refs['step2Form'].validate((valid) => {
+      this.$refs['secondForm'].validate((valid) => {
         if (valid) {
           isOk = true
-          this.$emit('updata', this.step2Form)
+          // this.$emit('updata', this.step2Form)
         } else {
           isOk = false
         }
@@ -107,14 +107,20 @@ export default {
         { paramName: '测试1', paramCode: 'test1', paramValName: 'aaa', paramValCode: 'bbb' }
       ]
       this.aggregationArray(arr)
-      console.log(index)
-      this.submitData.push({ paramName: this.formTemp.paramName, paramCode: this.formTemp.paramCode, paramValName: '', paramValCode: '' })
+      if (this.secondForm.submitData[this.secondForm.submitData.length - 1].paramName === '' ||
+          this.secondForm.submitData[this.secondForm.submitData.length - 1].paramCode === '' ||
+          this.secondForm.submitData[this.secondForm.submitData.length - 1].paramValName === '' ||
+          this.secondForm.submitData[this.secondForm.submitData.length - 1].paramValCode === '') {
+        console.log('数据空，不能添加')
+      } else {
+        this.secondForm.submitData.push({ paramName: this.formTemp.paramName, paramCode: this.formTemp.paramCode, paramValName: '', paramValCode: '' })
+      }
     },
     minus (index) {
       console.log(index)
-      this.submitData.splice(index, 1)
-      this.formTemp.paramName = this.submitData[this.submitData.length - 1].paramName
-      this.formTemp.paramCode = this.submitData[this.submitData.length - 1].paramCode
+      this.secondForm.submitData.splice(index, 1)
+      this.formTemp.paramName = this.secondForm.submitData[this.secondForm.submitData.length - 1].paramName
+      this.formTemp.paramCode = this.secondForm.submitData[this.secondForm.submitData.length - 1].paramCode
     },
     // 对象数组聚合函数 根据某个字段来合并数组
     aggregationArray (array) {

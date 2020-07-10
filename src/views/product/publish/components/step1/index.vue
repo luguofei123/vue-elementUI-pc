@@ -90,6 +90,7 @@ export default {
   },
   methods: {
     formChecked () {
+      // console.log(this.$refs['step1Form'])
       let isOk
       this.$refs['step1Form'].validate((valid) => {
         if (valid) {
