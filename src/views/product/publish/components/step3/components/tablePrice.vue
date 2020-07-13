@@ -5,7 +5,7 @@
                 <el-table-column prop="billingType" label="计费方式" >
                 <template slot-scope="scope">
                     <el-form-item :prop="'tableData.'+scope.$index+'.billingType'" :rules="rules.billingType">
-                    <el-select v-model="scope.row.billingType" placeholder="请选择" >
+                    <el-select v-model="scope.row.billingType" placeholder="请选择" @change="checkParent">
                         <el-option key="1" label="一次性费用" value="1"></el-option>
                         <el-option key="2" label="包年包月" value="2"></el-option>
                     </el-select>
@@ -15,10 +15,10 @@
                 <el-table-column prop="priod" label="售卖周期" width="220">
                 <template slot-scope="scope">
                     <el-form-item :prop="'tableData.'+scope.$index+'.priod'" :rules="rules.priod" style="float:left;margin-right:5px;">
-                    <el-input v-model="scope.row.priod" style="width:100px;"></el-input>
+                    <el-input v-model="scope.row.priod" style="width:100px;" @change="checkParent"></el-input>
                     </el-form-item>
                     <el-form-item :prop="'tableData.'+scope.$index+'.priodUnit'" :rules="rules.priodUnit" style="float:left;">
-                    <el-select v-model="scope.row.priodUnit" placeholder="请选择" style="width:90px;">
+                    <el-select v-model="scope.row.priodUnit" placeholder="请选择" style="width:90px;" @change="checkParent">
                         <el-option key="1" label="年" value="1"></el-option>
                         <el-option key="2" label="月" value="2"></el-option>
                         <el-option key="3" label="日" value="3"></el-option>
@@ -39,7 +39,7 @@
                 <el-table-column prop="price" label="价格" width="150">
                 <template slot-scope="scope">
                     <el-form-item :prop="'tableData.'+scope.$index+'.price'" :rules="rules.price" style="float:left;margin-right:5px;">
-                    <el-input v-model="scope.row.price" style="width:110px;"></el-input>
+                    <el-input v-model="scope.row.price" style="width:110px;" @change="checkParent"></el-input>
                     </el-form-item>
                     <span style="display:inline-block;height:40px;line-height:30px;">{{scope.row.priceUnit}}</span>
                 </template>
@@ -111,7 +111,7 @@ export default {
       }
     },
     deletePriceList (index) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -140,10 +140,8 @@ export default {
       })
       return isOk
     },
-    zhudong (v, s) {
-      // console.log(this)
-      // console.log(s)
-      this.$refs.form.validateField('tableData.' + s + '.name')
+    checkParent () {
+      this.$emit('formChecked')
     }
   }
 }

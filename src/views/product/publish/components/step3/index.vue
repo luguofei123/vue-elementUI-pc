@@ -9,7 +9,7 @@
         </el-form-item>
         <div v-for="(item,index) in step3Form.sizePrice" :key="index">
             <el-form-item :label="'请配置'+item1.paramValName+'的价格：'" :prop="'sizePrice.'+index+'.paramValNameList.'+index1+'.priceTable'"  :rules="step3FormFules.priceTable" v-for="(item1, index1) in item.paramValNameList" :key="index1">
-              <table-price :priceTable="item1.priceTable" @updataTable="updataTable" :index="index" :index1="index1"></table-price>
+              <table-price :ref="'table'+index+index1" :priceTable="item1.priceTable" @updataTable="updataTable" :index="index" :index1="index1" @formChecked="formChecked"></table-price>
             </el-form-item>
         </div>
       </el-form>
@@ -33,12 +33,19 @@ export default {
     const validateAcquaintance = (rule, value, callback) => {
       // console.log(rule)
       // console.log(value)
-      // value 为table数据，可以在这里判断是否重复等校验全部通过则ok
-      if (!value) {
-        callback(new Error('必须输入熟悉程度'))
-      } else {
+      // 判断价格表数据校验是否成功 获取的是价格表的ref值，根据这个去调用验证函数
+      let arr = rule.field.split('.')
+      let index = arr[1]
+      let index1 = arr[3]
+      if (this.$refs['table' + index + index1][0].formChecked('form' + index + index1)) {
         callback()
+      } else {
+        callback(new Error('价格数据校验失败'))
       }
+      // 判断价格表数据是否有重复
+
+      // console.log(this.$refs['table00'])
+      // value 为table数据，可以在这里判断是否重复等校验全部通过则ok
     }
     return {
       step3Form: {
