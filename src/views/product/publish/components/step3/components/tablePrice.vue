@@ -1,167 +1,144 @@
 <template>
-            <div>
-                <el-form ref="form" :model="form" label-width="0px" :rules="rules">
-                  <el-form-item label="" prop="tableData">
-                    <el-table :data="form.tableData"  border  ref="table" size="mini">
-                      <el-table-column prop="dataType" label="计费方式" >
-                        <template slot-scope="scope">
-                          <el-form-item :prop="'tableData.'+scope.$index+'.dataType'" :rules="rules.dataType">
-                            <el-select v-model="scope.row.dataType" placeholder="请选择" @change="zhudong($event,scope.$index)">
-                              <el-option key="1" label="整数" value="int"></el-option>
-                              <el-option key="2" label="中文" value="cn"></el-option>
-                              <el-option key="3" label="英文" value="en"></el-option>
-                            </el-select>
-                          </el-form-item>
-                        </template>
-                      </el-table-column>
-                      <el-table-column prop="name" label="售卖周期" >
-                        <template slot-scope="scope">
-                          <el-form-item :prop="'tableData.'+scope.$index+'.name'" :rules="rules.name">
-                            <el-input v-model="scope.row.name"></el-input>
-                          </el-form-item>
-                        </template>
-                      </el-table-column>
-                      <el-table-column prop="sex" label="规格" >
-                        <template slot-scope="scope">
-                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
-                            <el-input v-model="scope.row.sex"></el-input>
-                          </el-form-item>
-                        </template>
-                      </el-table-column>
-                      <el-table-column prop="sex" label="rule" >
-                        <template slot-scope="scope">
-                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
-                            <el-input v-model="scope.row.sex"></el-input>
-                          </el-form-item>
-                        </template>
-                      </el-table-column>
-                      <el-table-column prop="sex" label="价格" >
-                        <template slot-scope="scope">
-                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
-                            <el-input v-model="scope.row.sex"></el-input>
-                          </el-form-item>
-                        </template>
-                      </el-table-column>
-                      <el-table-column prop="sex" label="单位" >
-                        <template slot-scope="scope">
-                          <el-form-item :prop="'tableData.'+scope.$index+'.sex'" :rules="rules.sex">
-                            <el-input v-model="scope.row.sex"></el-input>
-                          </el-form-item>
-                        </template>
-                      </el-table-column>
-                      <el-table-column prop="opration" label="操作" >
-                        <template >
-                          <el-form-item >
-                            <el-button>删除</el-button>
-                          </el-form-item>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                  </el-form-item>
-                </el-form>
-                <el-button>增加一行</el-button>
-            </div>
+    <div>
+        <el-form :ref="'form'+index+index1" :model="form" label-width="0px" :rules="rules">
+            <el-table :data="form.tableData"  border  ref="table" size="mini">
+                <el-table-column prop="billingType" label="计费方式" >
+                <template slot-scope="scope">
+                    <el-form-item :prop="'tableData.'+scope.$index+'.billingType'" :rules="rules.billingType">
+                    <el-select v-model="scope.row.billingType" placeholder="请选择" >
+                        <el-option key="1" label="一次性费用" value="1"></el-option>
+                        <el-option key="2" label="包年包月" value="2"></el-option>
+                    </el-select>
+                    </el-form-item>
+                </template>
+                </el-table-column>
+                <el-table-column prop="priod" label="售卖周期" width="220">
+                <template slot-scope="scope">
+                    <el-form-item :prop="'tableData.'+scope.$index+'.priod'" :rules="rules.priod" style="float:left;margin-right:5px;">
+                    <el-input v-model="scope.row.priod" style="width:100px;"></el-input>
+                    </el-form-item>
+                    <el-form-item :prop="'tableData.'+scope.$index+'.priodUnit'" :rules="rules.priodUnit" style="float:left;">
+                    <el-select v-model="scope.row.priodUnit" placeholder="请选择" style="width:90px;">
+                        <el-option key="1" label="年" value="1"></el-option>
+                        <el-option key="2" label="月" value="2"></el-option>
+                        <el-option key="3" label="日" value="3"></el-option>
+                    </el-select>
+                    </el-form-item>
+                </template>
+                </el-table-column>
+                <el-table-column prop="guige" label="规格" >
+                <template slot-scope="scope">
+                    <span style="display:inline-block;height:50px;line-height:30px;">{{scope.row.guige}}</span>
+                </template>
+                </el-table-column>
+                <el-table-column prop="rule" label="rule" >
+                <template slot-scope="scope">
+                    <span style="display:inline-block;height:50px;line-height:30px;">{{scope.row.rule}}</span>
+                </template>
+                </el-table-column>
+                <el-table-column prop="price" label="价格" width="150">
+                <template slot-scope="scope">
+                    <el-form-item :prop="'tableData.'+scope.$index+'.price'" :rules="rules.price" style="float:left;margin-right:5px;">
+                    <el-input v-model="scope.row.price" style="width:110px;"></el-input>
+                    </el-form-item>
+                    <span style="display:inline-block;height:40px;line-height:30px;">{{scope.row.priceUnit}}</span>
+                </template>
+                </el-table-column>
+                <el-table-column prop="opration" label="操作" >
+                <template slot-scope="scope">
+                    <el-form-item >
+                    <el-button @click="deletePriceList(scope.$index)">删除</el-button>
+                    </el-form-item>
+                </template>
+                </el-table-column>
+            </el-table>
+        </el-form>
+        <el-button @click="addPriceList">增加一行</el-button>
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'baseform',
+  props: {
+    priceTable: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    index: {
+      type: Number,
+      default () {
+        return 0
+      }
+    },
+    index1: {
+      type: Number,
+      default () {
+        return 0
+      }
+    }
+  },
   data () {
-    const validateAcquaintance = (rule, value, callback) => {
-      console.log(rule)
-      console.log(value)
-      // value 为table数据，可以在这里判断是否重复等校验全部通过则ok
-      if (!value) {
-        callback(new Error('必须输入熟悉程度'))
-      } else {
-        callback()
-      }
-    }
-    const validateNameType = (rule, value, callback) => {
-      let index = rule.field.split('.')[1]
-      // console.log(index)
-      // console.log(value)
-      // console.log(this.form.tableData[index].dataType)
-      switch (this.form.tableData[index].dataType) {
-        case 'int':
-          console.log('check int')
-          break
-        case 'en':
-          console.log('check en')
-          break
-        case 'cn':
-          console.log('check cn')
-          break
-        default:
-          break
-      }
-      if (!value) {
-        callback(new Error('必须输入对应的数据'))
-      } else {
-        callback()
-      }
-    }
     return {
       form: {
-        tableData: [{ name: '' }],
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: true,
-        type: ['步步高'],
-        resource: '小天才',
-        desc: 'swsw'
+        tableData: JSON.parse(JSON.stringify(this.priceTable))
       },
       rules: {
-        tableData: [
-          { type: 'array', required: true, message: '请至少选择一条数据', trigger: 'change' },
-          { type: 'array', required: true, validator: validateAcquaintance, trigger: 'blur' }
+        billingType: [
+          { required: true, message: '选择费用类型', trigger: 'change' }
         ],
-        dataType: [
-          { required: true, message: '请选择数据类型', trigger: 'change' }
+        priod: [
+          { required: true, message: '周期不能为空', trigger: 'blur' }
         ],
-        name: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
-          { validator: validateNameType, trigger: 'blur' }
+        priodUnit: [
+          { required: true, message: '选择周期单位', trigger: 'change' }
         ],
-        sex: [
-          { required: true, message: '请输入sex名称', trigger: 'blur' }
-          // { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
-        ],
-        region: [
-          { required: true, message: '请选择活动区域', trigger: 'change' }
-        ],
-        date1: [
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-        ],
-        date2: [
-          { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-        ],
-        type: [
-          { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-        ],
-        resource: [
-          { required: true, message: '请选择活动资源', trigger: 'change' }
-        ],
-        desc: [
-          { required: true, message: '请填写活动形式', trigger: 'blur' }
+        price: [
+          { required: true, message: '价格不能为空', trigger: 'blur' }
         ]
       }
     }
   },
   methods: {
-    onSubmit (formName) {
-      this.$refs[formName].validate((valid) => {
+    addPriceList () {
+      if (this.formChecked('form' + this.index + this.index1)) {
+        let obj = { billingType: '', priod: '', priodUnit: '', guige: 'gggg', rule: 'rule1', price: '0', priceUnit: '元' }
+        this.form.tableData.push(obj)
+        this.$emit('updataTable', this.index, this.index1, this.form.tableData)
+      } else {
+        this.$message.error('数据填写正确后才能添加新数据')
+      }
+    },
+    deletePriceList (index) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.form.tableData.splice(index, 1)
+        this.$emit('updataTable', this.index, this.index1, this.form.tableData)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    formChecked (form) {
+      let isOk
+      this.$refs[form].validate((valid) => {
         if (valid) {
-          console.log(this.form)
-          alert('submit!')
+          isOk = true
         } else {
-          console.log('error submit!!')
-          return false
+          isOk = false
         }
       })
+      return isOk
     },
     zhudong (v, s) {
       // console.log(this)
