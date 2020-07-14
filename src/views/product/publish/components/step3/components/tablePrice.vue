@@ -145,6 +145,7 @@ export default {
     formChecked (form) {
       console.log('开始验证表格数据')
       let isOk
+      console.log(this.$refs[form])
       this.$refs[form].validate((valid) => {
         if (valid) {
           console.log('表格数据验证通过')

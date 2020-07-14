@@ -31,15 +31,20 @@ export default {
   },
   data () {
     const validateAcquaintance = (rule, value, callback) => {
-      // console.log(rule)
-      // console.log(value)
+      console.log(rule)
+      console.log(value)
       // 判断价格表数据校验是否成功 获取的是价格表的ref值，根据这个去调用验证函数
       let arr = rule.field.split('.')
       let index = arr[1]
       let index1 = arr[3]
-      if (!this.$refs['table' + index + index1][0].formChecked('form' + index + index1)) {
-        callback(new Error('价格数据校验失败'))
-      }
+      // console.log(this.$refs['table' + index + index1][0].formChecked('form' + index + index1))
+      this.$nextTick(() => {
+        this.$refs['table' + index + index1][0].formChecked('form' + index + index1)
+      })
+      // if (!this.$refs['table' + index + index1][0].formChecked('form' + index + index1)) {
+      //   callback(new Error('价格数据校验失败'))
+      // }
+      console.log('dedededede')
       // 判断价格表数据是否有重复
       let billingTypeIndex = 0
       let priodAndUnitIndex = 0
@@ -75,7 +80,10 @@ export default {
             paramValNameList: [
               { paramValName: '111',
                 paramValCode: 'bbb1',
-                priceTable: [{ billingType: '1', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }]
+                priceTable: [
+                  { billingType: '1', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' },
+                  { billingType: '1', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }
+                ]
               },
               { paramValName: '222', paramValCode: 'bbb2', priceTable: [] }
             ]
@@ -115,6 +123,7 @@ export default {
         this.$refs['step3Form'].validateField('sizePrice.' + index + '.paramValNameList.' + index1 + '.priceTable')
       }
       if (act === 'delete') {
+        this.$refs['step3Form'].validateField('sizePrice.' + index + '.paramValNameList.' + index1 + '.priceTable')
         // this.step3Form.sizePrice[index].paramValNameList[index1].priceTable.splice(o, 1)
       }
       // this.step3Form.sizePrice[index].paramValNameList[index1].priceTable = o
