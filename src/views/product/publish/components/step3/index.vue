@@ -73,21 +73,21 @@ export default {
           { paramName: '测试1',
             paramCode: 'test1',
             paramValNameList: [
-              { paramValName: 'aaa1',
+              { paramValName: '111',
                 paramValCode: 'bbb1',
                 priceTable: [{ billingType: '1', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }]
               },
-              { paramValName: 'aaa2', paramValCode: 'bbb2', priceTable: [] }
+              { paramValName: '222', paramValCode: 'bbb2', priceTable: [] }
             ]
           },
           { paramName: '测试2',
             paramCode: 'test2',
             paramValNameList: [
-              { paramValName: 'aaa2',
+              { paramValName: '333',
                 paramValCode: 'bbb2',
                 priceTable: [{ billingType: '1', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }]
               },
-              { paramValName: 'aaa2', paramValCode: 'bbb2', priceTable: [] }
+              { paramValName: '444', paramValCode: 'bbb2', priceTable: [] }
             ]
           }
         ]
@@ -108,9 +108,16 @@ export default {
     // this.step3Form = { resource3, desc3 }
   },
   methods: {
-    updataTable (index, index1, array) {
-      this.step3Form.sizePrice[index].paramValNameList[index1].priceTable = array
-      this.$refs['step3Form'].validateField('sizePrice.' + index + '.paramValNameList.' + index1 + '.priceTable')
+    updataTable (index, index1, o, act) {
+      this.step3Form.sizePrice[index].paramValNameList[index1].priceTable = o
+      if (act === 'add') {
+        // this.step3Form.sizePrice[index].paramValNameList[index1].priceTable.push(o)
+        this.$refs['step3Form'].validateField('sizePrice.' + index + '.paramValNameList.' + index1 + '.priceTable')
+      }
+      if (act === 'delete') {
+        // this.step3Form.sizePrice[index].paramValNameList[index1].priceTable.splice(o, 1)
+      }
+      // this.step3Form.sizePrice[index].paramValNameList[index1].priceTable = o
     },
     formChecked () {
       let isOk

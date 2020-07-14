@@ -50,12 +50,12 @@ export default {
   data () {
     return {
       formTemp: {
-        paramName: '',
-        paramCode: ''
+        paramName: '11',
+        paramCode: '22'
       },
       secondForm: {
         submitData: [
-          { paramName: '', paramCode: '', paramValName: '', paramValCode: '' }
+          { paramName: '222', paramCode: '333', paramValName: 'aa', paramValCode: 'bb' }
         ]
       },
       secondFormRules: {

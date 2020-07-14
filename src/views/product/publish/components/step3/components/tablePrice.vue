@@ -44,7 +44,7 @@
                     <span style="display:inline-block;height:40px;line-height:30px;">{{scope.row.priceUnit}}</span>
                 </template>
                 </el-table-column>
-                <el-table-column  label="操作" >
+                <el-table-column prop="price"  label="操作" >
                 <template slot-scope="scope">
                     <el-button @click="deletePriceList(scope.$index)" style="position:absolute;left:10px;top:6px;">删除</el-button>
                 </template>
@@ -77,6 +77,14 @@ export default {
       }
     }
   },
+  watch: {
+    // priceTable (v) {
+    //   console.log(v)
+    //   console.log('数据变化了吗？')
+    //   this.form.tableData = JSON.parse(JSON.stringify(v))
+    //   console.log('数据变化了')
+    // }
+  },
   data () {
     return {
       form: {
@@ -84,18 +92,18 @@ export default {
       },
       rules: {
         billingType: [
-          { required: true, message: '选择费用类型', trigger: 'change' }
+          { required: true, message: '选择费用类型', trigger: ['change', 'blur'] }
         ],
         priod: [
-          { required: true, message: '周期不能为空', trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,8}$/, message: '输入正整数', trigger: 'blur' }
+          { required: true, message: '周期不能为空', trigger: ['change', 'blur'] },
+          { pattern: /^[1-9]\d{0,8}$/, message: '输入正整数', trigger: ['change', 'blur'] }
         ],
         priodUnit: [
-          { required: true, message: '选择周期单位', trigger: 'change' }
+          { required: true, message: '选择周期单位', trigger: ['change', 'blur'] }
         ],
         price: [
-          { required: true, message: '价格不能为空', trigger: 'blur' },
-          { pattern: /^(0|[1-9]\d{0,8})$/, message: '输入0或正整数', trigger: 'blur' }
+          { required: true, message: '价格不能为空', trigger: ['change', 'blur'] },
+          { pattern: /^(0|[1-9]\d{0,8})$/, message: '输入0或正整数', trigger: ['change', 'blur'] }
         ]
       }
     }
@@ -106,9 +114,10 @@ export default {
         let obj = { billingType: '', priod: '', priodUnit: '', guige: 'gggg', rule: 'rule1', price: '0', priceUnit: '元' }
         this.form.tableData.push(obj)
         // 更新数据 并且验证数据
-        this.$emit('updataTable', this.index, this.index1, this.form.tableData)
+        this.$emit('updataTable', this.index, this.index1, this.form.tableData, 'add')
+        // this.$emit('updataTable', this.index, this.index1, obj, 'add')
         // 验证自己 表单的该字段 是否通过
-        console.log('添加数据时验证')
+        // console.log('添加数据时验证')
         // console.log(this.formChecked('form' + this.index + this.index1))
       } else {
         this.$message.error('数据填写正确后才能添加新数据')
@@ -121,7 +130,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.form.tableData.splice(index, 1)
-        this.$emit('updataTable', this.index, this.index1, this.form.tableData)
+        this.$emit('updataTable', this.index, this.index1, this.form.tableData, 'delete')
         this.$message({
           type: 'success',
           message: '删除成功!'
