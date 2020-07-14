@@ -120,12 +120,13 @@ export default {
       // this.step3Form.sizePrice[index].paramValNameList[index1].priceTable = o
     },
     formChecked () {
+      console.log('父表单开始验证')
       let isOk
       this.$refs['step3Form'].validate((valid) => {
         if (valid) {
+          console.log('父表单验证通过')
           isOk = true
           this.$emit('updata', this.step3Form)
-          console.log('验证通过')
         } else {
           isOk = false
         }
