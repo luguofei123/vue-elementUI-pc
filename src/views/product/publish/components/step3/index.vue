@@ -37,25 +37,54 @@ export default {
       let arr = rule.field.split('.')
       let index = arr[1]
       let index1 = arr[3]
-      if (this.$refs['table' + index + index1][0].formChecked('form' + index + index1)) {
-        callback()
-      } else {
+      if (!this.$refs['table' + index + index1][0].formChecked('form' + index + index1)) {
         callback(new Error('价格数据校验失败'))
       }
       // 判断价格表数据是否有重复
-
-      // console.log(this.$refs['table00'])
-      // value 为table数据，可以在这里判断是否重复等校验全部通过则ok
+      let billingTypeIndex = 0
+      let priodAndUnitIndex = 0
+      value.forEach((item, index) => {
+        priodAndUnitIndex = 0
+        value.forEach((item1, index1) => {
+          if (item1.billingType === '1') {
+            if (item1.billingType === item.billingType) {
+              billingTypeIndex += 1
+            }
+          }
+          if (item1.priod === item.priod && item1.priodUnit === item.priodUnit && item1.billingType === item.billingType) {
+            priodAndUnitIndex += 1
+          }
+        })
+      })
+      // console.log(priodAndUnitIndex)
+      if (billingTypeIndex > 1) {
+        console.log('dedededede')
+        callback(new Error('一个规格版本一次性费用只能选择一次'))
+      } else if (priodAndUnitIndex > 1) {
+        callback(new Error('计费方式，周期不能同时相同'))
+      } else {
+        callback()
+      }
     }
     return {
       step3Form: {
         size: '',
         sizePrice: [
           { paramName: '测试1',
-            paramCode: 'test',
+            paramCode: 'test1',
             paramValNameList: [
               { paramValName: 'aaa1',
                 paramValCode: 'bbb1',
+                priceTable: [{ billingType: '1', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }]
+              },
+              { paramValName: 'aaa2', paramValCode: 'bbb2', priceTable: [] }
+            ]
+          },
+          { paramName: '测试2',
+            paramCode: 'test2',
+            paramValNameList: [
+              { paramValName: 'aaa2',
+                paramValCode: 'bbb2',
                 priceTable: [{ billingType: '1', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }]
               },
               { paramValName: 'aaa2', paramValCode: 'bbb2', priceTable: [] }
@@ -89,6 +118,7 @@ export default {
         if (valid) {
           isOk = true
           this.$emit('updata', this.step3Form)
+          console.log('验证通过')
         } else {
           isOk = false
         }

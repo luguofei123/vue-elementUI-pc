@@ -44,11 +44,9 @@
                     <span style="display:inline-block;height:40px;line-height:30px;">{{scope.row.priceUnit}}</span>
                 </template>
                 </el-table-column>
-                <el-table-column prop="opration" label="操作" >
+                <el-table-column  label="操作" >
                 <template slot-scope="scope">
-                    <el-form-item >
-                    <el-button @click="deletePriceList(scope.$index)">删除</el-button>
-                    </el-form-item>
+                    <el-button @click="deletePriceList(scope.$index)" style="position:absolute;left:10px;top:6px;">删除</el-button>
                 </template>
                 </el-table-column>
             </el-table>
@@ -89,13 +87,15 @@ export default {
           { required: true, message: '选择费用类型', trigger: 'change' }
         ],
         priod: [
-          { required: true, message: '周期不能为空', trigger: 'blur' }
+          { required: true, message: '周期不能为空', trigger: 'blur' },
+          { pattern: /^[1-9]\d{0,8}$/, message: '输入正整数', trigger: 'blur' }
         ],
         priodUnit: [
           { required: true, message: '选择周期单位', trigger: 'change' }
         ],
         price: [
-          { required: true, message: '价格不能为空', trigger: 'blur' }
+          { required: true, message: '价格不能为空', trigger: 'blur' },
+          { pattern: /^(0|[1-9]\d{0,8})$/, message: '输入0或正整数', trigger: 'blur' }
         ]
       }
     }
@@ -105,7 +105,11 @@ export default {
       if (this.formChecked('form' + this.index + this.index1)) {
         let obj = { billingType: '', priod: '', priodUnit: '', guige: 'gggg', rule: 'rule1', price: '0', priceUnit: '元' }
         this.form.tableData.push(obj)
+        // 更新数据 并且验证数据
         this.$emit('updataTable', this.index, this.index1, this.form.tableData)
+        // 验证自己 表单的该字段 是否通过
+        console.log('添加数据时验证')
+        // console.log(this.formChecked('form' + this.index + this.index1))
       } else {
         this.$message.error('数据填写正确后才能添加新数据')
       }

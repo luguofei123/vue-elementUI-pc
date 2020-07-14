@@ -52,20 +52,31 @@
  */
 
 /**
- * 检查输入的字符串是否全部是数字0-9
+ * 检查输入的字符串是否全部是数字1-9位的自然数
 */
-export const numberPattern = /^[0-9]*$/
+export const NATURALNUMBER = /^(0|[1-9]\d{0,8})$/
+
+/**
+ * 检查输入的字符串是否全部是 1-9位正整数
+*/
+export const POSITIVEINTEGER = /^[1-9]\d{0,8}$/
+
+/**
+ * 检查输入的字符串是否整数加小数，其中整数是最多是9位，小数最多2位  
+*/
+export const FLOAT = /^(0[.]\d{1,2}|\d{1,9}[.]\d{1,2})$/
+
+/**
+ * 人民币数字验证
+*/
+export const MONEY = /(^(0[.]\d{1,2}|\d{1,9}[.]\d{1,2})$)|(^(0|[1-9]\d{0,8})$)/
 
 /**
  * 邮箱验证
 */
-export const emailPattern = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+export const EMAIL = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
 
 /**
  * 中文字符集
  */
-export const chinesePattern = /[\u4e00-\u9fa5]/
-/**
- * 小数点验证  test match replace的用法要熟悉
- */
-export const decimal = /^\d+\.\d+$/
+export const CHINESE = /[\u4e00-\u9fa5]/
