@@ -5,7 +5,7 @@
                 <el-table-column prop="billingType" label="计费方式" >
                 <template slot-scope="scope">
                     <el-form-item :prop="'tableData.'+scope.$index+'.billingType'" :rules="rules.billingType">
-                    <el-select v-model="scope.row.billingType" placeholder="请选择" @change="checkParent">
+                    <el-select v-model="scope.row.billingType" placeholder="请选择" @change="checkTable(scope.row, scope.$index)">
                         <el-option key="1" label="一次性费用" value="1"></el-option>
                         <el-option key="2" label="包年包月" value="2"></el-option>
                     </el-select>
@@ -14,11 +14,11 @@
                 </el-table-column>
                 <el-table-column prop="priod" label="售卖周期" width="220">
                 <template slot-scope="scope">
-                    <el-form-item :prop="'tableData.'+scope.$index+'.priod'" :rules="rules.priod" style="float:left;margin-right:5px;">
-                    <el-input v-model="scope.row.priod" style="width:100px;" @change="checkParent"></el-input>
+                    <el-form-item  :prop="'tableData.'+scope.$index+'.priod'" :rules="rules.priod" style="float:left;margin-right:5px;">
+                    <el-input :disabled="scope.row.billingType==='1'"  v-model="scope.row.priod" style="width:100px;" @change="checkTable"></el-input>
                     </el-form-item>
                     <el-form-item :prop="'tableData.'+scope.$index+'.priodUnit'" :rules="rules.priodUnit" style="float:left;">
-                    <el-select v-model="scope.row.priodUnit" placeholder="请选择" style="width:90px;" @change="checkParent">
+                    <el-select :disabled="scope.row.billingType==='1'" v-model="scope.row.priodUnit" placeholder="请选择" style="width:90px;" @change="checkTable">
                         <el-option key="1" label="年" value="1"></el-option>
                         <el-option key="2" label="月" value="2"></el-option>
                         <el-option key="3" label="日" value="3"></el-option>
@@ -39,7 +39,7 @@
                 <el-table-column prop="price" label="价格" width="150">
                 <template slot-scope="scope">
                     <el-form-item :prop="'tableData.'+scope.$index+'.price'" :rules="rules.price" style="float:left;margin-right:5px;">
-                    <el-input v-model="scope.row.price" style="width:110px;" @change="checkParent"></el-input>
+                    <el-input v-model="scope.row.price" style="width:110px;" @change="checkTable"></el-input>
                     </el-form-item>
                     <span style="display:inline-block;height:40px;line-height:30px;">{{scope.row.priceUnit}}</span>
                 </template>
@@ -87,8 +87,11 @@ export default {
   },
   data () {
     return {
+      test: 99,
       form: {
-        tableData: JSON.parse(JSON.stringify(this.priceTable))
+        // 如果希望从父传过来的数据 在子模板中改变后，父组件中的数据也改变，那么可以直接引用对象的方式；如果不希望父组件中的数据变化，那么就可以clone一个新的数据。
+        // tableData: JSON.parse(JSON.stringify(this.priceTable))
+        tableData: this.priceTable
       },
       rules: {
         billingType: [
@@ -114,11 +117,7 @@ export default {
         let obj = { billingType: '', priod: '', priodUnit: '', guige: 'gggg', rule: 'rule1', price: '0', priceUnit: '元' }
         this.form.tableData.push(obj)
         // 更新数据 并且验证数据
-        this.$emit('updataTable', this.index, this.index1, this.form.tableData, 'add')
-        // this.$emit('updataTable', this.index, this.index1, obj, 'add')
-        // 验证自己 表单的该字段 是否通过
-        // console.log('添加数据时验证')
-        // console.log(this.formChecked('form' + this.index + this.index1))
+        this.$emit('valitorTable', this.index, this.index1)
       } else {
         this.$message.error('数据填写正确后才能添加新数据')
       }
@@ -130,7 +129,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.form.tableData.splice(index, 1)
-        this.$emit('updataTable', this.index, this.index1, this.form.tableData, 'delete')
+        this.$emit('valitorTable', this.index, this.index1)
         this.$message({
           type: 'success',
           message: '删除成功!'
@@ -143,12 +142,11 @@ export default {
       })
     },
     formChecked (form) {
-      console.log('开始验证表格数据')
+      // console.log('开始验证表格数据')
       let isOk
-      console.log(this.$refs[form])
       this.$refs[form].validate((valid) => {
         if (valid) {
-          console.log('表格数据验证通过')
+          // console.log('表格数据验证通过')
           isOk = true
         } else {
           isOk = false
@@ -156,8 +154,16 @@ export default {
       })
       return isOk
     },
-    checkParent () {
-      this.$emit('formChecked')
+    checkTable (v, index) {
+      if (v.billingType === '1') {
+          this.form.tableData[index].priod = '99'
+          this.form.tableData[index].priodUnit = '1'
+      }
+      if (v.billingType === '2') {
+          this.form.tableData[index].priod = ''
+          this.form.tableData[index].priodUnit = ''
+      }
+      this.$emit('valitorTable', this.index, this.index1)
     }
   }
 }
