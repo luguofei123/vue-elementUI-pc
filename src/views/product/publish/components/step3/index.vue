@@ -1,14 +1,14 @@
 <template>
   <div>
-      <el-form ref="step3Form" :model="step3Form" label-width="160px" :rules="step3FormFules">
+      <el-form ref="thirdForm" :model="thirdForm" label-width="160px" :rules="thirdFormFules">
         <el-form-item label="选择计费参数：" prop="size">
-          <el-select v-model="step3Form.size" placeholder="请选择">
+          <el-select v-model="thirdForm.size" placeholder="请选择">
             <el-option label="规格" value="1"></el-option>
             <el-option label="版本" value="2"></el-option>
           </el-select>
         </el-form-item>
-        <div v-for="(item,index) in step3Form.sizePrice" :key="index">
-            <el-form-item :label="'请配置'+item1.paramValName+'的价格：'" :prop="'sizePrice.'+index+'.paramValNameList.'+index1+'.priceTable'"  :rules="step3FormFules.priceTable" v-for="(item1, index1) in item.paramValNameList" :key="index1">
+        <div v-for="(item,index) in thirdForm.sizePrice" :key="index">
+            <el-form-item :label="'请配置'+item1.paramValName+'的价格：'" :prop="'sizePrice.'+index+'.paramValNameList.'+index1+'.priceTable'"  :rules="thirdFormFules.priceTable" v-for="(item1, index1) in item.paramValNameList" :key="index1">
               <table-price :ref="'table'+index+index1" :priceTable="item1.priceTable" @valitorTable="valitorTable" :index="index" :index1="index1"></table-price>
             </el-form-item>
         </div>
@@ -63,35 +63,11 @@ export default {
       }
     }
     return {
-      step3Form: {
+      thirdForm: {
         size: '',
-        sizePrice: [
-          { paramName: '测试1',
-            paramCode: 'test1',
-            paramValNameList: [
-              { paramValName: '111',
-                paramValCode: 'bbb1',
-                priceTable: [
-                  { billingType: '1', priod: '99', priodUnit: '1', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' },
-                  { billingType: '2', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }
-                ]
-              }
-              // { paramValName: '222', paramValCode: 'bbb2', priceTable: [] }
-            ]
-          }
-          // { paramName: '测试2',
-          //   paramCode: 'test2',
-          //   paramValNameList: [
-          //     { paramValName: '333',
-          //       paramValCode: 'bbb2',
-          //       priceTable: [{ billingType: '1', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }]
-          //     },
-          //     { paramValName: '444', paramValCode: 'bbb2', priceTable: [] }
-          //   ]
-          // }
-        ]
+        sizePrice: []
       },
-      step3FormFules: {
+      thirdFormFules: {
         size: [
           { required: true, message: '选择版本', trigger: 'change' }
         ],
@@ -103,25 +79,25 @@ export default {
     }
   },
   created () {
-    // let { resource3, desc3 } = this.formData
-    // this.step3Form = { resource3, desc3 }
+    let { size, sizePrice } = this.formData
+    this.thirdForm = { size, sizePrice }
   },
   methods: {
     // 只校验价格表数组priceTable这个数据的合法性
     valitorTable (index, index1) {
-      // this.step3Form.sizePrice[index].paramValNameList[index1].priceTable = array
+      // this.thirdForm.sizePrice[index].paramValNameList[index1].priceTable = array
       this.$nextTick(() => {
-        this.$refs['step3Form'].validateField('sizePrice.' + index + '.paramValNameList.' + index1 + '.priceTable')
+        this.$refs['thirdForm'].validateField('sizePrice.' + index + '.paramValNameList.' + index1 + '.priceTable')
       })
     },
     formChecked () {
       // console.log('父表单开始验证')
       let isOk
-      this.$refs['step3Form'].validate((valid) => {
+      this.$refs['thirdForm'].validate((valid) => {
         if (valid) {
           // console.log('父表单验证通过')
           isOk = true
-          this.$emit('updata', this.step3Form)
+          this.$emit('updata', this.thirdForm)
         } else {
           isOk = false
         }

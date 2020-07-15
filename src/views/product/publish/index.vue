@@ -34,6 +34,7 @@ export default {
       active: 1,
       currentComponent: ComponentArray[0],
       formData: {
+        // 第一步数据
         resource1: 'imoo',
         desc1: 'qwq',
         detail: 'xxxxx',
@@ -43,10 +44,37 @@ export default {
           name: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
         },
-        resource2: '',
-        desc2: '',
-        resource3: '',
-        desc3: ''
+        // 第二步数据
+        submitData: [
+          { paramName: '', paramCode: '', paramValName: '', paramValCode: '' }
+        ],
+        // 第三步数据
+        size: '',
+        sizePrice: [
+          { paramName: '测试1',
+            paramCode: 'test1',
+            paramValNameList: [
+              { paramValName: '111',
+                paramValCode: 'bbb1',
+                priceTable: [
+                  { billingType: '1', priod: '99', priodUnit: '1', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' },
+                  { billingType: '2', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }
+                ]
+              },
+              { paramValName: '222', paramValCode: 'bbb2', priceTable: [] }
+            ]
+          },
+          { paramName: '测试2',
+            paramCode: 'test2',
+            paramValNameList: [
+              { paramValName: '333',
+                paramValCode: 'bbb2',
+                priceTable: [{ billingType: '1', priod: '22', priodUnit: '3', guige: 'gggg', rule: 'rule1', price: '1234', priceUnit: '元' }]
+              },
+              { paramValName: '444', paramValCode: 'bbb2', priceTable: [] }
+            ]
+          }
+        ]
       }
     }
   },

@@ -50,13 +50,11 @@ export default {
   data () {
     return {
       formTemp: {
-        paramName: '11',
-        paramCode: '22'
+        paramName: '',
+        paramCode: ''
       },
       secondForm: {
-        submitData: [
-          { paramName: '222', paramCode: '333', paramValName: 'aa', paramValCode: 'bb' }
-        ]
+        submitData: []
       },
       secondFormRules: {
         paramValName: [
@@ -83,8 +81,8 @@ export default {
     }
   },
   created () {
-    let { resource2, desc2 } = this.formData
-    this.step2Form = { resource2, desc2 }
+    let { submitData } = this.formData
+    this.secondForm = { submitData }
   },
   methods: {
     formChecked () {
