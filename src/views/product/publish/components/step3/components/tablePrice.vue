@@ -15,14 +15,16 @@
                 <el-table-column prop="priod" label="售卖周期" width="220">
                 <template slot-scope="scope">
                     <el-form-item  :prop="'tableData.'+scope.$index+'.priod'" :rules="rules.priod" style="float:left;margin-right:5px;">
-                    <el-input :disabled="scope.row.billingType==='1'"  v-model="scope.row.priod" style="width:100px;" @change="checkTable"></el-input>
+                    <!-- <el-input :disabled="scope.row.billingType==='1'"  v-model="scope.row.priod" style="width:100px;" @change="checkTable"></el-input> -->
+                    <my-input :scopeObj="scope" @tablecheck="checkTable"></my-input>
                     </el-form-item>
                     <el-form-item :prop="'tableData.'+scope.$index+'.priodUnit'" :rules="rules.priodUnit" style="float:left;">
-                    <el-select :disabled="scope.row.billingType==='1'" v-model="scope.row.priodUnit" placeholder="请选择" style="width:90px;" @change="checkTable">
+                    <!-- <el-select :disabled="scope.row.billingType==='1'" v-model="scope.row.priodUnit" placeholder="请选择" style="width:90px;" @change="checkTable">
                         <el-option key="1" label="年" value="1"></el-option>
                         <el-option key="2" label="月" value="2"></el-option>
                         <el-option key="3" label="日" value="3"></el-option>
-                    </el-select>
+                    </el-select> -->
+                    <my-select :scopeObj="scope" @tablecheck="checkTable"></my-select>
                     </el-form-item>
                 </template>
                 </el-table-column>
@@ -56,7 +58,12 @@
 </template>
 
 <script>
+import myInput from './myInput'
+import mySelect from './mySelect'
 export default {
+  components: {
+    myInput, mySelect
+  },
   props: {
     priceTable: {
       type: Array,
@@ -155,14 +162,15 @@ export default {
       return isOk
     },
     checkTable (v, index) {
-      if (v.billingType === '1') {
-          this.form.tableData[index].priod = '99'
-          this.form.tableData[index].priodUnit = '1'
-      }
-      if (v.billingType === '2') {
-          this.form.tableData[index].priod = ''
-          this.form.tableData[index].priodUnit = ''
-      }
+    //   if (v.billingType === '1') {
+    //     this.form.tableData[index].priod = '99'
+    //     this.form.tableData[index].priodUnit = '1'
+    //   }
+    //   if (v.billingType === '2') {
+    //     this.form.tableData[index].priod = ''
+    //     this.form.tableData[index].priodUnit = ''
+    //   }
+      console.log(11111)
       this.$emit('valitorTable', this.index, this.index1)
     }
   }
