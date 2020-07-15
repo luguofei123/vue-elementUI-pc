@@ -149,3 +149,6 @@ export default {
   }
 }
 </script>
+<style>
+input{line-height: 20px!important;}
+</style>
