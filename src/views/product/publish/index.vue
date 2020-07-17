@@ -10,13 +10,14 @@
       </div>
       <div style="margin-top:50px;">
         <keep-alive>
-          <component :is="currentComponent" ref="currentRef" :formData="formData" @updata="updata"></component>
+          <component :is="currentComponent" ref="currentRef" :formData="formData" @updata="updata" :propsString="propsString" :propsObj="propsObj"></component>
         </keep-alive>
       </div>
       <div style="text-align:center;">
         <el-button style="margin-top: 12px;" @click="pre"  :disabled="active===1">上一步</el-button>
         <el-button style="margin-top: 12px;" @click="next" :disabled="active===3">下一步</el-button>
         <el-button style="margin-top: 12px;" @click="submmit" v-if="active===3">提交数据</el-button>
+        <el-button style="margin-top: 12px;" @click="test" >测试数据传递按钮</el-button>
       </div>
     </div>
   </div>
@@ -75,10 +76,42 @@ export default {
             ]
           }
         ]
-      }
+      },
+      provideObj: {
+        tel: 'provid18911563700',
+        hobby: ['money', 'car']
+      },
+      provideString: 'provid字符串',
+      propsObj: {
+        tel: 'props18911563700',
+        hobby: ['money', 'car']
+      },
+      propsString: 'props字符串'
     }
   },
+  provide () {
+    return {
+      provideObj: this.provideObj,
+      provideString: this.provideString
+    }
+  },
+  created () {
+    setTimeout(() => {
+      this.provideObj.tel = 'provid18911563700变化了'
+      this.provideString = 'provid字符串变化了'
+      this.propsObj.tel = 'props18911563700变化了'
+      this.propsString = 'props字符串变化了'
+    }, 0)
+  },
   methods: {
+    test () {
+      setTimeout(() => {
+        this.provideObj.tel = 'provid18911563700变化了,按钮导致'
+        this.provideString = 'provid字符串变化了,按钮导致'
+        this.propsObj.tel = 'props18911563700变化了,按钮导致'
+        this.propsString = 'props字符串变化了,按钮导致'
+      }, 1000)
+    },
     next () {
       if (this.$refs.currentRef.formChecked()) {
         if (this.active++ > 2) this.active = 0

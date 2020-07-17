@@ -25,6 +25,12 @@
           <api-table :obj="step1Form.checkedObj" @updatecheckedObj="updatecheckedObj"></api-table>
         </el-form-item>
       </el-form>
+      <div>
+        <div>provideObj {{provideObj.tel}}</div>
+        <div>provideString {{provideString}}</div>
+        <div>propsObj {{propsObj.tel}}</div>
+        <div>propsString {{propsString}}</div>
+      </div>
   </div>
 </template>
 <script>
@@ -41,6 +47,16 @@ export default {
       default: function () {
         return {}
       }
+    },
+    propsObj: {
+      type: Object,
+      default: function () {
+        return {}
+      }
+    },
+    propsString: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -82,13 +98,43 @@ export default {
       }
     }
   },
+  inject: ['provideObj', 'provideString'],
   created () {
+    console.log('--------------start-------------')
+    console.log(this.provideObj.tel)
+    console.log(this.provideString)
+    console.log(this.propsObj.tel)
+    console.log(this.propsString)
+    console.log('--------------end-------------')
+    setTimeout(() => {
+      console.log('--------------startsetTimeout-------------')
+      console.log(this.provideObj.tel)
+      console.log(this.provideString)
+      console.log(this.propsObj.tel)
+      console.log(this.propsString)
+      console.log('--------------endsetTimeout-------------')
+    }, 1000)
     let { resource1, desc1, detail, checkedObj } = this.formData
     this.step1Form = { resource1, desc1, detail, checkedObj }
     // Object.assign(this.step1Form, this.formData)
     // console.log(this.step1Form)
   },
+  watch: {
+    // 'luguofeiobj.name' (v) {
+    //   console.log(v)
+    // },
+    // stringLugofei (v) {
+    //   console.log(111111)
+    //   console.log(v)
+    // },
+    // luguofeiindex (v) {
+    //   console.log(v)
+    // }
+  },
   methods: {
+    chengge (v) {
+      console.log(v)
+    },
     formChecked () {
       // console.log(this.$refs['step1Form'])
       let isOk

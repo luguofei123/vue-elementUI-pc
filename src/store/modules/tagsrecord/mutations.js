@@ -18,7 +18,7 @@ const mutations = {
     }
   },
   ADD_TAGSLIST: (state, route) => {
-    console.log(route.name)
+    // console.log(route.name)
     const isExist = state.tagsList.some(item => {
       return item.path === route.fullPath
     })
