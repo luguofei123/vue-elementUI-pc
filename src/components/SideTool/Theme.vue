@@ -8,6 +8,13 @@
       </el-radio-group>
     </div>
     <div class="box">
+      <span>主题更换</span>
+      <el-radio-group v-model="theme" @change="changeTheme">
+        <el-radio label="theme1">主题1</el-radio>
+        <el-radio label="theme2">主题2</el-radio>
+      </el-radio-group>
+    </div>
+    <div class="box">
       <span>头部背景颜色</span>
       <el-color-picker v-model="headStyle.backgroundColor" show-alpha  :predefine="predefineColors"></el-color-picker>
     </div>
@@ -28,6 +35,7 @@ export default {
   name: 'Theme',
   data () {
     return {
+      theme: 'theme1',
       predefineColors: [
         '#ff4500',
         '#ff8c00',
@@ -65,11 +73,26 @@ export default {
       'setThemeTool'
     ]),
     queryHide (e) {
-      this.$EventBus.$emit('testM', 'lufei')
+      // this.$EventBus.$emit('testM', 'lufei')
       if ((!this.$refs.queryBox.contains(e.target)) && (!this.$parent.$children[0].$refs.queryDown.contains(e.target))) {
         /* 关闭元素 */
         this.setThemeTool()
       }
+    },
+    changeTheme (v) {
+      console.log(v)
+      // 取到我们在html上给皮肤的css留的坑并且设置路径
+      let themeLink = document.querySelector('link[name="theme"]')
+      let stylePath = ''
+      // 如果是 开发环境
+      console.log(process.env.BASE_URL)
+      if (process.env.NODE_ENV === 'development') {
+        stylePath = `${process.env.BASE_URL}theme/theme1.css`
+      } else {
+        // 生产环境
+        stylePath = `${process.env.BASE_URL}theme/theme1.css`
+      }
+      themeLink.setAttribute('href', stylePath)
     }
   }
 }
