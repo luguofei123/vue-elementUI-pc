@@ -32,19 +32,7 @@ module.exports = {
   assetsDir: 'assets',
   indexPath: 'index.html',
   filenameHashing: true,
-  pages: {
-    index: {
-      entry: 'src/main.js',
-      template: 'public/index.html',
-      filename: 'index.html'
-    },
-    baidu: {
-      entry: 'src/views/testpage/baidu.js',
-      template: 'public/baidu.html',
-      filename: 'baidu.html',
-      title: 'baidu'
-    }
-  },
+  pages: undefined,
   lintOnSave: true,
   runtimeCompiler: false,
   transpileDependencies: [],
