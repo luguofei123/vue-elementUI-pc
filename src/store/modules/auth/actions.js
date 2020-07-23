@@ -1,4 +1,4 @@
-// 异步提交同步任务
+// 异步提交同步任务 这样调用 store.dispatch('auth/setAuthRouter') 
 import asyncRouter from '@/router/routerData/asyncRouter'
 import store from '@/store/index'
 // 工具函数，判断数组里面是否有该值，有返回真，没有返回假

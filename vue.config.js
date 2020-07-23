@@ -16,12 +16,43 @@ const cdn = {
 }
 // 属性名vue-router指的是 'import VueRouter from 'vue-router'中的vue-router 
 // 属性值 VueRouter指的是 'import VueRouter from 'vue-router'中的VueRouter  全局的别称
+// externals 打包时排除这模块
 const externals = {
   vue: 'Vue',
   'vue-router': 'VueRouter',
   vuex: 'Vuex',
   axios: 'axios'
 }
+const objectPage = {
+  index: {
+    entry: 'src/main.js',
+    template: 'public/index.html',
+    filename: 'index.html',
+    title: 'index',
+    chunks: ['chunk-vendors', 'chunk-common', 'index'],
+    minify: { minifyCSS: true },
+    cdn:cdn
+  },
+  baidu: {
+    entry: 'src/views/testpage/baidu.js',
+    template: 'public/baidu.html',
+    filename: 'baidu.html',
+    title: 'baidu',
+    chunks: ['chunk-vendors', 'chunk-common', 'baidu'],
+    minify: { minifyCSS: true }
+  }
+}
+let pages = {}
+// 获取build后面的参数确定执行哪个文件
+let pageName = process.argv[3]
+// 判断开发环境
+if (process.env.NODE_ENV == 'development') {
+  pages = objectPage
+} 
+// 判断生产环境
+if (process.env.NODE_ENV == 'production') {
+  pages[pageName] = objectPage[pageName]
+} 
 module.exports = {
   // 选项...
   // 这个值和路由中的base:baseUrl是一个值process.env.NODE_ENV === 'production'? '/production-sub-path/': '/'
@@ -29,25 +60,12 @@ module.exports = {
   // 如果是部署到服务器的根路径下的dist目录 那么publicPath：'dist/'
   // 如果是部署到服务器的根路径下的vue-elementUI-pc/dist目录 那么publicPath：'vue-elementUI-pc/dist/'
   // 根本用不到相对路径
-  publicPath: 'vue-elementUI-pc/dist/',
-  outputDir: 'dist',
+  publicPath: 'vue-elementUI-pc/dist/' + pageName + '/',
+  outputDir: 'dist/' + pageName,
   assetsDir: 'assets',
   indexPath: 'index.html',
   filenameHashing: true,
-  pages:undefined,
-  // pages: {
-  //   index: {
-  //     entry: 'src/main.js',
-  //     template: 'public/index.html',
-  //     filename: 'index.html'
-  //   },
-  //   baidu: {
-  //     entry: 'src/views/testpage/baidu.js',
-  //     template: 'public/baidu.html',
-  //     filename: 'baidu.html',
-  //     title: 'baidu'
-  //   }
-  // },
+  pages: pages,
   lintOnSave: true,
   runtimeCompiler: false,
   transpileDependencies: [],
@@ -55,16 +73,16 @@ module.exports = {
   crossorigin: undefined,
   integrity: false,
   devServer: {// 代理
-    port: process.env.VUE_APP_BASE_PORT,
+    port: 8080,
     proxy: {
-      '/usermanager': {
-        target: 'http://' + process.env.VUE_APP_PROXY_IP + ':' + process.env.VUE_APP_PROXY_PORT,
+      '/dev': {
+        target: 'http://127.0.0.1:4885',
         ws: true,
         changeOrigin: true,
         // pathRewrite 作用是将usermanager换成了api
         // 合起来解释就是 我们原来的请求是http://127.0.0.1:8086/usermanager/echo.php
         // 实际上我们的请求已经代理成 http://127.0.0.1:4885/api/echo.php
-        pathRewrite: { '^/usermanager': 'api' }
+        pathRewrite: { '^/dev': 'api' }
       }
       // '/pdf': {
       //   target: 'http://127.0.0.1:4885',
@@ -88,7 +106,7 @@ module.exports = {
       }
     }
   },
-  // 链式配置/修改插件或loader
+  // 链式配置/修改插件或loader  如果对一个loader或plugin修改的配置如果是一项的话推荐chainWebpack
   chainWebpack: config => {
     // config.plugins.delete('preload')
     // config.plugins.delete('prefetch')
@@ -201,19 +219,20 @@ module.exports = {
         }))
       // ============压缩css js end=============
       // ============插入CND start==============
-      config.plugin('html').tap(args => {
-        // console.log(args)
-        args[0].cdn = cdn
-        return args
-      })
+      // 下面参数这种写法直接要么写在page里面，要么像下面这样写，不能同时写，否则冲突
+      // config.plugin('html').tap(args => {
+      //   // console.log(args)
+      //   args[0].cdn = cdn
+      //   return args
+      // })
       // 打包时排除这几项
-      config.externals(externals)
+      // config.externals(externals)
       // ============插入CND end=================
       // ============压缩html中的css start=======
-      config.plugin('html').tap(args => {
-        args[0].minify.minifyCSS = true
-        return args
-      })
+      // config.plugin('html').tap(args => {
+      //   args[0].minify.minifyCSS = true
+      //   return args
+      // })
       // ============压缩html中的css end=========
     }
     // 专门给report提供，使用方法 npm run report
@@ -237,7 +256,7 @@ module.exports = {
       .end()
     // ============清除元素之间的空格 end==========
   },
-  // 配置 webpack 新增简单的插件,
+  // 配置 webpack 新增简单的插件, 如果是多项的话用configureWebpack直接覆写
   configureWebpack: config => {
     // 解决ie11兼容ES6
     // config.entry('main').add('babel-polyfill')

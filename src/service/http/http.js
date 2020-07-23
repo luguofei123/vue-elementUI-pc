@@ -6,7 +6,7 @@ import router from '@/router/index'
 // 创建实例
 const instance = axios.create({
   timeout: 5000,
-  baseURL: 'http://' + process.env.VUE_APP_BASE_IP + ':' + process.env.VUE_APP_BASE_PORT
+  baseURL: process.env.VUE_APP_PATH
 })
 // console.log('http://' + process.env.VUE_APP_BASE_IP + ':' + process.env.VUE_APP_BASE_PORT)
 // 设置post请求头
