@@ -99,6 +99,7 @@ height:100%;
   border:1px solid #b6b6b6;
   width:540px;
   text-align: left;
+  box-sizing: border-box;
 }
 .baiduinput{
   height:22px;

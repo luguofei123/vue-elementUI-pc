@@ -14,6 +14,8 @@ const cdn = {
     'https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js'
   ]
 }
+// 属性名vue-router指的是 'import VueRouter from 'vue-router'中的vue-router 
+// 属性值 VueRouter指的是 'import VueRouter from 'vue-router'中的VueRouter  全局的别称
 const externals = {
   vue: 'Vue',
   'vue-router': 'VueRouter',
@@ -32,6 +34,7 @@ module.exports = {
   assetsDir: 'assets',
   indexPath: 'index.html',
   filenameHashing: true,
+  // pages:undefined,
   pages: {
     index: {
       entry: 'src/main.js',
@@ -199,9 +202,11 @@ module.exports = {
       // ============压缩css js end=============
       // ============插入CND start==============
       config.plugin('html').tap(args => {
+        // console.log(args)
         args[0].cdn = cdn
         return args
       })
+      // 打包时排除这几项
       config.externals(externals)
       // ============插入CND end=================
       // ============压缩html中的css start=======
