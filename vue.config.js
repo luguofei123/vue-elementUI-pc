@@ -192,6 +192,13 @@ module.exports = {
       })
       config.externals(externals)
       // ============插入CND end=================
+      // ============插入title start==============
+      config.plugin('html').tap(args => {
+        args[0].title = 'template-pc'
+        return args
+      })
+      config.externals(externals)
+      // ============插入title end=================
       // ============压缩html中的css start=======
       config.plugin('html').tap(args => {
         args[0].minify.minifyCSS = true
