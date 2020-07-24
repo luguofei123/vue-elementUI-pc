@@ -39,7 +39,8 @@ const objectPage = {
     filename: 'baidu.html',
     title: 'baidu',
     chunks: ['chunk-vendors', 'chunk-common', 'baidu'],
-    minify: { minifyCSS: true }
+    minify: { minifyCSS: true },
+    cdn: cdn
   }
 }
 let pages = {}
@@ -62,8 +63,8 @@ module.exports = {
   // 如果是部署到服务器的根路径下的dist目录 那么publicPath：'dist/'
   // 如果是部署到服务器的根路径下的vue-elementUI-pc/dist目录 那么publicPath：'vue-elementUI-pc/dist/'
   // 根本用不到相对路径
-  publicPath: 'vue-elementUI-pc/dist/',
-  outputDir: 'dist/',
+  publicPath: 'vue-elementUI-pc/' + pageName,
+  outputDir: 'dist/' + pageName,
   assetsDir: 'assets',
   indexPath: 'index.html',
   filenameHashing: true,
@@ -77,14 +78,14 @@ module.exports = {
   devServer: {// 代理
     port: 8080,
     proxy: {
-      '/dev': {
+      '/manager11': {
         target: 'http://127.0.0.1:4885',
         ws: true,
         changeOrigin: true,
         // pathRewrite 作用是将usermanager换成了api
         // 合起来解释就是 我们原来的请求是http://127.0.0.1:8086/usermanager/echo.php
         // 实际上我们的请求已经代理成 http://127.0.0.1:4885/api/echo.php
-        pathRewrite: { '^/dev': 'api' }
+        pathRewrite: { '^/manager11': 'api' }
       }
       // '/pdf': {
       //   target: 'http://127.0.0.1:4885',
@@ -114,26 +115,26 @@ module.exports = {
     // config.plugins.delete('prefetch')
     // 抽取公共js和css 可能目前页面比较少，感觉效果不明显
     // ============抽取公共js和css start ============
-    // config.optimization.minimize(true)
-    // config.optimization.splitChunks({
-    //   chunks: 'all', // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
-    //   maxInitialRequests: 5, // 最大的按需(异步)加载次数，默认为 5
-    //   minSize: 300000, // 依赖包超过300000bit将被单独打包
-    //   automaticNameDelimiter: '-', // 抽取出来的文件的自动生成名字的分割符，默认为 ~
-    //   cacheGroups: {
-    //     vendor: {
-    //       chunks: 'all',
-    //       test: /node_modules/,
-    //       name: 'vendor'
-    //     },
-    //     styles: {
-    //       name: 'styles',
-    //       test: /\.(sa|sc|c)ss$/,
-    //       chunks: 'all',
-    //       enforce: true
-    //     }
-    //   }
-    // })
+    config.optimization.minimize(true)
+    config.optimization.splitChunks({
+      chunks: 'all', // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
+      maxInitialRequests: 5, // 最大的按需(异步)加载次数，默认为 5
+      minSize: 100, // 依赖包超过300000bit将被单独打包
+      automaticNameDelimiter: '-', // 抽取出来的文件的自动生成名字的分割符，默认为 ~
+      cacheGroups: {
+        vendor: {
+          chunks: 'all',
+          test: /node_modules/,
+          name: 'vendor'
+        },
+        styles: {
+          name: 'styles',
+          test: /\.(sa|sc|c)ss$/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    })
     // ============抽取公共js和css end ===========
     // ============修改目录别名 start ============
     config.resolve.alias
@@ -227,7 +228,7 @@ module.exports = {
       //   args[0].cdn = cdn
       //   return args
       // })
-      // 打包时排除这几项
+      // 打包时排除这几项  测试后觉得只会在打包的时候排除这些模块，生产模式下不会起作用
       config.externals(externals)
       // ============插入CND end=================
       // ============压缩html中的css start=======
