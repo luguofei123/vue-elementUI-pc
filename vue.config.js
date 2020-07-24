@@ -44,13 +44,14 @@ const objectPage = {
 }
 let pages = {}
 // 获取build后面的参数确定执行哪个文件
-let pageName = process.argv[3]
+let pageName = 'dev'
 // 判断开发环境
 if (process.env.NODE_ENV == 'development') {
   pages = objectPage
 } 
 // 判断生产环境
 if (process.env.NODE_ENV == 'production') {
+  pageName = process.argv[3]
   pages[pageName] = objectPage[pageName]
 } 
 module.exports = {
