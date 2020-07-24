@@ -114,26 +114,26 @@ module.exports = {
     // config.plugins.delete('prefetch')
     // 抽取公共js和css 可能目前页面比较少，感觉效果不明显
     // ============抽取公共js和css start ============
-    // config.optimization.minimize(true)
-    // config.optimization.splitChunks({
-    //   chunks: 'all', // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
-    //   maxInitialRequests: 5, // 最大的按需(异步)加载次数，默认为 5
-    //   minSize: 300000, // 依赖包超过300000bit将被单独打包
-    //   automaticNameDelimiter: '-', // 抽取出来的文件的自动生成名字的分割符，默认为 ~
-    //   cacheGroups: {
-    //     vendor: {
-    //       chunks: 'all',
-    //       test: /node_modules/,
-    //       name: 'vendor'
-    //     },
-    //     styles: {
-    //       name: 'styles',
-    //       test: /\.(sa|sc|c)ss$/,
-    //       chunks: 'all',
-    //       enforce: true
-    //     }
-    //   }
-    // })
+    config.optimization.minimize(true)
+    config.optimization.splitChunks({
+      chunks: 'all', // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
+      maxInitialRequests: 5, // 最大的按需(异步)加载次数，默认为 5
+      minSize: 100, // 依赖包超过300000bit将被单独打包
+      automaticNameDelimiter: '-', // 抽取出来的文件的自动生成名字的分割符，默认为 ~
+      cacheGroups: {
+        vendor: {
+          chunks: 'all',
+          test: /node_modules/,
+          name: 'vendor'
+        },
+        styles: {
+          name: 'styles',
+          test: /\.(sa|sc|c)ss$/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    })
     // ============抽取公共js和css end ===========
     // ============修改目录别名 start ============
     config.resolve.alias
