@@ -39,7 +39,8 @@ const objectPage = {
     filename: 'baidu.html',
     title: 'baidu',
     chunks: ['chunk-vendors', 'chunk-common', 'baidu'],
-    minify: { minifyCSS: true }
+    minify: { minifyCSS: true },
+    cdn:cdn
   }
 }
 let pages = {}
@@ -76,14 +77,14 @@ module.exports = {
   devServer: {// 代理
     port: 8080,
     proxy: {
-      '/dev': {
+      '/manager11': {
         target: 'http://127.0.0.1:4885',
         ws: true,
         changeOrigin: true,
         // pathRewrite 作用是将usermanager换成了api
         // 合起来解释就是 我们原来的请求是http://127.0.0.1:8086/usermanager/echo.php
         // 实际上我们的请求已经代理成 http://127.0.0.1:4885/api/echo.php
-        pathRewrite: { '^/dev': 'api' }
+        pathRewrite: { '^/manager11': 'api' }
       }
       // '/pdf': {
       //   target: 'http://127.0.0.1:4885',
@@ -226,8 +227,8 @@ module.exports = {
       //   args[0].cdn = cdn
       //   return args
       // })
-      // 打包时排除这几项
-      // config.externals(externals)
+      // 打包时排除这几项  测试后觉得只会在打包的时候排除这些模块，生产模式下不会起作用
+      config.externals(externals)
       // ============插入CND end=================
       // ============压缩html中的css start=======
       // config.plugin('html').tap(args => {
