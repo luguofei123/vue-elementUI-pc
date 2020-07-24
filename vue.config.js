@@ -14,7 +14,7 @@ const cdn = {
     'https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js'
   ]
 }
-// 属性名vue-router指的是 'import VueRouter from 'vue-router'中的vue-router 
+// 属性名vue-router指的是 'import VueRouter from 'vue-router'中的vue-router
 // 属性值 VueRouter指的是 'import VueRouter from 'vue-router'中的VueRouter  全局的别称
 // externals 打包时排除这模块
 const externals = {
@@ -31,7 +31,7 @@ const objectPage = {
     title: 'index',
     chunks: ['chunk-vendors', 'chunk-common', 'index'],
     minify: { minifyCSS: true },
-    cdn:cdn
+    cdn: cdn
   },
   baidu: {
     entry: 'src/views/testpage/baidu.js',
@@ -43,16 +43,18 @@ const objectPage = {
   }
 }
 let pages = {}
-// 获取build后面的参数确定执行哪个文件
-let pageName = process.argv[3]
+let pageName = ''
 // 判断开发环境
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV === 'development') {
   pages = objectPage
-} 
+  pageName = ''
+}
 // 判断生产环境
-if (process.env.NODE_ENV == 'production') {
+if (process.env.NODE_ENV === 'production') {
+  // 获取build后面的参数确定执行哪个文件
+  pageName = process.argv[3] + '/'
   pages[pageName] = objectPage[pageName]
-} 
+}
 module.exports = {
   // 选项...
   // 这个值和路由中的base:baseUrl是一个值process.env.NODE_ENV === 'production'? '/production-sub-path/': '/'
@@ -60,8 +62,8 @@ module.exports = {
   // 如果是部署到服务器的根路径下的dist目录 那么publicPath：'dist/'
   // 如果是部署到服务器的根路径下的vue-elementUI-pc/dist目录 那么publicPath：'vue-elementUI-pc/dist/'
   // 根本用不到相对路径
-  publicPath: 'vue-elementUI-pc/dist/' + pageName + '/',
-  outputDir: 'dist/' + pageName,
+  publicPath: 'vue-elementUI-pc/dist/',
+  outputDir: 'dist/',
   assetsDir: 'assets',
   indexPath: 'index.html',
   filenameHashing: true,
@@ -226,7 +228,7 @@ module.exports = {
       //   return args
       // })
       // 打包时排除这几项
-      // config.externals(externals)
+      config.externals(externals)
       // ============插入CND end=================
       // ============压缩html中的css start=======
       // config.plugin('html').tap(args => {

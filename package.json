@@ -17,6 +17,7 @@
     "bpmn-js": "^5.1.2",
     "bpmn-js-properties-panel": "^0.33.0",
     "camunda-bpmn-moddle": "^4.3.0",
+    "cnpm": "^6.1.1",
     "core-js": "^2.6.5",
     "echarts": "^4.2.1",
     "element-ui": "^2.11.1",
