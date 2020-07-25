@@ -167,13 +167,13 @@ module.exports = {
       // 原因是：默认不超过4096字节会被转换成Base64编码,用require引用的也会被转成和base64，
       // 超出这个限制则会被打包在img文件夹下，同时会用到下面这个loader进行压缩
       // ============压缩图片 start==============
-      config.module
-        .rule('images')
-        .test(/\.(png|jpe?g|gif)(\?.*)?$/i)
-        .use('image-webpack-loader')
-        .loader('image-webpack-loader')
-        .options({ bypassOnDebug: true })
-        .end()
+      // config.module
+      //   .rule('images')
+      //   .test(/\.(png|jpe?g|gif)(\?.*)?$/i)
+      //   .use('image-webpack-loader')
+      //   .loader('image-webpack-loader')
+      //   .options({ bypassOnDebug: true })
+      //   .end()
       // ============压缩图片 end==============
       // ============压缩css js start==========
       config.plugin('CompressionWebpackPlugin')
