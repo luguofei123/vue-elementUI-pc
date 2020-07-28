@@ -39,7 +39,7 @@ module.exports = {
       filename: 'index.html',
       title: 'APP',
       // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
-      favicon: 'src/assets/img/favorite.png',
+      favicon: 'src/assets/img/portal/tel.jpg',
       // inject: 'body',
       chunks: ['chunk-vendors', 'chunk-common', 'index'],
       minify: {
