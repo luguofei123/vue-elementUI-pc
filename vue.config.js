@@ -41,15 +41,17 @@ module.exports = {
       // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
       favicon: 'src/assets/img/portal/tel.jpg',
       // inject: 'body',
-      chunks: ['chunk-vendors', 'chunk-common', 'index'],
+      chunks: ["chunk-vendors", "chunk-common", "index"],
       minify: {
+        minimize: true,               //是否打包为最小值 ,没有看到有什么作用，网上没有相关资料
         removeAttributeQuotes: true, // 移除属性的引号（不常用）
         // removeEmptyElements:true,    //删除所有含有空内容的元素。（不常用,慎用）
         removeComments: true,        //带HTML注释
         collapseWhitespace: true,    //去掉空格
-        minifyJS: true,              // 压缩html里的js（使用uglify-js进行的压缩）
-        minifyCSS: true,             // 压缩html里的css（使用clean-css进行的压缩）
-    },
+        minifyJS: true,              // 压缩html里的js 压缩内联js（使用uglify-js进行的压缩）
+        minifyCSS: true,             // 压缩html里的css 压缩内联css（使用clean-css进行的压缩）
+      },
+      hash: true,                   //引入产出的资源时加上哈希避免缓存,在html中的js和css后面加上？hash值
       cdn: cdn
     }
   },
@@ -146,7 +148,7 @@ module.exports = {
         })
         .end()
       // ============修改规则 svg end ======================
-
+      // config.optimization.minimize(true)  //没有效果
       // file-loader，url-loader默认配置已经有了,不需要在配置，
       // 如果自己安装可能版本会不一样，会出现background: url([object Object])
       // 可以发现在dist/img下面的图片少了一部分，
