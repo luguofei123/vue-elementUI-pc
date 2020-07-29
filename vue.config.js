@@ -28,7 +28,7 @@ const externals = {
 const objectPage = {
   index: {
     entry: 'src/main.js',
-    template: path.resolve(__dirname,'src/public/index.html'),
+    template: path.resolve(__dirname, 'src/public/index.html'),
     filename: 'index.html',
     title: 'index',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
@@ -49,7 +49,7 @@ const objectPage = {
   },
   baidu: {
     entry: 'src/views/baiduPage/baidu.js',
-    template: path.resolve(__dirname,'src/views/baiduPage/public/baidu.html'),
+    template: path.resolve(__dirname, 'src/views/baiduPage/public/baidu.html'),
     filename: 'baidu.html',
     title: 'baiduAPP',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
