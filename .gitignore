@@ -1,6 +1,10 @@
 .DS_Store
 node_modules
 dist*
+webpack.config.development*
+webpack.config.production*
+vue.config-bak.js
+vue.config.js
 
 # local env files
 .env.local
