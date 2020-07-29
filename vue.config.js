@@ -6,55 +6,107 @@ const resolve = dir => path.resolve(__dirname, dir)
 const merge = require('webpack-merge')
 // 测试环境的cdn可以用其他标志去区分
 const cdn = {
-  css: [],
+  css: [
+    'https://cdn.bootcss.com/element-ui/2.11.1/theme-chalk/index.css'
+  ],
   js: [
     'https://cdn.bootcss.com/vue/2.6.10/vue.min.js',
     'https://cdn.bootcss.com/vue-router/3.0.3/vue-router.min.js',
     'https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js',
+    'https://cdn.bootcss.com/element-ui/2.11.1/index.js',
     'https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js'
   ]
 }
-// 属性名vue-router指的是 'import VueRouter from 'vue-router'中的vue-router
-// 属性值 VueRouter指的是 'import VueRouter from 'vue-router'中的VueRouter  全局的别称
-// externals 打包时排除这模块
+// 
+
+// externals 打包时排除这模块,模块名称和模块值需要查询
 const externals = {
   vue: 'Vue',
   'vue-router': 'VueRouter',
   vuex: 'Vuex',
-  axios: 'axios'
+  'element-ui': 'ELEMENT',
+  axios: 'axios',
 }
 const objectPage = {
   index: {
     entry: 'src/main.js',
-    template: 'public/index.html',
+    template: path.resolve(__dirname,'public/index.html'),
     filename: 'index.html',
     title: 'index',
-    chunks: ['chunk-vendors', 'chunk-common', 'index'],
-    minify: { minifyCSS: true },
+    // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
+    favicon: 'src/assets/img/portal/tel.jpg',
+    // inject: 'body',
+    chunks: ["chunk-vendors", "chunk-common", "index"],
+    minify: {
+      minimize: true,               //是否打包为最小值 ,没有看到有什么作用，网上没有相关资料
+      removeAttributeQuotes: true, // 移除属性的引号（不常用）
+      // removeEmptyElements:true,    //删除所有含有空内容的元素。（不常用,慎用）
+      removeComments: true,        //带HTML注释
+      collapseWhitespace: true,    //去掉空格
+      minifyJS: true,              // 压缩html里的js 压缩内联js（使用uglify-js进行的压缩）
+      minifyCSS: true,             // 压缩html里的css 压缩内联css（使用clean-css进行的压缩）
+    },
+    hash: true,                   //引入产出的资源时加上哈希避免缓存,在html中的js和css后面加上？hash值
     cdn: cdn
   },
   baidu: {
-    entry: 'src/views/testpage/baidu.js',
-    template: 'public/baidu.html',
+    entry: 'src/views/baiduPage/baidu.js',
+    template: path.resolve(__dirname,'public/baidu.html'),
     filename: 'baidu.html',
-    title: 'baidu',
-    chunks: ['chunk-vendors', 'chunk-common', 'baidu'],
-    minify: { minifyCSS: true },
+    title: 'baiduAPP',
+    // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
+    favicon: 'src/assets/img/portal/kefu.png',
+    // inject: 'body',
+    chunks: ["chunk-vendors", "chunk-common", "baidu"],
+    minify: {
+      minimize: true,               //是否打包为最小值 ,没有看到有什么作用，网上没有相关资料
+      removeAttributeQuotes: true, // 移除属性的引号（不常用）
+      // removeEmptyElements:true,    //删除所有含有空内容的元素。（不常用,慎用）
+      removeComments: true,        //带HTML注释
+      collapseWhitespace: true,    //去掉空格
+      minifyJS: true,              // 压缩html里的js 压缩内联js（使用uglify-js进行的压缩）
+      minifyCSS: true,             // 压缩html里的css 压缩内联css（使用clean-css进行的压缩）
+    },
+    hash: true,                   //引入产出的资源时加上哈希避免缓存,在html中的js和css后面加上？hash值
+    cdn: cdn
+  },
+  shopCar: {
+    entry: 'src/views/shopCarPage/shopCar.js',
+    template: path.resolve(__dirname,'public/shoppingCar.html'),
+    filename: 'shoppingCar.html',
+    title: 'shoppingCar',
+    // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
+    favicon: 'src/assets/img/portal/kefu.png',
+    // inject: 'body',
+    chunks: ["chunk-vendors", "chunk-common", "shopCar"],
+    minify: {
+      minimize: true,               //是否打包为最小值 ,没有看到有什么作用，网上没有相关资料
+      removeAttributeQuotes: true, // 移除属性的引号（不常用）
+      // removeEmptyElements:true,    //删除所有含有空内容的元素。（不常用,慎用）
+      removeComments: true,        //带HTML注释
+      collapseWhitespace: true,    //去掉空格
+      minifyJS: true,              // 压缩html里的js 压缩内联js（使用uglify-js进行的压缩）
+      minifyCSS: true,             // 压缩html里的css 压缩内联css（使用clean-css进行的压缩）
+    },
+    hash: true,                   //引入产出的资源时加上哈希避免缓存,在html中的js和css后面加上？hash值
     cdn: cdn
   }
 }
 let pages = {}
 let pageName = ''
-// 判断开发环境
+let outputDirPath = ''
+// 开发环境
 if (process.env.NODE_ENV === 'development') {
   pages = objectPage
   pageName = ''
+  outputDirPath = ''
 }
-// 判断生产环境
+// 生产环境
 if (process.env.NODE_ENV === 'production') {
   // 获取build后面的参数确定执行哪个文件
-  pageName = process.argv[3] + '/'
+  pageName = process.argv[3]
   pages[pageName] = objectPage[pageName]
+  outputDirPath = '/'
 }
 module.exports = {
   // 选项...
@@ -63,10 +115,10 @@ module.exports = {
   // 如果是部署到服务器的根路径下的dist目录 那么publicPath：'dist/'
   // 如果是部署到服务器的根路径下的vue-elementUI-pc/dist目录 那么publicPath：'vue-elementUI-pc/dist/'
   // 根本用不到相对路径
-  publicPath: 'vue-elementUI-pc/' + pageName,
-  outputDir: 'dist/' + pageName,
+  publicPath: 'vue-elementUI-pc/dist/'  + pageName + outputDirPath,
+  outputDir: 'dist/' + pageName + outputDirPath,
   assetsDir: 'assets',
-  indexPath: 'index.html',
+  // indexPath: 'index.html',
   filenameHashing: true,
   pages: pages,
   lintOnSave: true,
@@ -111,30 +163,31 @@ module.exports = {
   },
   // 链式配置/修改插件或loader  如果对一个loader或plugin修改的配置如果是一项的话推荐chainWebpack
   chainWebpack: config => {
+    config.externals(externals)
     // config.plugins.delete('preload')
     // config.plugins.delete('prefetch')
     // 抽取公共js和css 可能目前页面比较少，感觉效果不明显
     // ============抽取公共js和css start ============
-    config.optimization.minimize(true)
-    config.optimization.splitChunks({
-      chunks: 'all', // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
-      maxInitialRequests: 5, // 最大的按需(异步)加载次数，默认为 5
-      minSize: 100, // 依赖包超过300000bit将被单独打包
-      automaticNameDelimiter: '-', // 抽取出来的文件的自动生成名字的分割符，默认为 ~
-      cacheGroups: {
-        vendor: {
-          chunks: 'all',
-          test: /node_modules/,
-          name: 'vendor'
-        },
-        styles: {
-          name: 'styles',
-          test: /\.(sa|sc|c)ss$/,
-          chunks: 'all',
-          enforce: true
-        }
-      }
-    })
+    // config.optimization.minimize(true)
+    // config.optimization.splitChunks({
+    //   chunks: 'all', // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
+    //   maxInitialRequests: 5, // 最大的按需(异步)加载次数，默认为 5
+    //   minSize: 100, // 依赖包超过300000bit将被单独打包
+    //   automaticNameDelimiter: '-', // 抽取出来的文件的自动生成名字的分割符，默认为 ~
+    //   cacheGroups: {
+    //     vendor: {
+    //       chunks: 'all',
+    //       test: /node_modules/,
+    //       name: 'vendor'
+    //     },
+    //     styles: {
+    //       name: 'styles',
+    //       test: /\.(sa|sc|c)ss$/,
+    //       chunks: 'all',
+    //       enforce: true
+    //     }
+    //   }
+    // })
     // ============抽取公共js和css end ===========
     // ============修改目录别名 start ============
     config.resolve.alias
@@ -202,25 +255,6 @@ module.exports = {
       // 可以发现在dist/img下面的图片少了一部分，
       // 原因是：默认不超过4096字节会被转换成Base64编码,用require引用的也会被转成和base64，
       // 超出这个限制则会被打包在img文件夹下，同时会用到下面这个loader进行压缩
-      // ============压缩图片 start==============
-      config.module
-        .rule('images')
-        .test(/\.(png|jpe?g|gif)(\?.*)?$/i)
-        .use('image-webpack-loader')
-        .loader('image-webpack-loader')
-        .options({ bypassOnDebug: true })
-        .end()
-      // ============压缩图片 end==============
-      // ============压缩css js start==========
-      config.plugin('CompressionWebpackPlugin')
-        .use(new CompressionWebpackPlugin({
-          // filename: '[path].gz[query]',
-          test: /\.css$|\.ttf$|\.html$|\.svg$|\.json$|\.js$/, // 匹配文件名
-          threshold: 10240, // 对超过10k的数据压缩
-          minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
-          deleteOriginalAssets: false // 不删除源文件
-        }))
-      // ============压缩css js end=============
       // ============插入CND start==============
       // 下面参数这种写法直接要么写在page里面，要么像下面这样写，不能同时写，否则冲突
       // config.plugin('html').tap(args => {
@@ -229,7 +263,7 @@ module.exports = {
       //   return args
       // })
       // 打包时排除这几项  测试后觉得只会在打包的时候排除这些模块，生产模式下不会起作用
-      config.externals(externals)
+      // config.externals(externals)
       // ============插入CND end=================
       // ============压缩html中的css start=======
       // config.plugin('html').tap(args => {
@@ -265,15 +299,15 @@ module.exports = {
     // config.entry('main').add('babel-polyfill')
     if (process.env.NODE_ENV === 'production') {
       // ============压缩css js start============
-      // config.plugins.push(
-      //   new CompressionWebpackPlugin({
-      //     test: /\.js$|\.html$|\.css$/, // 匹配文件名
-      //     threshold: 10240, // 对超过10k的数据压缩
-      //     minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
-      //     deleteOriginalAssets: false // 不删除源文件,实测时删除源文件在nginx下运行会报错.原因
-      //     // 是请求的是app.js,返回的是app.js.gz,浏览器负责解压；如果删除源文件，nginx会找不到映射。
-      //   })
-      // )
+      config.plugins.push(
+        new CompressionWebpackPlugin({
+          test: /\.js$|\.html$|\.css$|\.png$|\.jpg$|\.ttf$|\.woff$|\.svg$|\.eot$|\.woff2$/, // 匹配文件名
+          threshold: 10240, // 对超过10k的数据压缩
+          minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
+          deleteOriginalAssets: false // 不删除源文件,实测时删除源文件在nginx下运行会报错.原因
+          // 是请求的是app.js,返回的是app.js.gz,浏览器负责解压；如果删除源文件，nginx会找不到映射。
+        })
+      )
       // ============压缩css js end============
       // ============移除console start=========
       config.plugins.push(
