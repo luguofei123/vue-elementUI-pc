@@ -30,7 +30,7 @@ const externals = {
 const objectPage = {
   index: {
     entry: 'src/main.js',
-    template: path.resolve(__dirname,'public/index.html'),
+    template: path.resolve(__dirname,'src/public/index.html'),
     filename: 'index.html',
     title: 'index',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
@@ -51,8 +51,8 @@ const objectPage = {
   },
   baidu: {
     entry: 'src/views/baiduPage/baidu.js',
-    template: path.resolve(__dirname,'public/baidu.html'),
-    filename: 'baidu.html',
+    template: path.resolve(__dirname,'src/views/baiduPage/public/baidu.html'),
+    filename: 'index.html',
     title: 'baiduAPP',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
     favicon: 'src/assets/img/portal/kefu.png',
@@ -72,8 +72,8 @@ const objectPage = {
   },
   shopCar: {
     entry: 'src/views/shopCarPage/shopCar.js',
-    template: path.resolve(__dirname,'public/shoppingCar.html'),
-    filename: 'shoppingCar.html',
+    template: path.resolve(__dirname,'src/views/public/shoppingCar.html'),
+    filename: 'index.html',
     title: 'shoppingCar',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
     favicon: 'src/assets/img/portal/kefu.png',
