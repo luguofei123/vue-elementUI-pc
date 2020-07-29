@@ -201,15 +201,16 @@ module.exports = {
     // config.entry('main').add('babel-polyfill')
     if (process.env.NODE_ENV === 'production') {
       // ============压缩css js start============
-      // config.plugins.push(
-      //   new CompressionWebpackPlugin({
-      //     test: /\.js$|\.html$|\.css$/, // 匹配文件名
-      //     threshold: 10240, // 对超过10k的数据压缩
-      //     minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
-      //     deleteOriginalAssets: false // 不删除源文件,实测时删除源文件在nginx下运行会报错.原因
-      //     // 是请求的是app.js,返回的是app.js.gz,浏览器负责解压；如果删除源文件，nginx会找不到映射。
-      //   })
-      // )
+      config.plugins.push(
+        new CompressionWebpackPlugin({
+          test: /\.js$|\.html$|\.css$/, // 匹配文件名
+          threshold: 10240, // 对超过10k的数据压缩
+          minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
+          deleteOriginalAssets: true // 不删除源文件,实测时删除源文件在nginx下运行会报错.原因
+          // 是请求的是app.js,返回的是app.js.gz,浏览器负责解压；如果删除源文件，nginx会找不到映射。
+          // 配置好nginx就没有问题
+        })
+      )
       // ============压缩css js end============
       // ============移除console start=========
       config.plugins.push(
