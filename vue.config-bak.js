@@ -30,31 +30,9 @@ module.exports = {
   publicPath: 'vue-elementUI-pc/dist/',
   outputDir: 'dist',
   assetsDir: 'assets',
-  // indexPath: 'index.html',
+  indexPath: 'index.html',
   filenameHashing: true,
-  pages: {
-    index: {
-      entry: 'src/main.js',
-      template: path.resolve(__dirname, 'public/index.html'),
-      filename: 'index.html',
-      title: 'APP',
-      // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
-      favicon: 'src/assets/img/portal/tel.jpg',
-      // inject: 'body',
-      chunks: ['chunk-vendors', 'chunk-common', 'index'],
-      minify: {
-        minimize: true, // 是否打包为最小值 ,没有看到有什么作用，网上没有相关资料
-        removeAttributeQuotes: true, // 移除属性的引号（不常用）
-        // removeEmptyElements:true,    //删除所有含有空内容的元素。（不常用,慎用）
-        removeComments: true, // 带HTML注释
-        collapseWhitespace: true, // 去掉空格
-        minifyJS: true, // 压缩html里的js 压缩内联js（使用uglify-js进行的压缩）
-        minifyCSS: true // 压缩html里的css 压缩内联css（使用clean-css进行的压缩）
-      },
-      hash: true, // 引入产出的资源时加上哈希避免缓存,在html中的js和css后面加上？hash值
-      cdn: cdn
-    }
-  },
+  pages: undefined,
   lintOnSave: true,
   runtimeCompiler: false,
   transpileDependencies: [],
@@ -97,17 +75,37 @@ module.exports = {
   },
   // 链式配置/修改插件或loader
   chainWebpack: config => {
-    // ===================修改目录别名 start ============
+    // config.plugins.delete('preload')
+    // config.plugins.delete('prefetch')
+    // 抽取公共js和css 可能目前页面比较少，感觉效果不明显
+    // ============抽取公共js和css start ============
+    // config.optimization.minimize(true)
+    // config.optimization.splitChunks({
+    //   chunks: 'all', // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
+    //   maxInitialRequests: 5, // 最大的按需(异步)加载次数，默认为 5
+    //   minSize: 300000, // 依赖包超过300000bit将被单独打包
+    //   automaticNameDelimiter: '-', // 抽取出来的文件的自动生成名字的分割符，默认为 ~
+    //   cacheGroups: {
+    //     vendor: {
+    //       chunks: 'all',
+    //       test: /node_modules/,
+    //       name: 'vendor'
+    //     },
+    //     styles: {
+    //       name: 'styles',
+    //       test: /\.(sa|sc|c)ss$/,
+    //       chunks: 'all',
+    //       enforce: true
+    //     }
+    //   }
+    // })
+    // ============抽取公共js和css end ===========
+    // ============修改目录别名 start ============
     config.resolve.alias
-      // 默认设置就有.set('@', resolve('src'))，所以不用设置
+      .set('@', resolve('src'))
       .set('assets', resolve('src/assets'))
       .set('components', resolve('src/components'))
-    // ===================修改目录别名 end ==============
-    // ===================排除模块 end ==============
-    config.externals(externals)
-    // ===================排除模块 end ==============
-
-    // 生产模式下
+    // ============修改目录别名 end ==============
     if (process.env.NODE_ENV === 'production') {
       // ============输出js start ================
       config.output
@@ -120,6 +118,21 @@ module.exports = {
         filename: path.posix.join('assets', `css/[name].[hash].css`)
       }])
       // ============输出css end ====================
+      // ============删除并制定规则 images start ===========
+      // const imagesRule = config.module.rule('images')
+      // imagesRule.uses.clear()
+      // imagesRule.use('file-loader')
+      //   .loader('url-loader')
+      //   .options({
+      //     limit: 4096,
+      //     fallback: {
+      //       loader: 'file-loader',
+      //       options: {
+      //         name: path.posix.join('assets', `img/[name].[hash:8].[ext]`)
+      //       }
+      //     }
+      //   })
+      // ============删除并制定规则 images end ==============
       // ============修改规则 images start ==================
       config.module
         .rule('images')
@@ -148,7 +161,6 @@ module.exports = {
         })
         .end()
       // ============修改规则 svg end ======================
-      // config.optimization.minimize(true)  //没有效果
       // file-loader，url-loader默认配置已经有了,不需要在配置，
       // 如果自己安装可能版本会不一样，会出现background: url([object Object])
       // 可以发现在dist/img下面的图片少了一部分，
@@ -164,15 +176,35 @@ module.exports = {
       //   .end()
       // ============压缩图片 end==============
       // ============压缩css js start==========
-      // config.plugin('CompressionWebpackPlugin')
-      //   .use(new CompressionWebpackPlugin({
-      //     // filename: '[path].gz[query]',
-      //     test: /\.css$|\.ttf$|\.html$|\.svg$|\.json$|\.js$/, // 匹配文件名
-      //     threshold: 10240, // 对超过10k的数据压缩
-      //     minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
-      //     deleteOriginalAssets: false // 不删除源文件
-      //   }))
+      config.plugin('CompressionWebpackPlugin')
+        .use(new CompressionWebpackPlugin({
+          // filename: '[path].gz[query]',
+          test: /\.css$|\.ttf$|\.html$|\.svg$|\.json$|\.js$/, // 匹配文件名
+          threshold: 10240, // 对超过10k的数据压缩
+          minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
+          deleteOriginalAssets: false // 不删除源文件
+        }))
       // ============压缩css js end=============
+      // ============插入CND start==============
+      config.plugin('html').tap(args => {
+        args[0].cdn = cdn
+        return args
+      })
+      config.externals(externals)
+      // ============插入CND end=================
+      // ============插入title start==============
+      config.plugin('html').tap(args => {
+        args[0].title = 'template-pc'
+        return args
+      })
+      config.externals(externals)
+      // ============插入title end=================
+      // ============压缩html中的css start=======
+      config.plugin('html').tap(args => {
+        args[0].minify.minifyCSS = true
+        return args
+      })
+      // ============压缩html中的css end=========
     }
     // 专门给report提供，使用方法 npm run report
     if (process.env.VUE_APP_TITLE === 'report') {
@@ -206,9 +238,8 @@ module.exports = {
           test: /\.js$|\.html$|\.css$/, // 匹配文件名
           threshold: 10240, // 对超过10k的数据压缩
           minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
-          deleteOriginalAssets: true // 不删除源文件,实测时删除源文件在nginx下运行会报错.原因
+          deleteOriginalAssets: false // 不删除源文件,实测时删除源文件在nginx下运行会报错.原因
           // 是请求的是app.js,返回的是app.js.gz,浏览器负责解压；如果删除源文件，nginx会找不到映射。
-          // 配置好nginx就没有问题
         })
       )
       // ============压缩css js end============
