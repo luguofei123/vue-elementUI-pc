@@ -52,7 +52,7 @@ const objectPage = {
   baidu: {
     entry: 'src/views/baiduPage/baidu.js',
     template: path.resolve(__dirname,'src/views/baiduPage/public/baidu.html'),
-    filename: 'index.html',
+    filename: 'baidu.html',
     title: 'baiduAPP',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
     favicon: 'src/assets/img/portal/kefu.png',
@@ -73,7 +73,7 @@ const objectPage = {
   shopCar: {
     entry: 'src/views/shopCarPage/shopCar.js',
     template: path.resolve(__dirname,'src/views/public/shoppingCar.html'),
-    filename: 'index.html',
+    filename: 'shopCar.html',
     title: 'shoppingCar',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
     favicon: 'src/assets/img/portal/kefu.png',
