@@ -26,15 +26,36 @@ const externals = {
   axios: 'axios'
 }
 const objectPage = {
-  index: {
-    entry: 'src/main.js',
-    template: path.resolve(__dirname, 'src/public/index.html'),
-    filename: 'index.html',
-    title: 'index',
+  // index: {
+  //   entry: 'src/main.js',
+  //   template: path.resolve(__dirname, 'src/public/index.html'),
+  //   filename: 'index.html',
+  //   title: 'index',
+  //   // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
+  //   favicon: 'src/assets/img/portal/tel.jpg',
+  //   // inject: 'body',
+  //   chunks: ['chunk-vendors', 'chunk-common', 'index'],
+  //   minify: {
+  //     minimize: true, // 是否打包为最小值 ,没有看到有什么作用，网上没有相关资料
+  //     removeAttributeQuotes: true, // 移除属性的引号（不常用）
+  //     // removeEmptyElements:true,    //删除所有含有空内容的元素。（不常用,慎用）
+  //     removeComments: true, // 带HTML注释
+  //     collapseWhitespace: true, // 去掉空格
+  //     minifyJS: true, // 压缩html里的js 压缩内联js（使用uglify-js进行的压缩）
+  //     minifyCSS: true // 压缩html里的css 压缩内联css（使用clean-css进行的压缩）
+  //   },
+  //   hash: true, // 引入产出的资源时加上哈希避免缓存,在html中的js和css后面加上？hash值
+  //   cdn: cdn
+  // },
+  elementui: {
+    entry: 'src/views/elementui/elementui.js',
+    template: path.resolve(__dirname, 'src/views/elementui/public/elementui.html'),
+    filename: 'elementui.html',
+    title: 'elementui',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
-    favicon: 'src/assets/img/portal/tel.jpg',
+    favicon: 'src/assets/img/portal/kefu.png',
     // inject: 'body',
-    chunks: ['chunk-vendors', 'chunk-common', 'index'],
+    chunks: ['chunk-vendors', 'chunk-common', 'elementui'],
     minify: {
       minimize: true, // 是否打包为最小值 ,没有看到有什么作用，网上没有相关资料
       removeAttributeQuotes: true, // 移除属性的引号（不常用）
@@ -47,36 +68,15 @@ const objectPage = {
     hash: true, // 引入产出的资源时加上哈希避免缓存,在html中的js和css后面加上？hash值
     cdn: cdn
   },
-  baidu: {
-    entry: 'src/views/baiduPage/baidu.js',
-    template: path.resolve(__dirname, 'src/views/baiduPage/public/baidu.html'),
-    filename: 'baidu.html',
-    title: 'baiduAPP',
+  iview: {
+    entry: 'src/views/iview/iview.js',
+    template: path.resolve(__dirname, 'src/views/iview/public/iview.html'),
+    filename: 'iview.html',
+    title: 'iview',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
     favicon: 'src/assets/img/portal/kefu.png',
     // inject: 'body',
-    chunks: ['chunk-vendors', 'chunk-common', 'baidu'],
-    minify: {
-      minimize: true, // 是否打包为最小值 ,没有看到有什么作用，网上没有相关资料
-      removeAttributeQuotes: true, // 移除属性的引号（不常用）
-      // removeEmptyElements:true,    //删除所有含有空内容的元素。（不常用,慎用）
-      removeComments: true, // 带HTML注释
-      collapseWhitespace: true, // 去掉空格
-      minifyJS: true, // 压缩html里的js 压缩内联js（使用uglify-js进行的压缩）
-      minifyCSS: true // 压缩html里的css 压缩内联css（使用clean-css进行的压缩）
-    },
-    hash: true, // 引入产出的资源时加上哈希避免缓存,在html中的js和css后面加上？hash值
-    cdn: cdn
-  },
-  shopCar: {
-    entry: 'src/views/shopCarPage/shopCar.js',
-    template: path.resolve(__dirname, 'src/views/shopCarPage/public/shoppingCar.html'),
-    filename: 'shopCar.html',
-    title: 'shoppingCar',
-    // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
-    favicon: 'src/assets/img/portal/kefu.png',
-    // inject: 'body',
-    chunks: ['chunk-vendors', 'chunk-common', 'shopCar'],
+    chunks: ['chunk-vendors', 'chunk-common', 'iview'],
     minify: {
       minimize: true,
       removeAttributeQuotes: true,
