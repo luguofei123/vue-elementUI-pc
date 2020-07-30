@@ -87,10 +87,10 @@ export default {
       // 如果是 开发环境
       console.log(process.env.BASE_URL)
       if (process.env.NODE_ENV === 'development') {
-        stylePath = `${process.env.BASE_URL}theme/theme1.css`
+        stylePath = `${process.env.BASE_URL}theme/${v}.css`
       } else {
         // 生产环境
-        stylePath = `${process.env.BASE_URL}theme/theme1.css`
+        stylePath = `${process.env.BASE_URL}theme/${v}.css`
       }
       themeLink.setAttribute('href', stylePath)
     }
