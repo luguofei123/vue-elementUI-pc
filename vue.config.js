@@ -70,7 +70,7 @@ const objectPage = {
   },
   shopCar: {
     entry: 'src/views/shopCarPage/shopCar.js',
-    template: path.resolve(__dirname, 'src/views/public/shoppingCar.html'),
+    template: path.resolve(__dirname, 'src/views/shopCarPage/public/shoppingCar.html'),
     filename: 'shopCar.html',
     title: 'shoppingCar',
     // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录

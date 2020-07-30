@@ -1,3 +1,4 @@
-body{
+#app .header .logo{
     background-color: black;
+    color: red;
 }
