@@ -128,14 +128,14 @@ module.exports = {
   devServer: {// 代理
     port: 8080,
     proxy: {
-      '/token': {
-        target: 'https://aip.baidubce.com/oauth/2.0/token',
+      '/api/dev/pictotext': {
+        target: 'http://127.0.0.1:3000',
         ws: true,
         changeOrigin: true,
         // pathRewrite 作用是将usermanager换成了api
         // 合起来解释就是 我们原来的请求是http://127.0.0.1:8086/usermanager/echo.php https://aip.baidubce.com/oauth/2.0/token
         // 实际上我们的请求已经代理成 http://127.0.0.1:4885/api/echo.php
-        pathRewrite: { '^/manager11': 'api' }
+        pathRewrite: { '^/api/dev/pictotext': 'pictotext' }
       }
       // '/pdf': {
       //   target: 'http://127.0.0.1:4885',
