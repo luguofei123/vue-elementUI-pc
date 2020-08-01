@@ -16,7 +16,6 @@
 </template>
 
 <script>
-// var AipOcrClient = require('baidu-aip-sdk').ocr
 import toText from '@/service/api/picToText.js'
 export default {
   data () {
@@ -27,10 +26,6 @@ export default {
       zoomScale: 100,
       imageQuality: 1.0,
       originalBase64: '',
-      apiKey: 'bA3c5wQnHgtoU7R7zQizUTN1',
-      appId: '21695733',
-      clientSecret: '0h5rc9kVIQvIQUzAnG8DALbeBm890NDM',
-      clientOcr: null,
       contentText: ''
     }
   },
@@ -45,7 +40,7 @@ export default {
     }
   },
   mounted () {
-    this.getApiToken()
+    // this.getApiToken()
   },
   methods: {
     // toBuffer: function (ab) {
@@ -56,7 +51,7 @@ export default {
     //   }
     //   return buf
     // },
-    // blob 对象转为 base64 编码
+    // blob 对象转为 base64 编码 buf.toString('base64') 打印结果 iVBORw0KGgoAAAANSUhE...
     blobToBufferBase64 (blob, callback) {
       let reader = new FileReader()
       reader.onload = function (e) {
@@ -66,37 +61,24 @@ export default {
         for (var i = 0; i < buf.length; ++i) {
           buf[i] = view[i]
         }
+        // console.log(e.target.result)
+        // console.log(view)
+        // console.log(buf)
+        // console.log(e.target.result.toString('base64'))
+        // console.log(view.toString('base64'))
+        // console.log(buf.toString('base64'))
         callback(buf.toString('base64'))
       }
       reader.readAsArrayBuffer(blob)
     },
-    // runOcrTest (pasteFile) {
-    //   let _this = this
-    //   this.blobToBufferBase64(pasteFile, (imgBase64) => {
-    //     var options = {}
-    //     options['recognize_granularity'] = 'big'
-    //     options['detect_direction'] = 'true'
-    //     options['vertexes_location'] = 'true'
-    //     options['probability'] = 'true'
-
-    //     this.clientOcr.accurate(imgBase64, options).then(function (result) {
-    //       // let jsonObj = JSON.stringify(result);
-    //       console.log(result['words_result'][0])
-    //       let tmpWord = ''
-    //       result['words_result'].forEach(wd => {
-    //         let spaceCnt = wd.location.left / 4
-    //         tmpWord += `${' '.repeat(spaceCnt)}${wd.words}\n`
-    //       })
-    //       _this.contentText = tmpWord
-    //     }).catch(function (err) {
-    //       // 如果发生网络错误
-    //       console.log(`eneralBasic err:${err}`)
-    //     })
-    //   })
-    // },
-    getApiToken () {
-      // 新建一个对象，建议只保存一个对象调用服务接口
-      // this.clientOcr = new AipOcrClient(this.appId, this.apiKey, this.clientSecret)
+    // blob 对象转为 base64 编码 e.target.result.toString("base64") 打印结果 data:image/png;base64,iVBORw0KGgoAAAANSUhE...
+    blobToBase64 (blob, callback) {
+      let reader = new FileReader()
+      reader.onload = function (e) {
+        // console.log(e.target.result.toString('base64'))
+        callback(e.target.result)
+      }
+      reader.readAsDataURL(blob)
     },
     // 压缩图片的 base64 长度
     // compressBase64Length (base64, callback) {
@@ -136,26 +118,31 @@ export default {
       if (!(e.clipboardData && e.clipboardData.items)) {
         return
       }
+      // console.log(e)
       for (let i = 0, len = e.clipboardData.items.length; i < len; i++) {
         let item = e.clipboardData.items[i]
+        // console.log(item)
+        console.log(item.kind)
         if (item.kind === 'file') {
           // pasteFile就是获取到的文件 (blob 对象)
           let pasteFile = item.getAsFile()
+          // console.log(pasteFile.type)
           if (pasteFile.size > 0 && pasteFile.type.match('^image/')) {
-            // this.runOcrTest(pasteFile)
+            // 转换成base64位后向后台发送请求，并将返回数据显示出来
+            this.blobToBufferBase64(pasteFile, (data) => {})
             this.blobToBufferBase64(pasteFile, (data) => {
               let p = {
                 v: data
               }
               toText.toText(p)
                 .then(res => {
-                  // console.log(res)
                   this.contentText = res
                 })
             })
             this.blobToBase64(pasteFile, (data) => {
-              this.originalBase64 = data
+              // this.originalBase64 = data
               // 压缩图片的 base64 长度
+              this.pasteImageData = data
               // this.compressBase64Length(this.originalBase64, (newBase64) => {
               //   this.pasteImageData = newBase64
               //   this.base64Data = newBase64
@@ -166,16 +153,6 @@ export default {
           console.log('粘贴的不是文件')
         }
       }
-    },
-    // blob 对象转为 base64 编码
-    blobToBase64 (blob, callback) {
-      let reader = new FileReader()
-      reader.onload = function (e) {
-        // console.log(e.target.result.toString("base64"));
-        callback(e.target.result)
-      }
-      reader.readAsDataURL(blob)
-      // reader.readAsArrayBuffer(blob);
     },
     // 复制成功
     onCopy () {
