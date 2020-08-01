@@ -3,12 +3,19 @@
     <el-container style="height:100%;">
       <el-header>图片转成文字</el-header>
       <el-main>
-        <div class="converter-input">
-          <el-input type="textarea" :rows="20" placeholder="请粘贴内容" v-on:paste.native="paste" :value="contentText">
-          </el-input>
-        </div>
-        <div class="converter-prompt">所粘贴图片：</div>
-        <img class="converter-img" :style="{zoom:zoomScale/100}" :src="pasteImageData" />
+        <el-row :gutter="20" style="height:600px;">
+          <el-col :span="11" style="height:100%">
+            <p>所粘贴的图片：</P>
+            <img :style="{zoom:zoomScale/100}" :src="pasteImageData" />
+          </el-col>
+          <el-col :span="2" style="height:100%; vertical-align: middle;line-height:400px;">
+            ==========>
+          </el-col>
+          <el-col :span="11" style="height:100%">
+            <P>所转换的文字：</P>
+            <el-input type="textarea" :rows="20" placeholder="请粘贴内容" v-on:paste.native="paste" :value="contentText"></el-input>
+          </el-col>
+        </el-row>
       </el-main>
     </el-container>
 
@@ -179,76 +186,15 @@ export default {
     line-height: 60px;
   }
 
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
-  }
-
   .el-main {
     background-color: #f9f9f9;
     color: #333;
     text-align: center;
     height: 100%;
-    /* line-height: 160px; */
   }
 
-  body>.el-container {
-    margin-bottom: 40px;
-  }
-
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
-
-  .el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-  }
-
-  .converter-input {
-    display: inline-block;
-    width: 60%;
-  }
-
-  .converter-prompt {
-    display: inline-block;
-    width: 60%;
-    text-align: left;
-    margin-top: 4%;
-  }
-
-  .converter-img {
-    display: block;
-    margin: 2% auto 0 auto;
-    box-shadow: 1px 3px 8px grey;
-  }
-
-  .converter-button {
-    margin-top: 4%;
-  }
-
-  .size-slider {
-    width: 60%;
-    margin: 1% auto 0 auto;
-  }
-
-  .size-slider span {
-    color: #3692f1;
-  }
-
-  .scale-value {
-    display: flex;
-  }
-
-  .tip {
-    width: 60%;
-    margin: 2% auto 0 auto;
-    padding: 8px 16px;
-    background-color: #f3f0f0;
-    border-radius: 4px;
-    border-left: 5px solid #909399;
-    text-align: left;
-  }
+.el-main P{
+  font-size: 12px;
+  margin-bottom: 10px;
+}
 </style>
