@@ -88,6 +88,27 @@ const objectPage = {
     },
     hash: true,
     cdn: cdn
+  },
+  bigData: {
+    entry: 'src/views/bigDataPage/bigData.js',
+    template: path.resolve(__dirname, 'src/views/bigDataPage/public/bigData.html'),
+    filename: 'bigData.html',
+    title: 'bigData',
+    // 'src/assets/img/favorite.png' 的作用是把该icon放到和index同级目录
+    favicon: 'src/assets/img/portal/kefu.png',
+    // inject: 'body',
+    chunks: ['chunk-vendors', 'chunk-common', 'bigData'],
+    minify: {
+      minimize: true,
+      removeAttributeQuotes: true,
+      // removeEmptyElements:true,
+      removeComments: true,
+      collapseWhitespace: true,
+      minifyJS: true,
+      minifyCSS: true
+    },
+    hash: true,
+    cdn: cdn
   }
 }
 let pages = {}
