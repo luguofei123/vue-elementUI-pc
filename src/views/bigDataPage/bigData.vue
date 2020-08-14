@@ -3,14 +3,17 @@
   <dv-border-box-11 title="数据中心">
     <div class="demo">
       <div><dv-decoration-11 style="width:200px;height:60px;">dv-decoration-11</dv-decoration-11></div>
-      <div><dv-decoration-10 style="width:90%;height:5px;" /></div>
+      <div><dv-decoration-10 style="width:100%;height:5px;" /></div>
       <div><dv-scroll-board :config="config" style="width:500px;height:220px" /></div>
+      <div><dv-water-level-pond :config="config1" style="width:150px;height:200px" /></div>
+      <div style="width:500px;height:220px"><dv-flyline-chart-enhanced :config="config2" style="width:100%;height:100%;" /></div>
     </div>
   </dv-border-box-11>
   <!-- <dv-loading>Loading...</dv-loading> -->
 </dv-full-screen-container>
 </template>
 <script>
+import imgurl from '@/assets/img/map.jpg'
 export default {
   name: 'baidu',
   data () {
@@ -28,6 +31,19 @@ export default {
           ['行9列1', '行9列2', '行9列3'],
           ['行10列1', '行10列2', '行10列3']
         ]
+      },
+      config1: {
+        data: [66]
+      },
+      config2: {
+        points: [
+          { name: '郑州', coordinate: [0.48, 0.35] },
+          { name: '新乡', coordinate: [0.52, 0.23] }
+        ],
+        lines: [
+          { source: '新乡', target: '郑州' }
+        ],
+        bgImgSrc: imgurl
       }
     }
   },
@@ -46,7 +62,7 @@ export default {
 <style scoped lang='scss'>
 .demo{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   div{
     margin-top: 20px;
   }
